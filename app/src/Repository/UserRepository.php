@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,8 +31,9 @@ class UserRepository extends ServiceEntityRepository
      * UserRepository constructor.
      * @param RegistryInterface $registry
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(RegistryInterface $registry, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $this->passwordEncoder = $passwordEncoder;
         parent::__construct($registry, User::class);
     }
     /**
@@ -69,15 +71,16 @@ class UserRepository extends ServiceEntityRepository
     public function save(User $user): void
     {
         dump($user);
-        $user->setRoles(['ROLE_USER']);
+//
+//        $user->setRoles(['ROLE_USER']);
+////        $user->setPassword($this->passwordEncoder->encodePassword(
+////            $user,
+////            $user['password']
+////        ));
 //        $user->setPassword($this->passwordEncoder->encodePassword(
 //            $user,
-//            $user['password']
+//            'user1234'
 //        ));
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            'user1234'
-        ));
         $this->_em->persist($user);
         $this->_em->flush($user);
     }

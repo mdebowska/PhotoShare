@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController.
@@ -100,6 +101,7 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Repository\UserRepository        $repository User repository
+     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -112,13 +114,24 @@ class UserController extends AbstractController
      *     name="user_new",
      * )
      */
-    public function new(Request $request, UserRepository $repository): Response
+    public function new(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setRoles(['ROLE_USER']);
+//        $user->setPassword($this->passwordEncoder->encodePassword(
+//            $user,
+//            $user['password']
+//        ));
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                'user1234'
+            ));
+
             $repository->save($user);
 
             $this->addFlash('success', 'message.created_successfully');
@@ -137,6 +150,7 @@ class UserController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Entity\User                      $user   User entity
      * @param \App\Repository\UserRepository        $repository User repository
+     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -150,12 +164,17 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, UserRepository $repository): Response
+    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UserType::class, $user, ['method' => 'put']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                'user1234'
+            ));
             $repository->save($user);
 
             $this->addFlash('success', 'message.updated_successfully');

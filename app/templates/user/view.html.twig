@@ -10,12 +10,10 @@
         <dl class="dl-horizontal">
             <dt>{{ 'label.id'|trans }}</dt>
             <dd>{{ user.id }}</dd>
-            <dt>{{ 'label.created_at'|trans }}</dt>
-            <dd>{{ user.createdAt|localizeddate }}</dd>
-            <dt>{{ 'label.updated_at'|trans }}</dt>
-            <dd>{{ user.updatedAt|localizeddate }}</dd>
-            <dt>{{ 'label.firstName'|trans }}</dt>
-            <dd>{{  user.firstName }}</dd>
+            <dt>{{ 'label.login'|trans }}</dt>
+            <dd>{{  user.login }}</dd>
+            <dt>{{ 'label.email'|trans }}</dt>
+            <dd>{{  user.email }}</dd>
         </dl>
     {% else %}
         <p>

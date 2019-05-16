@@ -1,6 +1,6 @@
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
-    <div>{{ app.user.firstName }}</div>
+    <div>{{ app.user.login }}</div>
     <div>
         <a href="{{ url('security_logout') }}">{{ 'action.logout'|trans }}</a>
     </div>

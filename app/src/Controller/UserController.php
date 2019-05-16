@@ -221,7 +221,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE')) {
-            $form->submit($request->request->get($form->getName()));
+//            $form->submit($request->request->get($form->getName()));
             $repository->delete($user);
 
             $this->addFlash('success', 'message.deleted_successfully');

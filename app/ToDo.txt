@@ -1,0 +1,12 @@
+-----------------
+Do zrobienia:
+-----------------
+
+
+
+-----------------
+Do wyjasnienia:
+-----------------
+UserController -> findAll()/Pagination (nie chce pokazać wyników)
+
+user/new -> nie chce dodać użuytkownika

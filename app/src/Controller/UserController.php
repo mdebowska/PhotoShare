@@ -39,6 +39,7 @@ class UserController extends AbstractController
      */
     public function index(Request $request, UserRepository $repository, PaginatorInterface $paginator): Response
     {
+
         $pagination = $paginator->paginate(
             $repository->queryAll(),
             $request->query->getInt('page', 1),
@@ -50,31 +51,6 @@ class UserController extends AbstractController
             ['pagination' => $pagination]
         );
     }
-
-    /**
-     * Index2 action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\UserRepository        $repository User repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Route(
-     *     "/q",
-     *     name="user_index2",
-     * )
-     */
-    public function index2(Request $request, UserRepository $repository): Response
-    {
-        dump($repository->findAll());
-        return $this->render(
-            'user/index2.html.twig',
-            ['users' => $repository]
-        );
-    }
-
-
 
     /**
      * View action.
@@ -173,7 +149,7 @@ class UserController extends AbstractController
 
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
-                'user1234'
+                $user->getPassword()
             ));
             $repository->save($user);
 

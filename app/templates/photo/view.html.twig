@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.photo_view'|trans({'%id%': user.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    {% if photo is defined and photo|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.id'|trans }}</dt>
+            <dd>{{ photo.id }}</dd>
+            <dt>{{ 'label.description'|trans }}</dt>
+            <dd>{{  photo.description }}</dd>
+            <img alt="{{   photo.source }}" src=""{{   photo.source }}" />
+            <dt>{{ 'label.camera_specyfication'|trans }}</dt>
+            <dd>{{  photo.camera_specification}}</dd>
+        </dl>
+    {% else %}
+        <p>
+            {{ 'message.item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

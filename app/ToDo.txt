@@ -9,4 +9,11 @@ Do wyjasnienia:
 -----------------
 
 
-user/new -> nie chce dodać użuytkownika
+każde entity tworzy mi podwójną tabelę
+nie wiem jak zrobić dobrze relacje OneToOne, ManyToOne
+    dawać getUserdata w User?
+    jak dobrze ustawić kaskadowe usuwanie?
+
+jeśli robimy view dla elementu, który nie istnieje - jak nie wyświetlić błędu?
+
+photo_view -> camera specyfication: Neither the property "camera_specification" nor one of the methods "camera_specification()", "getcamera_specification()"/"iscamera_specification()"/"hascamera_specification()" or "__call()" exist and have public access in class "App\Entity\Photo".

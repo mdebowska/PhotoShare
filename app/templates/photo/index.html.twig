@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.user_list'|trans }}</h1>
+    <a class="btn btn-primary" href="{{ url('user_new') }}" title="{{ 'action.new'|trans }}">{{ 'new'|trans }}</a>
+    {% if pagination is defined and pagination|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'u.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.login'|trans, 'u.login') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for photo in pagination %}
+                <tr>
+                    <dt>{{ 'label.id'|trans }}</dt>
+                    <dd>{{ photo.id }}</dd>
+                    <dt>{{ 'label.description'|trans }}</dt>
+                    <dd>{{  photo.description }}</dd>
+                    <img alt="{{   photo.source }}" src=""{{   photo.source }}" />
+                    <dt>{{ 'label.camera_specyfication'|trans }}</dt>
+                    <dd>{{  photo.cameraSpecification}}</dd>
+                    <dt>{{ 'label.author'|trans }}</dt>
+                    <dd>{{  photo.user.login}}</dd>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <div class="container">
+            <p>
+                {{ 'message.empty_list'|trans }}
+            </p>
+        </div>
+    {% endif %}
+
+{% endblock %}

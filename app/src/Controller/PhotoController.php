@@ -46,8 +46,7 @@ class PhotoController extends AbstractController
             Photo::NUMBER_OF_ITEMS
         );
 
-        $pagination=[];//!!!!!!!!!!!!!
-        dump($pagination);
+        //dump($pagination);
         return $this->render(
             'photo/index.html.twig',
             ['pagination' => $pagination]

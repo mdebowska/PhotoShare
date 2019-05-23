@@ -9,12 +9,10 @@ Do wyjasnienia:
 -----------------
 
 
-photo/index -> queryAll() nie ma?
 
 
 
-
-Nie łączy mi tabel:
+!Nie łączy mi tabel:
     An exception has been thrown during the rendering of a template ("An exception occurred while executing 'SELECT t0.id AS id_1, t0.login AS login_2, t0.password AS password_3, t0.email AS email_4, t0.roles AS roles_5, t6.id AS id_7, t6.name AS name_8, t6.surname AS surname_9, t6.user_id AS user_id_10 FROM users t0 LEFT JOIN userdata t6 ON t6.user_id = t11.id WHERE t0.id = ?' with params [1]:
 
     SQLSTATE[42S22]: Column not found: 1054 Unknown column 't11.id' in 'on clause'").
@@ -22,13 +20,7 @@ Nie łączy mi tabel:
 
 
 
-
-
-
-
-każde entity tworzy mi podwójną tabelę
-            #nie wiem jak zrobić dobrze relacje OneToOne, ManyToOne
-jak dobrze ustawić kaskadowe usuwanie?
+?! (dom) każde entity tworzy mi podwójną tabelę
 
 
 

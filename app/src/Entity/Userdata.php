@@ -49,8 +49,8 @@ class Userdata
     private $surname;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user", inversedBy="userdata", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="userdata", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, name="user_id", referencedColumnName="id")
      */
     private $user;
 

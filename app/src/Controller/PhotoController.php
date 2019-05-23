@@ -40,12 +40,12 @@ class PhotoController extends AbstractController
     public function index(Request $request, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
 
-//        $pagination = $paginator->paginate(
-//            $repository->queryAll(),
-//            $request->query->getInt('page', 1),
-//            Photo::NUMBER_OF_ITEMS
-//        );
-//
+        $pagination = $paginator->paginate(
+            $repository->queryAll(),
+            $request->query->getInt('page', 1),
+            Photo::NUMBER_OF_ITEMS
+        );
+
         $pagination=[];//!!!!!!!!!!!!!
         dump($pagination);
         return $this->render(

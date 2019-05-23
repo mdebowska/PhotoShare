@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190522102302 extends AbstractMigration
+final class Version20190523170255 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,8 @@ final class Version20190522102302 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE photo (id INT UNSIGNED AUTO_INCREMENT NOT NULL, source VARCHAR(255) NOT NULL, publication_date DATETIME NOT NULL, description VARCHAR(255) DEFAULT NULL, camera_specification VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE photo (id INT UNSIGNED AUTO_INCREMENT NOT NULL, user_id INT UNSIGNED NOT NULL, source VARCHAR(255) NOT NULL, publication_date DATETIME NOT NULL, description VARCHAR(255) DEFAULT NULL, camera_specification VARCHAR(255) DEFAULT NULL, INDEX IDX_14B78418A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE photo ADD CONSTRAINT FK_14B78418A76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,8 +31,6 @@ final class Version20190522102302 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE userdata (id INT UNSIGNED AUTO_INCREMENT NOT NULL, user_id INT UNSIGNED NOT NULL, name VARCHAR(45) DEFAULT NULL COLLATE utf8mb4_unicode_ci, surname VARCHAR(45) DEFAULT NULL COLLATE utf8mb4_unicode_ci, UNIQUE INDEX UNIQ_B8E8B12A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
-        $this->addSql('ALTER TABLE userdata ADD CONSTRAINT FK_B8E8B12A76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
         $this->addSql('DROP TABLE photo');
     }
 }

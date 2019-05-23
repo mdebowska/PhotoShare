@@ -13,7 +13,9 @@
             <dd>{{  photo.description }}</dd>
             <img alt="{{   photo.source }}" src=""{{   photo.source }}" />
             <dt>{{ 'label.camera_specyfication'|trans }}</dt>
-            <dd>{{  photo.camera_specification}}</dd>
+            <dd>{{  photo.cameraSpecification}}</dd>
+            <dt>{{ 'label.author'|trans }}</dt>
+            <dd>{{  photo.user.login}}</dd>
         </dl>
     {% else %}
         <p>

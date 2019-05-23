@@ -5,6 +5,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -117,6 +119,22 @@ class User implements UserInterface
      * @ORM\Column(type="array")
      */
     private $roles = [];
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="user", orphanRemoval=true)
+     */
+    private $photos;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Userdata", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userdata;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     /**
      * Getter for the Id.
@@ -239,5 +257,53 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
+            // set the owning side to null (unless already changed)
+            if ($photo->getUser() === $this) {
+                $photo->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserdata(): ?Userdata
+    {
+        return $this->userdata;
+    }
+
+    public function setUserdata(Userdata $userdata): self
+    {
+        $this->userdata = $userdata;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $userdata->getUser()) {
+            $userdata->setUser($this);
+        }
+
+        return $this;
     }
 }

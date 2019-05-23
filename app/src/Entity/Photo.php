@@ -12,6 +12,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Photo
 {
     /**
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     *
+     * @constant int NUMBER_OF_ITEMS
+     */
+    const NUMBER_OF_ITEMS = 3;
+    /**
      * Primary key.
      *
      * @var int
@@ -70,6 +78,12 @@ class Photo
      * )
      */
     private $camera_specification;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="photos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * Getter for the Id.
@@ -159,5 +173,17 @@ class Photo
     public function setCameraSpecification(?string $camera_specification)
     {
         $this->camera_specification = $camera_specification;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

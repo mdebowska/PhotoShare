@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 //use App\Form\PhotoType;
+use App\Form\PhotoType;
 use App\Repository\PhotoRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,54 +75,46 @@ class PhotoController extends AbstractController
             ['photo' => $photo]
         );
     }
-//    /**
-//     * New action.
-//     *
-//     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-//     * @param \App\Repository\PhotoRepository        $repository Photo repository
-//     * @param \Symfony\Component\Security\Core\Encoder\PhotoPasswordEncoderInterface $passwordEncoder
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-//     *
-//     * @throws \Doctrine\ORM\ORMException
-//     * @throws \Doctrine\ORM\OptimisticLockException
-//     *
-//     * @Route(
-//     *     "/new",
-//     *     methods={"GET", "POST"},
-//     *     name="photo_new",
-//     * )
-//     */
-//    public function new(Request $request, PhotoRepository $repository, PhotoPasswordEncoderInterface $passwordEncoder): Response
-//    {
-//        $photo = new Photo();
-//        $form = $this->createForm(PhotoType::class, $photo);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $photo->setRoles(['ROLE_USER']);
-////        $photo->setPassword($this->passwordEncoder->encodePassword(
-////            $photo,
-////            $photo['password']
-////        ));
-//            $photo->setPassword($passwordEncoder->encodePassword(
-//                $photo,
-//                'photo1234'
-//            ));
-//
-//            $repository->save($photo);
-//
-//            $this->addFlash('success', 'message.created_successfully');
-//
-//            return $this->redirectToRoute('photo_index');
-//        }
-//
-//        return $this->render(
-//            'photo/new.html.twig',
-//            ['form' => $form->createView()]
-//        );
-//    }
+    /**
+     * New action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Repository\PhotoRepository        $repository Photo repository
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/new",
+     *     methods={"GET", "POST"},
+     *     name="photo_new",
+     * )
+     */
+    public function new(Request $request, PhotoRepository $repository): Response
+    {
+        $photo = new Photo();
+        $form = $this->createForm(PhotoType::class, $photo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $photo->setPublicationDate(new \DateTime());
+            $photo->setSource('123.jpg');
+//            $photo->setUser(?);
+
+            $repository->save($photo);
+
+            $this->addFlash('success', 'message.created_successfully');
+
+            return $this->redirectToRoute('photo_index');
+        }
+
+        return $this->render(
+            'photo/new.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
 //    /**
 //     * Edit action.
 //     *

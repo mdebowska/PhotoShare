@@ -1,0 +1,45 @@
+{% block gallery %}
+<h1>{{ 'title.photo_list'|trans }}</h1>
+
+    {% if pagination is defined and pagination|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likes') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for photo in pagination %}
+                <tr>
+                    <dt>{{ 'label.id'|trans }}</dt>
+                    <dd>{{ photo.id }}</dd>
+                    <dt>{{ 'label.description'|trans }}</dt>
+                    <dd>{{  photo.description }}</dd>
+                    <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />
+                    <dt>{{ 'label.camera_specyfication'|trans }}</dt>
+                    <dd>{{  photo.cameraSpecification}}</dd>
+                    <dt>{{ 'label.author'|trans }}</dt>
+                    <dd>{{  photo.user.login}}</dd>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <div class="container">
+            <p>
+                {{ 'message.empty_list'|trans }}
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}

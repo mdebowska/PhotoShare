@@ -42,6 +42,21 @@ class PhotoRepository extends ServiceEntityRepository
         return $queryBuilder ?: $this->createQueryBuilder('p');
     }
 
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Photo $category Category entity
+     *
+     * @return void
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Photo $photo): void
+    {
+        $this->_em->persist($photo);
+        $this->_em->flush($photo);
+    }
 
     // /**
     //  * @return Photo[] Returns an array of Photo objects

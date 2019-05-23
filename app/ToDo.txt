@@ -1,8 +1,9 @@
 -----------------
 Do zrobienia:
 -----------------
-Php 7.2
 
+sortowanie photos likes
+save w new photo (user_id)
 
 -----------------
 Do wyjasnienia:

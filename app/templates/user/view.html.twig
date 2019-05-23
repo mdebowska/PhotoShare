@@ -14,6 +14,20 @@
             <dd>{{  user.login }}</dd>
             <dt>{{ 'label.email'|trans }}</dt>
             <dd>{{  user.email }}</dd>
+            {% if user.userdata.name|length %}
+                <dt>{{ 'label.user.name'|trans }}</dt>
+                <dd>{{ user.userdata.name }}</dd>
+            {% endif %}
+            {% if user.userdata.surname|length %}
+                <dt>{{ 'label.user.surname'|trans }}</dt>
+                <dd>{{ user.userdata.surname }}</dd>
+
+                <article>
+                    {% block gallery %}
+                        {% include 'photo/gallery.html.twig' %}
+                    {% endblock %}
+                </article>
+            {% endif %}
         </dl>
     {% else %}
         <p>

@@ -5,8 +5,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Photo;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\PhotoRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,11 +67,19 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function view(User $user): Response
+    public function view(User $user, Request $request, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
+        $photo_pagination = $paginator->paginate(
+            $repository->queryAll(),
+            $request->query->getInt('page', 1),
+            Photo::NUMBER_OF_ITEMS
+        );
+//        dump($user);
         return $this->render(
             'user/view.html.twig',
-            ['user' => $user]
+            [
+                'user' => $user,
+                'pagination' => $photo_pagination]
         );
     }
     /**
@@ -105,7 +115,7 @@ class UserController extends AbstractController
 //        ));
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
-                'user1234'
+                $user->getPassword()
             ));
 
             $repository->save($user);

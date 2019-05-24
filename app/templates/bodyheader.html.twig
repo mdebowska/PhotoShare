@@ -1,0 +1,57 @@
+<nav class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-xs-2">
+            <a href="{{ url('home_index') }}" title="PhotoShow">
+                <h1 class="logo margin-15">PhotoShare</h1>
+            </a>
+        </div>
+        <div class=" last-row-item">
+            <div class="col-xs-4 form-inline margin-15" id="nav-buttons">
+
+                <div class="col-xs-5">
+                    <a class="btn btn-default" href="" title="{{ 'search.label'|trans }}">
+                        {{ 'search.label'|trans }}
+                        <i class="glyphicon glyphicon-search"></i>
+                    </a>
+
+                </div>
+                <div class="col-xs-6">
+                    <form action='' method='POST'>
+
+
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a class="btn btn-default" href="{{ url('security_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                                {{ 'auth.logout.label'|trans }}
+                                <i class="glyphicon glyphicon-log-out"></i>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-default" href="{{ url('security_login') }}" title="{{ 'auth.login.label'|trans }}">
+                                {{ 'auth.login.label'|trans }}
+                                <i class="glyphicon glyphicon-log-in"></i>
+                            </a>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-xs- form-inline margin-15 last-row-item">
+                {% if app.user.login is defined and app.user.login|length %}
+                    <span id="logged_as">
+                                    {{ 'logged_as' | trans }}
+                                </span>
+                    <div class="" id="logged_as">
+                        <a href="{{ url('user_view', {'id':app.user.id}) }}" title="{{ app.user.login }}">
+                            {{ app.user.login }}
+                            <i class="glyphicon glyphicon-user"></i>
+                        </a>
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>

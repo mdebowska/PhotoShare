@@ -1,37 +1,110 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_list'|trans({'%id%': user.id|default('')}) }}
+    {{ 'title.user_view'|trans({'%id%': user.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.user_list'|trans({'%id%': user.id|default('')}) }}</h1>
-    {% if user is defined and user|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ user.id }}</dd>
-            <dt>{{ 'label.login'|trans }}</dt>
-            <dd>{{  user.login }}</dd>
-            <dt>{{ 'label.email'|trans }}</dt>
-            <dd>{{  user.email }}</dd>
-            {% if user.userdata.name|length %}
-                <dt>{{ 'label.user.name'|trans }}</dt>
-                <dd>{{ user.userdata.name }}</dd>
-            {% endif %}
-            {% if user.userdata.surname|length %}
-                <dt>{{ 'label.user.surname'|trans }}</dt>
-                <dd>{{ user.userdata.surname }}</dd>
+    <main>
+        <header>
+            <h1 class="text-center login">
+                {{ user.login|default('login') }}{#login of user#}
+            </h1>
+        </header>
+        <div>
+            {% if user|length %}
+            <article class="center-blok container">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <p>
+                            <span class="description"> {{ 'name'|trans }}:</span> {% if user.userdata.name|length %}{{ user.userdata.name }}{% endif %}
+                        </p>
+                        <p>
+                            <span class="description">{{ 'surname'|trans }}:</span> {% if user.userdata.surname|length %}{{ user.userdata.surname }}{% endif %}
+                        </p>
+                        {% if is_granted('ROLE_ADMIN') %}<p>
+                            <span class="description">{{ 'email'|trans }}:</span> {{ user.email }}</p> {% endif %}
+                    </div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
+                        <div class="col-xs-2 last-row-item">
 
+                            <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'user_edit'|trans  }}" class="btn btn-primary btn-xs" >
+                                <i class="glyphicon glyphicon-cog"></i>
+                                {{ 'edit'|trans }}
+                            </a>
+                            <div class="">
+                                <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'user_delete'|trans  }}" class="btn btn-danger btn-xs" >
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    {{ 'delete'|trans }}
+                                </a>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+        <hr>
+        <div>
+            {% block gallery %}
+                <div class="container">
+                    <header>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id==app.user.id %}
+                                    <a href="{{ url('photo_new') }}" class="btn btn-success btn-sm">
+                                        <i class="material-icons">&#xe2c3;</i>
+                                        {{ 'new'|trans }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="text-center">{{ 'gallery'|trans }}</h2>
+                            </div>
+                        </div>
+                    </header>
+                </div>
                 <article>
-                    {% block gallery %}
                         {% include 'photo/gallery.html.twig' %}
-                    {% endblock %}
                 </article>
-            {% endif %}
-        </dl>
-    {% else %}
-        <p>
-            {{ 'message.item_not_found'|trans }}
-        </p>
-    {% endif %}
+            {% endblock %}
+        </div>
+        {% else %}
+            <p>
+                {{ 'message.item_not_found'|trans }}
+            </p>
+        {% endif %}
+    </main>
 {% endblock %}
+
+
+{#{% block body %}#}
+    {#<h1>{{ 'title.user_list'|trans({'%id%': user.id|default('')}) }}</h1>#}
+    {#{% if user is defined and user|length %}#}
+        {#<dl class="dl-horizontal">#}
+            {#<dt>{{ 'label.id'|trans }}</dt>#}
+            {#<dd>{{ user.id }}</dd>#}
+            {#<dt>{{ 'label.login'|trans }}</dt>#}
+            {#<dd>{{ user.login }}</dd>#}
+            {#<dt>{{ 'label.email'|trans }}</dt>#}
+            {#<dd>{{ user.email }}</dd>#}
+            {#{% if user.userdata.name|length %}#}
+                {#<dt>{{ 'label.user.name'|trans }}</dt>#}
+                {#<dd>{{ user.userdata.name }}</dd>#}
+            {#{% endif %}#}
+            {#{% if user.userdata.surname|length %}#}
+                {#<dt>{{ 'label.user.surname'|trans }}</dt>#}
+                {#<dd>{{ user.userdata.surname }}</dd>#}
+            {#{% endif %}#}
+            {#<article>#}
+                {#{% block gallery %}#}
+                    {#{% include 'photo/gallery.html.twig' %}#}
+                {#{% endblock %}#}
+            {#</article>#}
+        {#</dl>#}
+    {#{% else %}#}
+        {#<p>#}
+            {#{{ 'message.item_not_found'|trans }}#}
+        {#</p>#}
+    {#{% endif %}#}
+{#{% endblock %}#}

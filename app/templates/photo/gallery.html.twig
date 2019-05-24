@@ -1,37 +1,55 @@
 {% block gallery %}
 <h1>{{ 'title.photo_list'|trans }}</h1>
-
+<div class="center-block col-md-12">
     {% if pagination is defined and pagination|length %}
 
-        <div class="navigation text-center">
+        <div>
             {{ knp_pagination_render(pagination) }}
+
+                <button>{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</button>
+                <button>{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likes') }}</button>
+        </div>
+        <div class="row">
+            {% for photo in pagination %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 col-photo">
+                    <a href="{{ url('photo_view', {'id':photo.id}) }}" title="{{ 'photo'|trans }} {{ photo.id }}">
+                        <figure class="text-on-figure-bottom">
+                            <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />
+                            <figcaption class="text-on-figure-bottom half-black-background row remove-margin">
+                                {% if 1==1 or is_granted('IS_AUTHENTICATED_FULLY') and (photo.user.id==loggedUser['id'] or is_granted('ROLE_ADMIN')) %}
+                                    {#//jesli jestes zalogowany i.. to jesteś ty#}
+                                    <div class="col-xs-6 remove-padding">
+                                        <div class="buttons remove-padding">
+
+                                            <a href="{{ url('photo_new', {'id':photo.id}) }}" title="{{ 'edit'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-primary btn-xs">
+                                                <i class="glyphicon glyphicon-cog"></i>
+                                                {{ 'edit'|trans }}
+                                            </a>
+                                        </div>
+                                        <div class="buttons remove-padding">
+                                            <a href="{{ url('photo_new', {'id':photo.id}) }}" title="{{ 'delete'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-danger btn-xs">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                                {{ 'delete'|trans }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {#{{ 'label.id'|trans }}#}
+                                {#{{ photo.id }}#}
+                                {#{{ 'label.description'|trans }}#}
+                                {#{{  photo.description }}#}
+                                {#{{ 'label.camera_specyfication'|trans }}#}
+                                {#{{  photo.cameraSpecification}}#}
+                                {#{{ 'label.author'|trans }}#}
+                                {#{{  photo.user.login}}#}
+                            </figcaption>
+                        </figure>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likes') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for photo in pagination %}
-                <tr>
-                    <dt>{{ 'label.id'|trans }}</dt>
-                    <dd>{{ photo.id }}</dd>
-                    <dt>{{ 'label.description'|trans }}</dt>
-                    <dd>{{  photo.description }}</dd>
-                    <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />
-                    <dt>{{ 'label.camera_specyfication'|trans }}</dt>
-                    <dd>{{  photo.cameraSpecification}}</dd>
-                    <dt>{{ 'label.author'|trans }}</dt>
-                    <dd>{{  photo.user.login}}</dd>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="navigation text-center">
+        <div>
             {{ knp_pagination_render(pagination) }}
         </div>
 
@@ -42,4 +60,5 @@
             </p>
         </div>
     {% endif %}
+</div>
 {% endblock %}

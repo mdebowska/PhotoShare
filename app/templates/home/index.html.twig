@@ -5,7 +5,24 @@
 {% endblock %}
 
 {% block body %}
-    <p>
-        PhotoShare
-    </p>
+    {% block content %}
+        <main>
+            <article class="center-blok container">
+                <header>
+                    <h1 class="text-center">
+                        {{ 'welcome'|trans }}<span class="logo"> PhotoShare!</span>
+                    </h1>
+                </header>
+                <hr>
+                {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+                    <header>
+                        <h2 class="text-center">
+                            {{ 'new_photos'|trans }}
+                        </h2>
+                    </header>
+                    {% include 'photo/gallery.html.twig' %}
+                {#{% endif %}#}
+            </article>
+        </main>
+    {% endblock %}
 {% endblock %}

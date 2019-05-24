@@ -1,20 +1,22 @@
 <?php
 /**
- * Photo type.
+ * Userdata type.
  */
 
 namespace App\Form;
 
-use App\Entity\Photo;
+use App\Entity\Userdata;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class PhotoType.
+ * Class UserdataType.
  */
-class PhotoType extends AbstractType
+class UserdataType extends AbstractType
 {
     /**
      * Builds the form.
@@ -30,21 +32,21 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'description',
+            'name',
             TextType::class,
             [
-                'label' => 'label.description',
+                'label' => 'label.name',
                 'required' => false,
-                'attr' => ['max_length' => 255],
+                'attr' => ['max_length' => 45],
             ]
         );
         $builder->add(
-            'camera_specification',
+            'surname',
             TextType::class,
             [
-                'label' => 'label.camera_specification',
+                'label' => 'label.surname',
                 'required' => false,
-                'attr' => ['max_length' => 225],
+                'attr' => ['max_length' => 45],
             ]
         );
     }
@@ -56,7 +58,7 @@ class PhotoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Photo::class]);
+        $resolver->setDefaults(['data_class' => Userdata::class]);
     }
 
     /**
@@ -69,6 +71,6 @@ class PhotoType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'photo';
+        return 'userdata';
     }
 }

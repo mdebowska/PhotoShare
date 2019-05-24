@@ -18,7 +18,7 @@ class Photo
      *
      * @constant int NUMBER_OF_ITEMS
      */
-    const NUMBER_OF_ITEMS = 3;
+    const NUMBER_OF_ITEMS = 4;
     /**
      * Primary key.
      *

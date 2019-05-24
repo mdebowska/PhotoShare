@@ -1,25 +1,117 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.photo_view'|trans({'%id%': user.id|default('')}) }}
+    {{ 'title.photo_view'|trans({'%id%': photo.id|default('')}) }}
 {% endblock %}
-
 {% block body %}
+
+{% block content %}
     {% if photo is defined and photo|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ photo.id }}</dd>
-            <dt>{{ 'label.description'|trans }}</dt>
-            <dd>{{  photo.description }}</dd>
-            <img alt="{{   photo.source }}" src=""{{   photo.source }}" />
-            <dt>{{ 'label.camera_specyfication'|trans }}</dt>
-            <dd>{{  photo.cameraSpecification}}</dd>
-            <dt>{{ 'label.author'|trans }}</dt>
-            <dd>{{  photo.user.login}}</dd>
-        </dl>
+        <article class="center-blok container">
+            <div class="container">
+                <header>
+                    <div class="col-md-3">
+                        <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
+                            {{ 'label.author'|trans }} {{ photo.user.login }}
+                        </a>
+                        <div class="col-md-6 remove-padding">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
+
+                                <div class="col-md-5 remove-padding">
+
+                                    <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        {{ 'edit'|trans }}
+                                    </a>
+                                </div>
+                                <div class="col-md-6 remove-padding">
+                                    <a href="{{ url('photo_delete', {'id':photo.id}) }}" class="btn btn-danger btn-xs">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        {{ 'delete'|trans }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                         </div>
+                    </div>
+                        <h1 class="text-center col-md-6">
+                            {{ photo.description|default('title') }}
+                        </h1>
+                    <div class="col-md-3 last-row-item">
+                        {% if photo.likes is defined %}
+                            {{ photo.likes }}
+                        {% endif %}
+                            {#<p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate }}</p>#}
+                    </div>
+                </header>
+            </div>
+            <div>
+                 <img src="{{ asset('img/' ~ photo.source) }}" alt="{{ photo.source }}">
+                 <p>{{ 'label.camera_specyfication'|trans }}
+                     {{ photo.cameraSpecification }}</p>
+                        {#{% if is_granted('IS_AUTHENTICATED_FULLY')%}#}
+                        {#Jesli zalogowany to moze komentowac i oceniac#}
+                        {#<div class="container">#}
+                        {#<div class="row">#}
+                        {#<div class="col-md-8">#}
+                        {#{% for tag in tags %}#}
+                        {#{{ dump(tag) }}#}
+                        {#{% endfor %}#}
+                        {#</div>#}
+                        {#<div class="col-md-4">#}
+                        {#{{ form_start(form, { method: 'post', action: url('photo_view', {'id':id}) }) }}#}
+                        {#{{ form_widget(form) }}#}
+                        {#<input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />#}
+                        {#{{ form_end(form) }}#}
+                        {#</div>#}
+                        {#<div>#}
+                        {#{{ form_start(form_comment, { method: 'post', action: url('photo_view', {'id':id}) }) }}#}
+                        {#{{ form_widget(form_comment) }}#}
+                        {#<input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />#}
+                        {#{{ form_end(form_comment) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#{% endif %}#}
+                        {# WYŚWIETLANIE WSZYSTKICH KOMENTARZY #}
+                        {#{% if comments|length %}#}
+                        {#<ul >#}
+                        {#{% for row in comments %}#}
+                        {#<li>#}
+                        {#<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 comment">#}
+                        {#<div class="col-md-3">#}
+                        {#<p>{{ row.login}}</p>#}
+                        {#By: <a href="{{  url('profile_view', {'id':row.userId}) }}" class="">link{{  }}</a>#}
+                        {#<p>{{ row.publicationDate}}</p>#}
+                        {#</div>#}
+                        {#<div class="col-md-8">#}
+                        {#<p>{{ row.text }}</p>#}
+                        {#</div>#}
+                        {#<div class="col-md-1 remove-padding last-row-item">#}
+                        {#<div class="col-md-12 remove-padding">#}
+                        {#<a href="{{ url('comment_edit', {'id':row.id}) }}" class="btn btn-primary btn-xs last-row-item">#}
+                        {#<i class="glyphicon glyphicon-cog"></i>#}
+                        {#{{ 'edit'|trans }}#}
+                        {#</a>#}
+                        {#</div>#}
+
+                        {#<div class="col-md-12 remove-padding">#}
+                        {#<a href="{{ url('comment_delete', {'id':row.id}) }}" class="btn btn-danger btn-xs last-row-item">#}
+                        {#<i class="glyphicon glyphicon-trash"></i>#}
+                        {#{{ 'delete'|trans }}#}
+                        {#</a>#}
+                        {#</div>#}
+
+                        {#</div>#}
+                        {#</div>#}
+                        {#</li>#}
+                        {#{% endfor %}#}
+                        {#</ul>#}
+                        {#{% endif %}#}
+             </div>
+        </article>
     {% else %}
         <p>
             {{ 'message.item_not_found'|trans }}
         </p>
     {% endif %}
+{% endblock %}
 {% endblock %}

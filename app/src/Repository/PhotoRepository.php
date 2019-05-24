@@ -11,6 +11,7 @@ use Doctrine\ORM\QueryBuilder;
  * @method Photo|null findOneBy(array $criteria, array $orderBy = null)
  * @method Photo[]    findAll()
  * @method Photo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Photo[]    findByUser($value)
  */
 class PhotoRepository extends ServiceEntityRepository
 {

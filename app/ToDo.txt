@@ -3,8 +3,10 @@ Do zrobienia:
 -----------------
 
 sortowanie photos likes
-save w new photo (user_id)
+upload files
 
 -----------------
 Do wyjasnienia:
 -----------------
+
+unikalny login?

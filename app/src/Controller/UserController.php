@@ -7,8 +7,13 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 use App\Entity\User;
+use App\Entity\Userdata;
+use App\Form\EmailType;
+use App\Form\Password2Type;
+use App\Form\UserdataType;
 use App\Form\UserType;
 use App\Repository\PhotoRepository;
+use App\Repository\UserdataRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,11 +75,12 @@ class UserController extends AbstractController
     public function view(User $user, Request $request, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
         $photo_pagination = $paginator->paginate(
-            $repository->queryAll(),
+            $repository->findByUser($user->getId()),
             $request->query->getInt('page', 1),
             Photo::NUMBER_OF_ITEMS
         );
-//        dump($user);
+//        dump($photo_pagination);
+
         return $this->render(
             'user/view.html.twig',
             [
@@ -150,12 +156,27 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, Userdata $userdata, UserRepository $repository, UserdataRepository $repository_data, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(UserType::class, $user, ['method' => 'put']);
-        $form->handleRequest($request);
+        /* 3 formularze */
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
+        $form_email->handleRequest($request);
+
+        $form_password = $this->createForm(Password2Type::class, $user, ['method' => 'put']);
+        $form_password->handleRequest($request);
+
+        $form_data = $this->createForm(UserdataType::class, $userdata, ['method' => 'put']);
+        $form_data->handleRequest($request);
+
+        if ($form_email->isSubmitted() && $form_email->isValid()) {
+            $repository->save($user);
+
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('user_index');
+        }
+
+        if ($form_password->isSubmitted() && $form_password->isValid()) {
 
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
@@ -168,10 +189,19 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_index');
         }
 
+        if ($form_data->isSubmitted() && $form_data->isValid()) {
+            $repository_data->save($userdata);
+
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('user_index');
+        }
+
         return $this->render(
             'user/edit.html.twig',
             [
-                'form' => $form->createView(),
+                'form_email' => $form_email->createView(),
+                'form_password' => $form_password->createView(),
+                'form_data' => $form_data->createView(),
                 'user' => $user,
             ]
         );

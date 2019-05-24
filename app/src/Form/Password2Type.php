@@ -1,20 +1,22 @@
 <?php
 /**
- * Photo type.
+ * Password2 type.
  */
 
 namespace App\Form;
 
-use App\Entity\Photo;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class PhotoType.
+ * Class Password2Type.
  */
-class PhotoType extends AbstractType
+class Password2Type extends AbstractType
 {
     /**
      * Builds the form.
@@ -30,21 +32,12 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'description',
-            TextType::class,
-            [
-                'label' => 'label.description',
-                'required' => false,
+            'password',RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+                'required' => true,
                 'attr' => ['max_length' => 255],
-            ]
-        );
-        $builder->add(
-            'camera_specification',
-            TextType::class,
-            [
-                'label' => 'label.camera_specification',
-                'required' => false,
-                'attr' => ['max_length' => 225],
             ]
         );
     }
@@ -56,7 +49,7 @@ class PhotoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Photo::class]);
+        $resolver->setDefaults(['data_class' => User::class]);
     }
 
     /**
@@ -69,6 +62,6 @@ class PhotoType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'photo';
+        return 'user_password';
     }
 }

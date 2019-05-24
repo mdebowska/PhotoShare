@@ -1,3 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+
 {% include 'default/_form.html.twig' with {
     page_title: 'title.photo_new',
     attr: {
@@ -6,3 +14,5 @@
     },
     back_to_list_path: 'photo_index',
 } %}
+
+{% endblock %}

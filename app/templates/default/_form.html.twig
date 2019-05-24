@@ -1,10 +1,4 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}
-    {% if page_title_param is defined %}{{ page_title|trans(page_title_param) }}{% else %}{{ page_title|trans }}{% endif %}
-{% endblock %}
-
-{% block body %}
 
     <h1>
         {% if page_title_param is defined %}{{ page_title|trans(page_title_param) }}{% else %}{{ page_title|trans }}{% endif %}
@@ -29,5 +23,3 @@
         </div>
     {% endif %}
     {{ form_end(form) }}
-
-{% endblock %}

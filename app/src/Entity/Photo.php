@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -84,6 +86,16 @@ class Photo
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="photo", orphanRemoval=true)
+     */
+    private $likes;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
 
     /**
      * Getter for the Id.
@@ -180,10 +192,44 @@ class Photo
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    /**
+     * @param user|null $user
+     */
+    public function setUser(?user $user):void
     {
         $this->user = $user;
+    }
 
-        return $this;
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param Like $like
+     */
+    public function addLike(Like $like): void
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPhoto($this);
+        }
+    }
+
+    /**
+     * @param Like $like
+     */
+    public function removeLike(Like $like): void
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getPhoto() === $this) {
+                $like->setPhoto(null);
+            }
+        }
     }
 }

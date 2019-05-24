@@ -11,9 +11,7 @@
             <div class="container">
                 <header>
                     <div class="col-md-3">
-                        <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
-                            {{ 'label.author'|trans }} {{ photo.user.login }}
-                        </a>
+
                         <div class="col-md-6 remove-padding">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
 
@@ -33,21 +31,35 @@
                             {% endif %}
                          </div>
                     </div>
-                        <h1 class="text-center col-md-6">
-                            {{ photo.description|default('title') }}
-                        </h1>
-                    <div class="col-md-3 last-row-item">
-                        {% if photo.likes is defined %}
-                            {{ photo.likes }}
-                        {% endif %}
-                            {#<p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate }}</p>#}
-                    </div>
                 </header>
             </div>
             <div>
                  <img src="{{ asset('img/' ~ photo.source) }}" alt="{{ photo.source }}">
+                <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
+                    {{ 'label.author'|trans }} {{ photo.user.login }}
+                </a>
                  <p>{{ 'label.camera_specyfication'|trans }}
                      {{ photo.cameraSpecification }}</p>
+                <p class="text-center col-md-6">
+                    {{ photo.description|default('title') }}
+                </p>
+                <div class="col-md-3 last-row-item">
+                    {#{% if likes is defined and likes > 0 %}#}
+                        {#{{ likes }}#}
+                    {#{% endif %}#}
+                    LIKE:
+                    {% include 'default/_form.html.twig' with {
+                        form: form_like,
+                        page_title: '',
+                        page_title_param: {'%id%': photo.id},
+                        attr: {
+                            method: 'PUT',
+                            action: url('photo_view', {'id': photo.id}),
+                        },
+                    } %}
+
+                    <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
+                </div>
                         {#{% if is_granted('IS_AUTHENTICATED_FULLY')%}#}
                         {#Jesli zalogowany to moze komentowac i oceniac#}
                         {#<div class="container">#}

@@ -16,18 +16,17 @@
                         <figure class="text-on-figure-bottom">
                             <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />
                             <figcaption class="text-on-figure-bottom half-black-background row remove-margin">
-                                {% if 1==1 or is_granted('IS_AUTHENTICATED_FULLY') and (photo.user.id==loggedUser['id'] or is_granted('ROLE_ADMIN')) %}
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and (photo.user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
                                     {#//jesli jestes zalogowany i.. to jesteś ty#}
                                     <div class="col-xs-6 remove-padding">
                                         <div class="buttons remove-padding">
-
-                                            <a href="{{ url('photo_new', {'id':photo.id}) }}" title="{{ 'edit'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-primary btn-xs">
+                                            <a href="{{ url('photo_edit', {'id':photo.id}) }}" title="{{ 'edit'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-cog"></i>
                                                 {{ 'edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="buttons remove-padding">
-                                            <a href="{{ url('photo_new', {'id':photo.id}) }}" title="{{ 'delete'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ url('photo_delete', {'id':photo.id}) }}" title="{{ 'delete'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                                 {{ 'delete'|trans }}
                                             </a>

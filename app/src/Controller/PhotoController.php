@@ -5,9 +5,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Photo;
 //use App\Form\PhotoType;
 use App\Form\PhotoType;
+use App\Repository\LikeRepository;
 use App\Repository\PhotoRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,11 +69,34 @@ class PhotoController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function view(Photo $photo): Response
+    public function view(Request $request, Photo $photo, LikeRepository $likeRepository): Response
     {
+//        dump($photo);
+//        $likeRepository->countByPhoto($photo->getId());
+//        $likeRepository = 126;
+
+        $like = new Like();
+        $form_like = $this->createForm(FormType::class, $like);
+        $form_like->handleRequest($request);
+
+        if ($form_like->isSubmitted() && $form_like->isValid()) {
+
+            dump('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+            $like->setPhoto($photo);
+            $like->setUser($photo->getUser()); #to nie ten User!
+
+            $likeRepository->save($like);
+
+            $this->addFlash('success', 'message.liked_successfully');
+
+            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
+        }
+
         return $this->render(
             'photo/view.html.twig',
-            ['photo' => $photo]
+            ['photo' => $photo,
+                'likes' => $likeRepository,
+                'form_like' => $form_like->createView()]
         );
     }
     /**

@@ -46,7 +46,7 @@ class PhotoRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Photo $category Category entity
+     * @param \App\Entity\Photo $photo Photo entity
      *
      * @return void
      *
@@ -56,6 +56,20 @@ class PhotoRepository extends ServiceEntityRepository
     public function save(Photo $photo): void
     {
         $this->_em->persist($photo);
+        $this->_em->flush($photo);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Photo $photo Photo entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Photo $photo): void
+    {
+        $this->_em->remove($photo);
         $this->_em->flush($photo);
     }
 

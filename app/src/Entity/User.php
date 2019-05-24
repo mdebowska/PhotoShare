@@ -131,9 +131,15 @@ class User implements UserInterface
      */
     private $userdata;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user", orphanRemoval=true)
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     /**
@@ -267,17 +273,19 @@ class User implements UserInterface
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo): self
+    public function addPhoto(Photo $photo): void
     {
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
             $photo->setUser($this);
         }
-
-        return $this;
     }
 
-    public function removePhoto(Photo $photo): self
+    /**
+     * @param Photo $photo
+     * @return User
+     */
+    public function removePhoto(Photo $photo): void
     {
         if ($this->photos->contains($photo)) {
             $this->photos->removeElement($photo);
@@ -286,22 +294,64 @@ class User implements UserInterface
                 $photo->setUser(null);
             }
         }
-
-        return $this;
     }
 
+    /**
+     * @return Userdata|null
+     */
     public function getUserdata(): ?Userdata
     {
         return $this->userdata;
     }
 
-    public function setUserdata(Userdata $userdata): self
+    /**
+     * @param Userdata $userdata
+     * @return User
+     */
+    public function setUserdata(Userdata $userdata): void
     {
         $this->userdata = $userdata;
 
         // set the owning side of the relation if necessary
         if ($this !== $userdata->getUser()) {
             $userdata->setUser($this);
+        }
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param Like $like
+     * @return User
+     */
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Like $like
+     * @return User
+     */
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
         }
 
         return $this;

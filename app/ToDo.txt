@@ -4,6 +4,9 @@ Do zrobienia:
 
 sortowanie photos likes
 upload files
+role
+tagi
+css
 
 -----------------
 Do wyjasnienia:
@@ -12,3 +15,5 @@ Do wyjasnienia:
 unikalny login?
 czemu countByPhoto w LikeRepository nie działa?
 Formularz dodawania like jest, ale się nie zapisuje (brak błędu z informacją)
+
+usuwanie komentarzy: A form can only be submitted once

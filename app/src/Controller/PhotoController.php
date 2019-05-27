@@ -5,10 +5,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Like;
 use App\Entity\Photo;
 //use App\Form\PhotoType;
+use App\Form\CommentType;
 use App\Form\PhotoType;
+use App\Repository\CommentRepository;
 use App\Repository\LikeRepository;
 use App\Repository\PhotoRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -69,7 +72,7 @@ class PhotoController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function view(Request $request, Photo $photo, LikeRepository $likeRepository): Response
+    public function view(Request $request, Photo $photo, LikeRepository $likeRepository, CommentRepository $commentRepository): Response
     {
 //        dump($photo);
 //        $likeRepository->countByPhoto($photo->getId());
@@ -92,11 +95,31 @@ class PhotoController extends AbstractController
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
 
+        $comment = new Comment();
+        $form_comment = $this->createForm(CommentType::class, $comment);
+        $form_comment->handleRequest($request);
+
+        if ($form_comment->isSubmitted() && $form_comment->isValid()) {
+
+            $comment->setPublicationDate(new \DateTime());
+            $comment->setUser($photo->getUser()); #to nie ten User!
+            $comment->setPhoto($photo);
+
+
+            $commentRepository->save($comment);
+
+            $this->addFlash('success', 'message.created_successfully');
+
+            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
+        }
+
+
         return $this->render(
             'photo/view.html.twig',
             ['photo' => $photo,
                 'likes' => $likeRepository,
-                'form_like' => $form_like->createView()]
+                'form_like' => $form_like->createView(),
+                'form_comment' => $form_comment->createView()]
         );
     }
     /**

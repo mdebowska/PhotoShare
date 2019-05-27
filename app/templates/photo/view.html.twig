@@ -60,10 +60,10 @@
 
                     <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
                 </div>
-                        {#{% if is_granted('IS_AUTHENTICATED_FULLY')%}#}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                         {#Jesli zalogowany to moze komentowac i oceniac#}
-                        {#<div class="container">#}
-                        {#<div class="row">#}
+                            <div class="container">
+                                <div class="row">
                         {#<div class="col-md-8">#}
                         {#{% for tag in tags %}#}
                         {#{{ dump(tag) }}#}
@@ -75,28 +75,29 @@
                         {#<input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />#}
                         {#{{ form_end(form) }}#}
                         {#</div>#}
-                        {#<div>#}
-                        {#{{ form_start(form_comment, { method: 'post', action: url('photo_view', {'id':id}) }) }}#}
-                        {#{{ form_widget(form_comment) }}#}
-                        {#<input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />#}
-                        {#{{ form_end(form_comment) }}#}
-                        {#</div>#}
-                        {#</div>#}
-                        {#{% endif %}#}
+                                    <div>
+                                    {{ form_start(form_comment, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
+                                    {{ form_widget(form_comment) }}
+                                       <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
+                                    {{ form_end(form_comment) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                         {# WYŚWIETLANIE WSZYSTKICH KOMENTARZY #}
-                        {#{% if comments|length %}#}
-                        {#<ul >#}
-                        {#{% for row in comments %}#}
-                        {#<li>#}
-                        {#<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 comment">#}
-                        {#<div class="col-md-3">#}
-                        {#<p>{{ row.login}}</p>#}
-                        {#By: <a href="{{  url('profile_view', {'id':row.userId}) }}" class="">link{{  }}</a>#}
-                        {#<p>{{ row.publicationDate}}</p>#}
-                        {#</div>#}
-                        {#<div class="col-md-8">#}
-                        {#<p>{{ row.text }}</p>#}
-                        {#</div>#}
+                        {% if photo.comments|length %}
+                        <ul>
+                            {% for comment in photo.comments %}
+                                <li>
+                                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 comment">
+                                        <div class="col-md-3">
+                                            <p>{{ comment.user.login}}</p>
+                                            By: <a href="{{  url('user_view', {'id':comment.user.id}) }}" class="">link</a>
+                                            <p>{{ comment.publicationDate|localizeddate}}</p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>{{ comment.text }}</p>
+                                        </div>
                         {#<div class="col-md-1 remove-padding last-row-item">#}
                         {#<div class="col-md-12 remove-padding">#}
                         {#<a href="{{ url('comment_edit', {'id':row.id}) }}" class="btn btn-primary btn-xs last-row-item">#}
@@ -113,11 +114,11 @@
                         {#</div>#}
 
                         {#</div>#}
-                        {#</div>#}
-                        {#</li>#}
-                        {#{% endfor %}#}
-                        {#</ul>#}
-                        {#{% endif %}#}
+                                     </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
              </div>
         </article>
     {% else %}

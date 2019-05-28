@@ -132,20 +132,20 @@ class User implements UserInterface
     private $userdata;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user", orphanRemoval=true)
-     */
-    private $likes;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Likerate", mappedBy="user", orphanRemoval=true)
+     */
+    private $likerates;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
-        $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->likerates = new ArrayCollection();
     }
 
     /**
@@ -325,45 +325,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Like[]
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param Like $like
-     * @return User
-     */
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Like $like
-     * @return User
-     */
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->contains($like)) {
-            $this->likes->removeElement($like);
-            // set the owning side to null (unless already changed)
-            if ($like->getUser() === $this) {
-                $like->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -388,6 +349,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Likerate[]
+     */
+    public function getLikerates(): Collection
+    {
+        return $this->likerates;
+    }
+
+    public function addLikerate(Likerate $likerate): self
+    {
+        if (!$this->likerates->contains($likerate)) {
+            $this->likerates[] = $likerate;
+            $likerate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikerate(Likerate $likerate): self
+    {
+        if ($this->likerates->contains($likerate)) {
+            $this->likerates->removeElement($likerate);
+            // set the owning side to null (unless already changed)
+            if ($likerate->getUser() === $this) {
+                $likerate->setUser(null);
             }
         }
 

@@ -61,14 +61,14 @@ class Comment
     private $publication_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false, name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\photo", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Photo", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false, name="photo_id", referencedColumnName="id")
      */
     private $photo;
 

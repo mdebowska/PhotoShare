@@ -295,7 +295,7 @@ figure.text-on-figure-bottom a:hover:not(.btn), .disabled a:hover{
 }
 
 .comment{
-    background-color:rgb(60, 60, 60);
+    /*background-color:rgb(60, 60, 60);*/
     border: 1px solid rgb(60, 60, 60);
     border-radius: 3px ;
     padding-top: 4px;

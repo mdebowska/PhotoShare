@@ -6,13 +6,13 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\Like;
+use App\Entity\Likerate;
 use App\Entity\Photo;
 //use App\Form\PhotoType;
 use App\Form\CommentType;
 use App\Form\PhotoType;
 use App\Repository\CommentRepository;
-use App\Repository\LikeRepository;
+use App\Repository\LikerateRepository;
 use App\Repository\PhotoRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,16 +72,16 @@ class PhotoController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function view(Request $request, Photo $photo, LikeRepository $likeRepository, CommentRepository $commentRepository): Response
+    public function view(Request $request, Photo $photo, LikerateRepository $likeRepository, CommentRepository $commentRepository): Response
     {
 //        dump($photo);
 //        $likeRepository->countByPhoto($photo->getId());
 //        $likeRepository = 126;
 
-        $like = new Like();
+        $like = new Likerate();
         $form_like = $this->createForm(FormType::class, $like);
         $form_like->handleRequest($request);
-
+//
         if ($form_like->isSubmitted() && $form_like->isValid()) {
 
             dump('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
@@ -112,12 +112,12 @@ class PhotoController extends AbstractController
 
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
-
+//        dump($photo);
 
         return $this->render(
             'photo/view.html.twig',
             ['photo' => $photo,
-                'likes' => $likeRepository,
+                'likes' => $likeRepository->countByPhoto($photo->getId()),
                 'form_like' => $form_like->createView(),
                 'form_comment' => $form_comment->createView()]
         );
@@ -236,7 +236,7 @@ class PhotoController extends AbstractController
 
         if ($request->isMethod('DELETE')) {
 //            $form->submit($request->request->get($form->getName()));
-//            $repository->delete($photo);
+            $repository->delete($photo);
 
             $this->addFlash('success', 'message.deleted_successfully');
 

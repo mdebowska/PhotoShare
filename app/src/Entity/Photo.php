@@ -82,25 +82,40 @@ class Photo
     private $camera_specification;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="photos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="photos")
+     * @ORM\JoinColumn(nullable=false, name="user_id", referencedColumnName="id")
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="photo", orphanRemoval=true)
-     */
-    private $likes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="photo", orphanRemoval=true)
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Likerate", mappedBy="photo", orphanRemoval=true)
+     */
+    private $likerates;
+
+    /**
+     * Tags.
+     *
+     * @var array
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Tag",
+     *     inversedBy="photos",
+     *     orphanRemoval=true
+     * )
+     * @ORM\JoinTable(name="photos_tags")
+     */
+    private $tags;
+
     public function __construct()
     {
-        $this->likes = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->likerates = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -210,39 +225,6 @@ class Photo
     }
 
     /**
-     * @return Collection|Like[]
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param Like $like
-     */
-    public function addLike(Like $like): void
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->setPhoto($this);
-        }
-    }
-
-    /**
-     * @param Like $like
-     */
-    public function removeLike(Like $like): void
-    {
-        if ($this->likes->contains($like)) {
-            $this->likes->removeElement($like);
-            // set the owning side to null (unless already changed)
-            if ($like->getPhoto() === $this) {
-                $like->setPhoto(null);
-            }
-        }
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -268,6 +250,63 @@ class Photo
             if ($comment->getPhoto() === $this) {
                 $comment->setPhoto(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Likerate[]
+     */
+    public function getLikerates(): Collection
+    {
+        return $this->likerates;
+    }
+
+    public function addLikerate(Likerate $likerate): self
+    {
+        if (!$this->likerates->contains($likerate)) {
+            $this->likerates[] = $likerate;
+            $likerate->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikerate(Likerate $likerate): self
+    {
+        if ($this->likerates->contains($likerate)) {
+            $this->likerates->removeElement($likerate);
+            // set the owning side to null (unless already changed)
+            if ($likerate->getPhoto() === $this) {
+                $likerate->setPhoto(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
         }
 
         return $this;

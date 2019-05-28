@@ -2,42 +2,41 @@
 
 namespace App\Repository;
 
-use App\Entity\Like;
+use App\Entity\Likerate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Like|null find($id, $lockMode = null, $lockVersion = null)
- * @method Like|null findOneBy(array $criteria, array $orderBy = null)
- * @method Like[]    findAll()
- * @method Like[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method Like[]    countByPhoto($value)
+ * @method Likerate|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Likerate|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Likerate[]    findAll()
+ * @method Likerate[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Likerate[]    countByPhoto($value)
  */
-class LikeRepository extends ServiceEntityRepository
+class LikerateRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Like::class);
+        parent::__construct($registry, Likerate::class);
     }
 
     /**
      * Save record.
      *
-     * @param \App\Entity\Like $like Like entity
+     * @param \App\Entity\Comment $comment Comment entity
      *
      * @return void
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function save(Like $like): void
+    public function save(Likerate $like): void
     {
         $this->_em->persist($like);
         $this->_em->flush($like);
     }
-
     // /**
-    //  * @return Like[] Returns an array of Like objects
+    //  * @return Likerate[] Returns an array of Likerate objects
     //  */
     /*
     public function findByExampleField($value)
@@ -54,7 +53,7 @@ class LikeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Like
+    public function findOneBySomeField($value): ?Likerate
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

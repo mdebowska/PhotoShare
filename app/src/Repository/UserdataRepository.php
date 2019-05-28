@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Userdata|null findOneBy(array $criteria, array $orderBy = null)
  * @method Userdata[]    findAll()
  * @method Userdata[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Userdata[]    findByUser($value)
  */
 class UserdataRepository extends ServiceEntityRepository
 {

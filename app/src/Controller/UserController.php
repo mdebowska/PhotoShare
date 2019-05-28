@@ -106,7 +106,7 @@ class UserController extends AbstractController
      *     name="user_new",
      * )
      */
-    public function new(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserRepository $repository, UserdataRepository $userdataRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -125,6 +125,10 @@ class UserController extends AbstractController
             ));
 
             $repository->save($user);
+
+            $userdata = new Userdata();
+            $userdata->setUser($user);
+            $userdataRepository->save($userdata);
 
             $this->addFlash('success', 'message.created_successfully');
 
@@ -156,9 +160,14 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, Userdata $userdata, UserRepository $repository, UserdataRepository $repository_data, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, UserRepository $repository, UserdataRepository $repository_data, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         /* 3 formularze */
+
+//        $userdata = $repository_data->findByUser($user->getId());
+//        dump($user->getId());
+
+        $userdata = new Userdata();
 
         $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
         $form_email->handleRequest($request);

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     uniqueConstraints={
  *          @ORM\UniqueConstraint(
  *              name="email_idx",
- *              columns={"email"},
+ *              columns={"email", "login"},
  *          )
  *     }
  * )

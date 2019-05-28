@@ -5,7 +5,7 @@ Do zrobienia:
 sortowanie photos likes
 upload files
 role
-tagi
+wyszukiwanie po tagach
 css
 
 -----------------
@@ -13,7 +13,9 @@ Do wyjasnienia:
 -----------------
 
 Formularz dodawania like jest, ale się nie zapisuje, nie wchodzi do if submitted (brak błędu z informacją)
-
+jak sortować po ilości like-ów?
+jak wziąć zalogowanego użytkownika?
+jak w edycji użytkownika wziąć Userdata dobrego formatu? (przekazanie przez parametr/ $userdata = $repository_data->findByUser($user->getId()); nie działa)
 
 unikalny login?
 

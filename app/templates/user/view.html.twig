@@ -26,13 +26,12 @@
                             <span class="description">{{ 'email'|trans }}:</span> {{ user.email }}</p> {% endif %}
                     </div>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
-                        <div class="col-xs-2 last-row-item">
+                        <div class="flex-container">
 
                             <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'user_edit'|trans  }}" class="btn btn-primary btn-xs" >
                                 <i class="glyphicon glyphicon-cog"></i>
                                 {{ 'edit'|trans }}
                             </a>
-                            <div class="">
                                 <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'user_delete'|trans  }}" class="btn btn-danger btn-xs" >
                                     <i class="glyphicon glyphicon-trash"></i>
                                     {{ 'delete'|trans }}

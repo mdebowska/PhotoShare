@@ -168,6 +168,7 @@ class UserController extends AbstractController
 //        dump($user->getId());
 
         $userdata = new Userdata();
+        $userdata->setUser($this->getUser());
 
         $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
         $form_email->handleRequest($request);

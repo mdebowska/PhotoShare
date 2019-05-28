@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block body %}
-
+    <img src="{{ asset('img/' ~ photo.source) }}" alt="{{ photo.source }}">
+    <p>{{ 'sure'|trans }}</p>
 {% include 'default/_form.html.twig' with {
     page_title: 'title.photo_delete',
     page_title_param: {'%id%': photo.id},

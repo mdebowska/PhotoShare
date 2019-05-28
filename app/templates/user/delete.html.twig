@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block body %}
-
+    <h3 class="text-center login">
+        {{ user.login|default('login') }}{#login of user#}
+    </h3>
+    <p>{{ 'sure'|trans }}</p>
     {% include 'default/_form.html.twig' with {
     page_title: 'title.user_delete',
     page_title_param: {'%id%': user.id},

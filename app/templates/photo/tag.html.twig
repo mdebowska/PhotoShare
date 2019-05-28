@@ -6,6 +6,9 @@
 
 {% block body %}
     <article>
+        <header>
+            <h3>{{ tag.name }}</h3>
+        </header>
         {% block gallery %}
             {% include 'photo/gallery.html.twig' %}
         {% endblock %}

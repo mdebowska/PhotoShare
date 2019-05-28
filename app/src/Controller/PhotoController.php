@@ -8,19 +8,19 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Likerate;
 use App\Entity\Photo;
-//use App\Form\PhotoType;
+use App\Entity\Tag;
 use App\Form\CommentType;
 use App\Form\PhotoType;
 use App\Repository\CommentRepository;
 use App\Repository\LikerateRepository;
 use App\Repository\PhotoRepository;
+use App\Service\FileUploader;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class PhotoController.
@@ -29,6 +29,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class PhotoController extends AbstractController
 {
+    private $uploaderService = null;
+
+    public function __construct(FileUploader $uploaderService)
+    {
+        $this->uploaderService = $uploaderService;
+    }
+
     /**
      * Index action.
      *
@@ -62,9 +69,13 @@ class PhotoController extends AbstractController
     /**
      * View action.
      *
+     * @param Request $request
      * @param \App\Entity\Photo $photo Photo entity
-     *
+     * @param LikerateRepository $likeRepository
+     * @param CommentRepository $commentRepository
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
      *     "/{id}",
@@ -86,7 +97,7 @@ class PhotoController extends AbstractController
 
             dump('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
             $like->setPhoto($photo);
-            $like->setUser($photo->getUser()); #to nie ten User!
+            $like->setUser($this->getUser());
 
             $likeRepository->save($like);
 
@@ -102,7 +113,7 @@ class PhotoController extends AbstractController
         if ($form_comment->isSubmitted() && $form_comment->isValid()) {
 
             $comment->setPublicationDate(new \DateTime());
-            $comment->setUser($photo->getUser()); #to nie ten User!
+            $comment->setUser($this->getUser());
             $comment->setPhoto($photo);
 
 
@@ -122,6 +133,40 @@ class PhotoController extends AbstractController
                 'form_comment' => $form_comment->createView()]
         );
     }
+
+    /**
+     * Tag action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Repository\PhotoRepository        $repository Photo repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route(
+     *     "/tag/{id}",
+     *     name="photo_tag",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function tag(Request $request, Tag $tag, PhotoRepository $repository, PaginatorInterface $paginator): Response
+    {
+
+        $pagination = $paginator->paginate(
+            $repository->findByTag($tag),
+            $request->query->getInt('page', 1),
+            Photo::NUMBER_OF_ITEMS
+        );
+
+        //dump($pagination);
+        return $this->render(
+            'photo/tag.html.twig',
+            ['pagination' => $pagination,
+                'tag'=>$tag]
+        );
+    }
+
     /**
      * New action.
      *
@@ -147,8 +192,9 @@ class PhotoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $photo->setPublicationDate(new \DateTime());
-            $photo->setSource('123.jpg');
-//            $photo->setUser(?);
+            $photo->setUser($this->getUser());
+
+//            $this->uploaderService->upload($photo->getSource());
 
             $repository->save($photo);
 
@@ -230,6 +276,11 @@ class PhotoController extends AbstractController
 //
 //            return $this->redirectToRoute('photo_index');
 //        }
+
+        if($this->getUser()->getId() ==$photo->getUser()->getId() or $this->isGranted('ROLE_ADMIN')){
+            //jeśli autor lub admin
+//            dump($this->getUser());
+        }
 
         $form = $this->createForm(FormType::class, $photo, ['method' => 'DELETE']);
         $form->handleRequest($request);

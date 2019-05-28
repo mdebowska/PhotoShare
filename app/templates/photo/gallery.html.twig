@@ -9,9 +9,9 @@
                 <button>{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</button>
                 <button>{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likerates') }}</button>
         </div>
-        <div class="row">
+        <div class="flex-container">
             {% for photo in pagination %}
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 col-photo">
+                <div class="photo">
                     <a href="{{ url('photo_view', {'id':photo.id}) }}" title="{{ 'photo'|trans }} {{ photo.id }}">
                         <figure class="text-on-figure-bottom">
                             <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />

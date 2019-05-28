@@ -1,3 +1,11 @@
+#like{
+    width: 100px;
+}
+#like h1, h2{
+    display: none;
+}
+
+
 /*html{*/
 /*height: 100%;*/
 /*box-sizing: border-box;*/
@@ -192,7 +200,7 @@ header.main{
 }
 
 img{
-    width:100%;
+    /*width:100%;*/
 }
 
 img#view{

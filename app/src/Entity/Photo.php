@@ -6,10 +6,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class Photo.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
+ * @ORM\Table(
+ *     name="photo",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(
+ *              columns={"source"},
+ *          ),
+ *     },
+ * )
+ *
+ * @UniqueEntity(
+ *     fields={"source"}
+ * )
  */
 class Photo
 {
@@ -38,7 +53,20 @@ class Photo
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * Source.
+     *
+     * @ORM\Column(
+     *     type="string",
+     *     length=255,
+     *     nullable=false,
+     *     unique=true,
+     * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
+     * )
      */
     private $source;
 

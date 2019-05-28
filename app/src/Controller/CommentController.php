@@ -91,7 +91,10 @@ class CommentController extends AbstractController
 //
 //            return $this->redirectToRoute('comment_index');
 //        }
-
+        if($this->getUser()->getId() == $comment->getUser()->getId() or $this->isGranted('ROLE_ADMIN')){
+            //jeśli autor lub admin
+            dump($this->getUser());
+        }
         $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

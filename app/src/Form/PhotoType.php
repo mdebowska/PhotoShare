@@ -10,6 +10,7 @@ use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -75,6 +76,14 @@ class PhotoType extends AbstractType
                 'attr' => [
                     'max_length' => 255,
                 ],
+            ]
+        );
+        $builder->add(
+            'source',
+            FileType::class,
+            [
+                'label' => 'label.source',
+                'required' => true,
             ]
         );
 

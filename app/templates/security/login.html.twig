@@ -9,7 +9,7 @@
     <h1>
         {{ 'title.login'|trans }}
     </h1>
-
+<div class="container">
     <form method="post" action="{{ url('security_login') }}">
         {% if error %}
             {%  include 'default/_single_flash_message.html.twig' with {
@@ -36,5 +36,5 @@
             <input type="submit" value="{{ 'action.login'|trans }}" class="btn btn-primary" />
         </div>
     </form>
-
+</div>
 {% endblock %}

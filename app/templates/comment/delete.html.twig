@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    <p>{{ comment.text }}</p>
+
+    <p>{{ 'sure'|trans }}</p>
 
 {% include 'default/_form.html.twig' with {
     page_title: 'title.comment_delete',

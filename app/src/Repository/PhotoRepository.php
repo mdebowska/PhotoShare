@@ -29,11 +29,12 @@ class PhotoRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()//join likes
-            ->innerJoin('p.likerates', 'l')
-            ->addSelect('COUNT(p.likerates) AS likes')
-            ->addGroupBy('p.likerates');
+//            ->innerJoin('p.likerates', 'l')
+//            ->where('l.photo_id= p.id')
+//            ->addSelect('COUNT(p.likerates) AS likes')
+//            ->addGroupBy('p.likes');
 //            ->orderBy('p.publication_date', 'DESC');
-    }
+    ;}
 
     /**
      * Get or create new query builder.

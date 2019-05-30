@@ -70,17 +70,6 @@ class UserRepository extends ServiceEntityRepository
      */
     public function save(User $user): void
     {
-        dump($user);
-//
-//        $user->setRoles(['ROLE_USER']);
-////        $user->setPassword($this->passwordEncoder->encodePassword(
-////            $user,
-////            $user['password']
-////        ));
-//        $user->setPassword($this->passwordEncoder->encodePassword(
-//            $user,
-//            'user1234'
-//        ));
         $this->_em->persist($user);
         $this->_em->flush($user);
     }

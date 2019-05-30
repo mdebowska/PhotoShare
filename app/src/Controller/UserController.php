@@ -79,7 +79,6 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1),
             Photo::NUMBER_OF_ITEMS
         );
-//        dump($photo_pagination);
 
         return $this->render(
             'user/view.html.twig',
@@ -165,7 +164,6 @@ class UserController extends AbstractController
         /* 3 formularze */
 
         $userdata = $repository_data->findOneByUser($user->getId());
-//        dump($user->getId());
 
 //        $userdata = new Userdata();
 //        $userdata->setUser($this->getUser());

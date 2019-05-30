@@ -12,7 +12,7 @@ use Doctrine\ORM\QueryBuilder;
  * @method Photo[]    findAll()
  * @method Photo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method Photo[]    findByUser($value)
- * @method Photo[]    findByTag($value)
+ * @method Photo[]    findByTags($value)
  */
 class PhotoRepository extends ServiceEntityRepository
 {
@@ -28,8 +28,11 @@ class PhotoRepository extends ServiceEntityRepository
      */
     public function queryAll(): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
-            ->orderBy('p.publication_date', 'DESC');
+        return $this->getOrCreateQueryBuilder()//join likes
+            ->innerJoin('p.likerates', 'l')
+            ->addSelect('COUNT(p.likerates) AS likes')
+            ->addGroupBy('p.likerates');
+//            ->orderBy('p.publication_date', 'DESC');
     }
 
     /**
@@ -73,6 +76,22 @@ class PhotoRepository extends ServiceEntityRepository
         $this->_em->remove($photo);
         $this->_em->flush($photo);
     }
+
+    /**
+    * @return Photo[] Returns an array of Photo objects
+    */
+
+    public function findByTag($tag)
+    {
+        return $this->queryAll()
+            ->innerJoin('p.tags', 't')
+            ->where('t = :val')
+            ->setParameter('val', $tag);
+
+//            ->addSelect('p')
+//            ->select('p.id', 'p.description', 'p.description', 'p.camera_specyfication');
+    }
+
 
     // /**
     //  * @return Photo[] Returns an array of Photo objects

@@ -36,15 +36,21 @@
                     {% if likes is defined and likes > 0 %}
                         {{ likes }}
                     {% endif %}
-                    {% include 'default/_form.html.twig' with {
-                        form: form_like,
-                        page_title: '',
-                        page_title_param: {'%id%': photo.id},
-                        attr: {
-                            method: 'PUT',
-                            action: url('photo_view', {'id': photo.id}),
-                        },
-                    } %}
+                    {#{% include 'default/_form.html.twig' with {#}
+                        {#form: form_like,#}
+                        {#page_title: '',#}
+                        {#page_title_param: {'%id%': photo.id},#}
+                        {#attr: {#}
+                            {#method: 'PUT',#}
+                            {#action: url('photo_view', {'id': photo.id}),#}
+                        {#},#}
+                    {#} %}#}
+                    <div>
+                        {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
+                        {{ form_widget(form_like) }}
+                        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
+                        {{ form_end(form_like) }}
+                    </div>
                 </div>
                     <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
                     <p>{{ 'tags'|trans }}:

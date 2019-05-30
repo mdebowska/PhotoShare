@@ -164,11 +164,11 @@ class UserController extends AbstractController
     {
         /* 3 formularze */
 
-//        $userdata = $repository_data->findByUser($user->getId());
+        $userdata = $repository_data->findOneByUser($user->getId());
 //        dump($user->getId());
 
-        $userdata = new Userdata();
-        $userdata->setUser($this->getUser());
+//        $userdata = new Userdata();
+//        $userdata->setUser($this->getUser());
 
         $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
         $form_email->handleRequest($request);

@@ -1,11 +1,11 @@
 
-
-    <h1>
+<div class="center-form">
+<h1>
         {% if page_title_param is defined %}{{ page_title|trans(page_title_param) }}{% else %}{{ page_title|trans }}{% endif %}
     </h1>
 
-    {{ form_start(form, { method: attr.method|default('POST'), action: attr.action }) }}
-    {% if false == form.vars.valid %}
+{{ form_start(form, { method: attr.method|default('POST'), action: attr.action }) }}
+{% if false == form.vars.valid %}
         {% include 'default/_single_flash_message.html.twig' with {
             type: 'danger',
             message: 'message.form_error'|trans,
@@ -23,3 +23,4 @@
         </div>
     {% endif %}
     {{ form_end(form) }}
+</div>

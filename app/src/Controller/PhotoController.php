@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * Class PhotoController.
  *
@@ -228,8 +230,9 @@ class PhotoController extends AbstractController
      *     name="photo_edit",
      * )
      */
-    public function edit(Request $request, Photo $photo, PhotoRepository $repository): Response
+    public function edit(Request $request, Photo $photo, PhotoRepository $repository, FileUploader $uploadService): Response
     {
+        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
         $form = $this->createForm(PhotoType::class, $photo, ['method' => 'put']);
         $form->handleRequest($request);
 

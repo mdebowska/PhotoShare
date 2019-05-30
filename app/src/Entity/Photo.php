@@ -161,7 +161,7 @@ class Photo
      *
      * @return string|null Result
      */
-    public function getSource(): ?string
+    public function getSource()
     {
         return $this->source;
     }
@@ -171,7 +171,7 @@ class Photo
      *
      * @param string $source Source
      */
-    public function setSource(string $source)
+    public function setSource($source)
     {
         $this->source = $source;
     }

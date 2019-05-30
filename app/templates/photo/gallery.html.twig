@@ -14,20 +14,20 @@
                 <div class="photo">
                     <a href="{{ url('photo_view', {'id':photo.id}) }}" title="{{ 'photo'|trans }} {{ photo.id }}">
                         <figure class="text-on-figure-bottom">
-                            <img alt="{{ photo.source }}" src="{{ asset('img/'~ photo.source) }}" />
+                            <img alt="{{ photo.source }}" src="{{ asset('uploads/photos/'~ photo.source) }}" />
                             <figcaption class="text-on-figure-bottom half-black-background row remove-margin">
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') and (photo.user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
                                     {#//jesli jestes zalogowany i.. to jesteś ty#}
                                     <div class="col-xs-6 remove-padding">
                                         <div class="buttons remove-padding">
                                             <a href="{{ url('photo_edit', {'id':photo.id}) }}" title="{{ 'edit'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-primary btn-xs">
-                                                <i class="glyphicon glyphicon-cog"></i>
+                                                <i class="fa fa-edit"></i>
                                                 {{ 'edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="buttons remove-padding">
                                             <a href="{{ url('photo_delete', {'id':photo.id}) }}" title="{{ 'delete'|trans }} {{ 'photo'|trans }} {{ photo.id }}" class="btn btn-danger btn-xs">
-                                                <i class="glyphicon glyphicon-trash"></i>
+                                                <i class="fa fa-trash"></i>
                                                 {{ 'delete'|trans }}
                                             </a>
                                         </div>

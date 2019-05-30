@@ -28,7 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  *
- * @UniqueEntity(fields={"email", "login"})
+ * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"login"})
  */
 class User implements UserInterface
 {

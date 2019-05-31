@@ -232,7 +232,9 @@ class PhotoController extends AbstractController
      */
     public function edit(Request $request, Photo $photo, PhotoRepository $repository, FileUploader $uploadService): Response
     {
-        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
+//        dump($uploadService->getTargetDir());
+//        dump($photo);
+//        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
         $form = $this->createForm(PhotoType::class, $photo, ['method' => 'put']);
         $form->handleRequest($request);
 

@@ -236,10 +236,6 @@
                  <source>label.go_to_gallery</source>
                  <target>idź do galerii </target>
             </trans-unit>
-            <trans-unit id="s_gallery">
-                <source>s_gallery</source>
-                <target></target>
-            </trans-unit>
 
             <trans-unit id="label.bac">
                 <source>label.back</source>

@@ -18,7 +18,8 @@ Do wyjasnienia:
 #jak w edycji użytkownika wziąć Userdata dobrego formatu (żeby obecne dane były na wejściu)? (przekazanie przez parametr/ $userdata = $repository_data->findByUser($user->getId()); nie działa)
 
 
-queryBuilder->join w Repository -> jak sortować po ilości like-ów?
+queryBuilder->join w Repository -> jak sortować po ilości like-ów, żeby łączyły się one ze zdjęciami a nie były poza?
+jak poprawnie zrobić wyszukiwarkę do wpisywania tagów/nazwy użytkownika, żeby jej nie łączyć z żadną encją?
 
 Vouchers -> admin/autor - jak prościej niż:         if($this->getUser()->getId() ==$photo->getUser()->getId() or $this->isGranted('ROLE_ADMIN'))
 

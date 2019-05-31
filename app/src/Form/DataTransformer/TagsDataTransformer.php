@@ -50,7 +50,7 @@ class TagsDataTransformer implements DataTransformerInterface
             $tagNames[] = $tag->getName();
         }
 
-        return implode(',', $tagNames);
+        return implode(', ', $tagNames);
     }
 
     /**
@@ -65,7 +65,7 @@ class TagsDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value): array
     {
-        $tagNames = explode(',', $value);
+        $tagNames = explode(', ', $value);
 
         $tags = [];
 

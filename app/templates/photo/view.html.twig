@@ -8,7 +8,7 @@
 {% block content %}
     {% if photo is defined and photo|length %}
         <article class="center-blok container">
-                 <img src="{{ asset('img/' ~ photo.source) }}" alt="{{ photo.source }}">
+                 <img src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
                 <div class="flex-container">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
                         <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
@@ -55,7 +55,7 @@
                     <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
                     <p>{{ 'tags'|trans }}:
                         {% for tag in photo.tags %}
-                            <a href="">{{ tag.name }}</a>
+                            <a href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
                         {% endfor %}
                     </p>
                 </div>

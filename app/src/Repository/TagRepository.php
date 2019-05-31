@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,6 +20,29 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    /**
+     * Query all records LIMIT 30.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAll(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->orderBy('t.name')
+            ->setMaxResults(30)
+            ;
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?: $this->createQueryBuilder('t');
+    }
     /**
      * Save record.
      *

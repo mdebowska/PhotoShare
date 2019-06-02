@@ -1,25 +1,23 @@
 <nav class="flex-container">
-        <div class="">
             <a href="{{ url('home_index') }}" title="PhotoShow">
-                <h1 class="logo margin-15">PhotoShare</h1>
+                <h1 class="logo">PhotoShare</h1>
             </a>
-        </div>
-                    <a class="btn" href="{{ url('search_index') }}" title="{{ 'search.label'|trans }}">
+                    <a href="{{ url('search_index') }}" title="{{ 'search.label'|trans }}">
                         {{ 'search.label'|trans }}
                         <i class="fa fa-search"></i>
                     </a>
                     <form action='' method='POST'>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a class="btnt" href="{{ url('security_logout') }}" title="{{ 'auth.logout.label'|trans }}">
+                            <a href="{{ url('security_logout') }}" title="{{ 'auth.logout.label'|trans }}">
                                 {{ 'auth.logout.label'|trans }}
                                 <i class="glyphicon glyphicon-log-out"></i>
                             </a>
                         {% else %}
-                            <a class="btn" href="{{ url('security_login') }}" title="{{ 'auth.login.label'|trans }}">
+                            <a href="{{ url('security_login') }}" title="{{ 'auth.login.label'|trans }}">
                                 {{ 'auth.login.label'|trans }}
                                 <i class="glyphicon glyphicon-log-in"></i>
                             </a>
-                            <a class="btn" href="{{ url('user_new') }}" title="{{ 'user.new.label'|trans }}">
+                            <a href="{{ url('user_new') }}" title="{{ 'user.new.label'|trans }}">
                                 {{ 'user.new.label'|trans }}
                                 <i class="fa fa-user"></i>
                             </a>

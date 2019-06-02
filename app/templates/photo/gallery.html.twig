@@ -1,13 +1,13 @@
 {% block gallery %}
-<h1>{{ 'title.photo_list'|trans }}</h1>
+<h4 class="text-center">{{ 'title.photo_list'|trans }}</h4>
 <div class="center-block col-md-12">
     {% if pagination is defined and pagination|length %}
 
-        <div>
+        <div class="nav-gallery">
             {{ knp_pagination_render(pagination) }}
 
-                <button>{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</button>
-                <button>{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likerates') }}</button>
+                <button class="btn btn-default">{{ knp_pagination_sortable(pagination, 'label.publication_date'|trans, 'p.publication_date') }}</button>
+                <button class="btn btn-default">{{ knp_pagination_sortable(pagination, 'label.likes'|trans, 'p.likerates') }}</button>
         </div>
         <div class="flex-container">
             {% for photo in pagination %}

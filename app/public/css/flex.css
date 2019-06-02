@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    /*flex-wrap: wrap;*/
+    flex-wrap: wrap;
+
 }
 .flex-container .photo img{
-    height: 200px!important;
+    height: 20rem;
     width: auto!important;
 }

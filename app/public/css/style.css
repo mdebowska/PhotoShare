@@ -203,10 +203,6 @@ img{
     /*width:100%;*/
 }
 
-img#view{
-    margin: 15px 0;
-}
-
 figure.text-on-figure-bottom{
     position: relative;
 }

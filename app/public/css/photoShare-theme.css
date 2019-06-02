@@ -1,0 +1,89 @@
+:root {
+    /*
+        Colors
+    */
+    /*
+        main-font - white
+        first - dark grey
+        second - yellow
+        third - purple
+    */
+    --main-font-color: #424242;
+    --main-background-color: #FFFEFF;
+    --first-color: #dfbd99;
+    --first-darker-color: #b49e88;
+    --second-color: #424242;
+    --third-color: #7c2f6a;
+
+
+}
+
+body{
+    color: var(--main-font-color);
+    background-color: var(--main-background-color);
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: var(--first-color);
+}
+
+a:hover {
+    filter: brightness(0.85);
+}
+
+
+/*BODYHEADER*/
+.logo{
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav.flex-container a, nav.flex-container h1{
+    margin: 0;
+    padding: 0.1em;
+}
+
+header.main{
+    background-color: var(--second-color);
+}
+
+
+
+/*INDEX HOME*/
+
+
+
+
+.btn-default{
+    background-color: var(--first-color);
+}
+
+.btn-default a, .btn-default a:hover{
+    color: var(--second-color);
+}
+
+.nav-gallery {
+    margin: 1rem;
+}
+
+.page-link, .page-item.disabled .page-link, .page-item.active .page-link{
+    background-color: var(--first-color);
+    color: var(--second-color);
+    border-color: var(--first-darker-color);
+}
+.page-item.disabled .page-link{
+    background-color: var(--first-darker-color);
+    color: var(--main-font-color);
+}
+.page-item.active .page-link, .btn{
+    background-color: var(--second-color);
+    color: var(--first-color);
+}
+
+
+
+/*VIEW PHOTO*/
+
+img#view{
+    height: calc(100vh - 100px);
+}

@@ -7,8 +7,10 @@
 
 {% block content %}
     {% if photo is defined and photo|length %}
+       <figure class="text-center">
+                 <img id="view" src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
+       </figure>
         <article class="center-blok container">
-                 <img src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
                 <div class="flex-container">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
                         <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
@@ -24,7 +26,8 @@
             <div>
 
                 <p>
-                    {{ photo.description|default('title') }}
+                    {{ 'label.description'|trans }}
+                    {{ photo.description }}
                 </p>
                 <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
                     {{ 'label.author'|trans }} {{ photo.user.login }}
@@ -33,6 +36,7 @@
                      {{ photo.cameraSpecification }}</p>
                 <div id="like">
                     {{ 'label.like'|trans }}
+                    <i class="material-icons">thumb_up</i>
                     {% if likes is defined and likes > 0 %}
                         {{ likes }}
                     {% endif %}
@@ -46,6 +50,7 @@
                         {#},#}
                     {#} %}#}
                     {#{% if photo.likes %}#}
+
                     {% if userHaveLiked == false %}
                     <div>
                         {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
@@ -56,11 +61,13 @@
                     {% endif %}
                 </div>
                     <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
+    {% if photo.tags|length %}
                     <p>{{ 'tags'|trans }}:
                         {% for tag in photo.tags %}
                             <a href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
                         {% endfor %}
                     </p>
+        {% endif %}
                 </div>
                         {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                         {#Jesli zalogowany to moze komentowac#}

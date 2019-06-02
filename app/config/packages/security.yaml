@@ -50,4 +50,5 @@ security:
         - { path: ^/user/new, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/, roles: ROLE_USER}
+        - { path: ^/.*/edit, roles: ROLE_USER}
+        - { path: ^/.*/delete, roles: ROLE_USER}

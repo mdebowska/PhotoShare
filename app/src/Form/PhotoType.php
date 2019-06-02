@@ -78,14 +78,17 @@ class PhotoType extends AbstractType
                 ],
             ]
         );
-        $builder->add(
-            'source',
-            FileType::class,
-            [
-                'label' => 'label.source',
-                'required' => true,
-            ]
-        );
+
+        if (($options['data']->getSource())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
+            $builder->add(
+                'source',
+                FileType::class,
+                [
+                    'label' => 'label.source',
+                    'required' => true
+                ]
+            );
+        }
 
         $builder->get('tags')->addModelTransformer(
             $this->tagsDataTransformer

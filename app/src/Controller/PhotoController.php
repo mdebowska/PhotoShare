@@ -18,6 +18,7 @@ use App\Service\FileUploader;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,7 +62,6 @@ class PhotoController extends AbstractController
             Photo::NUMBER_OF_ITEMS
         );
 
-        //dump($pagination);
         return $this->render(
             'photo/index.html.twig',
             ['pagination' => $pagination]
@@ -87,17 +87,19 @@ class PhotoController extends AbstractController
      */
     public function view(Request $request, Photo $photo, LikerateRepository $likeRepository, CommentRepository $commentRepository): Response
     {
-//        dump($photo);
-//        $likeRepository->countByPhoto($photo->getId());
-//        $likeRepository = 126;
 
         $like = new Likerate();
         $form_like = $this->createForm(FormType::class, $like);
         $form_like->handleRequest($request);
 //
-        if ($form_like->isSubmitted() && $form_like->isValid()) {
+        if ($this->getUser()){
+            $userHaveLiked = $likeRepository->CheckIfUserLikedPhoto($this->getUser()->getId(), $photo->getId());
+        }else{
+            $userHaveLiked = true; //dla anonima
+        }
 
-            dump('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+        if ($form_like->isSubmitted() && $form_like->isValid()) {
             $like->setPhoto($photo);
             $like->setUser($this->getUser());
 
@@ -125,14 +127,16 @@ class PhotoController extends AbstractController
 
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
-//        dump($photo);
+
 
         return $this->render(
             'photo/view.html.twig',
             ['photo' => $photo,
                 'likes' => $likeRepository->countByPhoto($photo->getId()),
                 'form_like' => $form_like->createView(),
-                'form_comment' => $form_comment->createView()]
+                'form_comment' => $form_comment->createView(),
+                'userHaveLiked'=> $userHaveLiked
+            ]
         );
     }
 
@@ -155,13 +159,14 @@ class PhotoController extends AbstractController
     public function tag(Request $request, Tag $tag, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
 
+
         $pagination = $paginator->paginate(
             $repository->findByTag($tag),
             $request->query->getInt('page', 1),
             Photo::NUMBER_OF_ITEMS
         );
 
-        //dump($pagination);
+
         return $this->render(
             'photo/tag.html.twig',
             ['pagination' => $pagination,
@@ -232,13 +237,25 @@ class PhotoController extends AbstractController
      */
     public function edit(Request $request, Photo $photo, PhotoRepository $repository, FileUploader $uploadService): Response
     {
+
+        if ($photo->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_photo');
+
+            return $this->redirectToRoute('home_index');
+        }
 //        dump($uploadService->getTargetDir());
-//        dump($photo);
 //        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
         $form = $this->createForm(PhotoType::class, $photo, ['method' => 'put']);
         $form->handleRequest($request);
 
+        $formData = $form->getData();
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //???????? on ma pobrać ścieżkę, czy plik?
+            $originalPhoto = clone $photo;
+            $filePath = $originalPhoto->getSource();
+            $photo->setSource($filePath);
 
             $repository->save($photo);
 
@@ -276,15 +293,11 @@ class PhotoController extends AbstractController
      */
     public function delete(Request $request, Photo $photo, PhotoRepository $repository): Response
     {
-//        if ($photo->getTasks()->count()) {
-//            $this->addFlash('warning', 'message.photo_contains_tasks');
-//
-//            return $this->redirectToRoute('photo_index');
-//        }
 
-        if($this->getUser()->getId() ==$photo->getUser()->getId() or $this->isGranted('ROLE_ADMIN')){
-            //jeśli autor lub admin
-//            dump($this->getUser());
+        if ($photo->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_photo');
+
+            return $this->redirectToRoute('home_index');
         }
 
         $form = $this->createForm(FormType::class, $photo, ['method' => 'DELETE']);

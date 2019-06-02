@@ -45,12 +45,15 @@
                             {#action: url('photo_view', {'id': photo.id}),#}
                         {#},#}
                     {#} %}#}
+                    {#{% if photo.likes %}#}
+                    {% if userHaveLiked == false %}
                     <div>
                         {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
                         {{ form_widget(form_like) }}
                         <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
                         {{ form_end(form_like) }}
                     </div>
+                    {% endif %}
                 </div>
                     <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
                     <p>{{ 'tags'|trans }}:

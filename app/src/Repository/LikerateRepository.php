@@ -35,6 +35,21 @@ class LikerateRepository extends ServiceEntityRepository
         $this->_em->persist($like);
         $this->_em->flush($like);
     }
+
+    public function CheckIfUserLikedPhoto($user_id, $photo_id){
+        $result = $this->createQueryBuilder('l')
+            ->andWhere('l.user = :valu')
+            ->setParameter('valu', $user_id)
+            ->andWhere('l.photo = :val')
+            ->setParameter('val', $photo_id)
+            ->getQuery()
+            ->getResult()
+            ;
+        if ($result==[]){
+            return false;
+        }
+        return true;
+    }
     // /**
     //  * @return Likerate[] Returns an array of Likerate objects
     //  */

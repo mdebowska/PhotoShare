@@ -62,7 +62,6 @@ class Photo
      *     unique=true,
      * )
      *
-     * @Assert\NotBlank
      * @Assert\Image(
      *     maxSize = "1024k",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},

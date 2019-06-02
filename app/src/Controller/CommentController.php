@@ -8,8 +8,6 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
-use App\Repository\LikeRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +43,11 @@ class CommentController extends AbstractController
      */
     public function edit(Request $request, Comment $comment, CommentRepository $repository): Response
     {
+        if ($comment->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_comment');
+
+            return $this->redirectToRoute('home_index');
+        }
         $form = $this->createForm(CommentType::class, $comment, ['method' => 'put']);
         $form->handleRequest($request);
 
@@ -86,15 +89,12 @@ class CommentController extends AbstractController
      */
     public function delete(Request $request, Comment $comment, CommentRepository $repository): Response
     {
-//        if ($comment->getTasks()->count()) {
-//            $this->addFlash('warning', 'message.comment_contains_tasks');
-//
-//            return $this->redirectToRoute('comment_index');
-//        }
-        if($this->getUser()->getId() == $comment->getUser()->getId() or $this->isGranted('ROLE_ADMIN')){
-            //jeśli autor lub admin
-            dump($this->getUser());
+        if ($comment->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_comment');
+
+            return $this->redirectToRoute('home_index');
         }
+
         $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

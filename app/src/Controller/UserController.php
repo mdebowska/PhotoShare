@@ -163,6 +163,12 @@ class UserController extends AbstractController
     {
         /* 3 formularze */
 
+        if ($user != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_profile');
+
+            return $this->redirectToRoute('home_index');
+        }
+
         $userdata = $repository_data->findOneByUser($user->getId());
 
 //        $userdata = new Userdata();
@@ -235,11 +241,11 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user, UserRepository $repository): Response
     {
-//        if ($user->getTasks()->count()) {
-//            $this->addFlash('warning', 'message.user_contains_tasks');
-//
-//            return $this->redirectToRoute('user_index');
-//        }
+        if ($user != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+            $this->addFlash('warning', 'message.it_is_not_your_profile');
+
+            return $this->redirectToRoute('home_index');
+        }
 
         $form = $this->createForm(FormType::class, $user, ['method' => 'DELETE']);
         $form->handleRequest($request);

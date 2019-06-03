@@ -29,11 +29,11 @@
                         </h2>
                     </header>
                 {% for tag in tags %}
-                    <a href="{{ url('photo_tag', {'id':tag.id}) }}"  class="btn btn-primary">
-                    <div>
+                <button class="btn btn-default">
+                    <a href="{{ url('photo_tag', {'id':tag.id}) }}">
                         {{ tag.name }}
-                    </div>
                     </a>
+                </button>
                 {% endfor %}
             </article>
         </main>

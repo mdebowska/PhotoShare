@@ -10,64 +10,64 @@
        <figure class="text-center">
                  <img id="view" src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
        </figure>
-        <article class="center-blok container">
-                <div class="flex-container">
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
-                            <i class="fa fa-edit"></i>
-                            {{ 'edit'|trans }}
-                        </a>
-                        <a href="{{ url('photo_delete', {'id':photo.id}) }}" class="btn btn-danger btn-xs">
-                            <i class="fa fa-trash"></i>
-                            {{ 'delete'|trans }}
-                        </a>
-                        {% endif %}
-                </div>
-            <div>
+        <div class="flex-container crud container">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
+                <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
+                    <i class="fa fa-edit"></i>
+                    {{ 'edit'|trans }}
+                </a>
+                <a href="{{ url('photo_delete', {'id':photo.id}) }}" class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash"></i>
+                    {{ 'delete'|trans }}
+                </a>
+            {% endif %}
+        </div>
+       <article class="center-blok container">
+           <div id="like">
+               {#{{ 'label.like'|trans }}#}
 
-                <p>
-                    {{ 'label.description'|trans }}
+               {% if userHaveLiked == false %}
+                   <div>
+                       {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
+                       {{ form_widget(form_like) }}
+                       {#<input type="submit" value="&lt;i class='material-icons enabled'&gt;thumb_up&lt;i/&gt;" class="btn btn-success" />#}
+                       <button type="submit" class="like">
+                           <i class="material-icons enabled">thumb_up</i>
+                       </button>
+                       {{ form_end(form_like) }}
+                   </div>
+               {% else %}
+                   <i class="material-icons disabled">thumb_up</i>
+               {% endif %}
+               {% if likes is defined and likes >= 0 %}
+                   <span>{{ likes }}</span>
+               {% endif %}
+           </div>
+            <div>
+                <p id="photo-description">
+                    {#{{ 'label.description'|trans }}#}
                     {{ photo.description }}
                 </p>
                 <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
-                    {{ 'label.author'|trans }} {{ photo.user.login }}
+                    <i class="fa fa-user"></i>
+                    {#{{ 'label.author'|trans }}#}
+                    {{ photo.user.login }}
                 </a>
-                 <p>{{ 'label.camera_specyfication'|trans }}
-                     {{ photo.cameraSpecification }}</p>
-                <div id="like">
-                    {{ 'label.like'|trans }}
-                    <i class="material-icons">thumb_up</i>
-                    {% if likes is defined and likes > 0 %}
-                        {{ likes }}
-                    {% endif %}
-                    {#{% include 'default/_form.html.twig' with {#}
-                        {#form: form_like,#}
-                        {#page_title: '',#}
-                        {#page_title_param: {'%id%': photo.id},#}
-                        {#attr: {#}
-                            {#method: 'PUT',#}
-                            {#action: url('photo_view', {'id': photo.id}),#}
-                        {#},#}
-                    {#} %}#}
-                    {#{% if photo.likes %}#}
-
-                    {% if userHaveLiked == false %}
-                    <div>
-                        {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
-                        {{ form_widget(form_like) }}
-                        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
-                        {{ form_end(form_like) }}
-                    </div>
-                    {% endif %}
-                </div>
-                    <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
-    {% if photo.tags|length %}
+                <hr>
+                <p><i class="fa fa-camera"></i>
+                    {#{{ 'label.camera_specyfication'|trans }}#}
+                     {{ photo.cameraSpecification }}
+                 </p>
+                <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
+                {% if photo.tags|length %}
                     <p>{{ 'tags'|trans }}:
                         {% for tag in photo.tags %}
-                            <a href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
+                            <button class="btn btn-default">
+                                <a href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
+                            </button>
                         {% endfor %}
                     </p>
-        {% endif %}
+                {% endif %}
                 </div>
                         {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                         {#Jesli zalogowany to moze komentowac#}
@@ -84,25 +84,26 @@
                             {% for comment in photo.comments %}
                                 <li>
                                     <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 comment">
-                                        <div>
-                                            <p>{{ comment.user.login}}</p>
-                                            By: <a href="{{  url('user_view', {'id':comment.user.id}) }}" class="">{{ comment.user.login }}</a>
+                                        <div class="flex-container">
+                                            <p>By: <a href="{{  url('user_view', {'id':comment.user.id}) }}" class="">{{ comment.user.login }}</a></p>
                                             <p>{{ comment.publicationDate|localizeddate}}</p>
                                         </div>
                                         <div class="col-md-8">
                                             <p>{{ comment.text }}</p>
                                         </div>
-                                        {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==comment.user.id %}
-                                            <a href="{{ url('comment_edit', {'id':comment.id}) }}" class="btn btn-primary btn-xs last-row-item">
+                                     </div>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==comment.user.id %}
+                                        <div class="">
+                                            <a href="{{ url('comment_edit', {'id':comment.id}) }}" class="btn btn-primary">
                                                 <i class="fa fa-edit"></i>
                                                 {{ 'edit'|trans }}
                                             </a>
-                                            <a href="{{ url('comment_delete', {'id':comment.id}) }}" class="btn btn-danger btn-xs last-row-item">
+                                            <a href="{{ url('comment_delete', {'id':comment.id}) }}" class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                                 {{ 'delete'|trans }}
                                             </a>
-                                        {% endif %}
-                                     </div>
+                                        </div>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>

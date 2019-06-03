@@ -21,6 +21,11 @@
 body{
     color: var(--main-font-color);
     background-color: var(--main-background-color);
+    font-family: "Helvetica Neue", HelveticaNeue, Helvetica, TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arial, sans-serif;
+}
+
+ul li{
+    list-style: none;
 }
 
 a, a:hover {
@@ -54,7 +59,7 @@ header.main{
 
 
 
-.btn-default{
+button .btn-default{
     background-color: var(--first-color);
 }
 
@@ -66,16 +71,16 @@ header.main{
     margin: 1rem;
 }
 
-.page-link, .page-item.disabled .page-link, .page-item.active .page-link{
+li .page-link,li.page-item.disabled .page-link, li.page-item.active .page-link{
     background-color: var(--first-color);
     color: var(--second-color);
     border-color: var(--first-darker-color);
 }
-.page-item.disabled .page-link{
+li.page-item.disabled .page-link{
     background-color: var(--first-darker-color);
     color: var(--main-font-color);
 }
-.page-item.active .page-link, .btn{
+li.page-item.active .page-link, li .btn{
     background-color: var(--second-color);
     color: var(--first-color);
 }
@@ -86,4 +91,28 @@ header.main{
 
 img#view{
     height: calc(100vh - 100px);
+}
+
+#like{
+    display: flex;
+    align-items: center;
+}
+
+#photo-description{
+    font-size: 2rem;
+}
+
+button.like{
+    background-color: initial;
+    border: 0!important;
+    cursor: pointer;
+}
+button:focus {
+    outline: 0;
+}
+button i{
+    color: var(--first-color);
+}
+button:hover i{
+    color: var(--first-darker-color);
 }

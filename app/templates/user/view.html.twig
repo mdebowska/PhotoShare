@@ -14,8 +14,8 @@
         <div>
             {% if user|length %}
             <article class="center-blok container">
-                <div class="row">
-                    <div class="col-xs-10">
+                <div class="flex-container">
+                    <div>
                         <p>
                             <span class="description"> {{ 'name'|trans }}:</span> {% if user.userdata.name|length %}{{ user.userdata.name }}{% endif %}
                         </p>
@@ -38,9 +38,7 @@
                                 </a>
                             </div>
                         </div>
-
                     {% endif %}
-                </div>
             </article>
         </div>
         <hr>
@@ -48,19 +46,14 @@
             {% block gallery %}
                 <div class="container">
                     <header>
-                        <div class="row">
-                            <div class="col-md-3">
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id==app.user.id %}
-                                    <a href="{{ url('photo_new') }}" class="btn btn-success btn-sm">
-                                        <i class="material-icons">&#xe2c3;</i>
-                                        {{ 'new'|trans }}
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <h2 class="text-center">{{ 'gallery'|trans }}</h2>
-                            </div>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') and user.id==app.user.id %}
+                        <div class="flex-container crud">
+                            <a href="{{ url('photo_new') }}" class="btn btn-success btn-sm">
+                                <i class="material-icons">&#xe2c3;</i>
+                                {{ 'new'|trans }}
+                            </a>
                         </div>
+                        {% endif %}
                     </header>
                 </div>
                 <article>

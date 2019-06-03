@@ -9,3 +9,11 @@
     height: 20rem;
     width: auto!important;
 }
+
+.flex-container.crud{
+    justify-content: flex-end;
+}
+
+.comment .flex-container{
+    justify-content: space-between;
+}

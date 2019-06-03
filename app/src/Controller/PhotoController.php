@@ -105,7 +105,7 @@ class PhotoController extends AbstractController
 
             $likeRepository->save($like);
 
-            $this->addFlash('success', 'message.liked_successfully');
+//            $this->addFlash('success', 'message.liked_successfully');
 
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }

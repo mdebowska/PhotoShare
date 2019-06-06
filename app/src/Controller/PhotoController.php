@@ -243,21 +243,28 @@ class PhotoController extends AbstractController
 
             return $this->redirectToRoute('home_index');
         }
+
+//        $originalPhoto = clone $photo;
+
 //        dump($uploadService->getTargetDir());
 //        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
         $form = $this->createForm(PhotoType::class, $photo, ['method' => 'put']);
         $form->handleRequest($request);
 
-        $formData = $form->getData();
+//        $formData = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //???????? on ma pobrać ścieżkę, czy plik?
-            $originalPhoto = clone $photo;
-            $filePath = $originalPhoto->getSource();
-            $photo->setSource($filePath);
+//            dump($photo);
+//            dump($originalPhoto);
+//            die();
 
-            $repository->save($photo);
+//            //???????? on ma pobrać ścieżkę, czy plik?
+//            $originalPhoto = clone $photo;
+//            $filePath = $originalPhoto->getSource();
+//            $photo->setSource($filePath);
+//
+//            $repository->save($photo);
 
             $this->addFlash('success', 'message.updated_successfully');
 

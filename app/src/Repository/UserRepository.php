@@ -86,6 +86,28 @@ class UserRepository extends ServiceEntityRepository
         $this->_em->remove($user);
         $this->_em->flush($user);
     }
+
+
+    /**
+     * @return User[] Returns an array of Photo objects
+     */
+
+    public function findBySearchValue($value)
+    {
+        return $this->queryAll()
+            ->where('u.login LIKE :val')
+            ->setParameter('val', '%'.$value.'%');
+
+//        return $this->queryAll()
+//            ->innerJoin('p.tags', 't')
+//            ->where('p.description = :val')
+//            ->setParameter('val', '%'.$value.'%');
+
+//            ->addSelect('p')
+//            ->select('p.id', 'p.description', 'p.description', 'p.camera_specyfication');
+    }
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

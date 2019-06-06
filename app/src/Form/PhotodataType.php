@@ -1,6 +1,6 @@
 <?php
 /**
- * Photo type.
+ * Photodata type.
  */
 
 namespace App\Form;
@@ -10,7 +10,6 @@ use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class PhotoType.
  */
-class PhotoType extends AbstractType
+class PhotodataType extends AbstractType
 {
     /**
      * Tags data transformer.
@@ -49,48 +48,35 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-//        $builder->add(
-//            'description',
-//            TextType::class,
-//            [
-//                'label' => 'label.description',
-//                'required' => false,
-//                'attr' => ['max_length' => 255],
-//            ]
-//        );
-//        $builder->add(
-//            'camera_specification',
-//            TextType::class,
-//            [
-//                'label' => 'label.camera_specification',
-//                'required' => false,
-//                'attr' => ['max_length' => 225],
-//            ]
-//        );
-//        $builder->add(
-//            'tags',
-//            TextType::class,
-//            [
-//                'label' => 'label.tags',
-//                'required' => false,
-//                'attr' => [
-//                    'max_length' => 255,
-//                ],
-//            ]
-//        );
-
-//        if (($options['data']->getSource())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
-            $builder->add(
-                'source',
-                FileType::class,
-                [
-                    'label' => 'label.source',
-                    'required' => true,
-//                    'data_class' => null,
-//                    'mapped' => false
-                ]
-            );
-//        }
+        $builder->add(
+            'description',
+            TextType::class,
+            [
+                'label' => 'label.description',
+                'required' => false,
+                'attr' => ['max_length' => 255],
+            ]
+        );
+        $builder->add(
+            'camera_specification',
+            TextType::class,
+            [
+                'label' => 'label.camera_specification',
+                'required' => false,
+                'attr' => ['max_length' => 225],
+            ]
+        );
+        $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label.tags',
+                'required' => false,
+                'attr' => [
+                    'max_length' => 255,
+                ],
+            ]
+        );
 
         $builder->get('tags')->addModelTransformer(
             $this->tagsDataTransformer
@@ -104,7 +90,7 @@ class PhotoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Photo::class]);
+        $resolver->setDefaults(['data_class' => Photodata::class]);
     }
 
     /**
@@ -117,6 +103,6 @@ class PhotoType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'photo';
+        return 'photodata';
     }
 }

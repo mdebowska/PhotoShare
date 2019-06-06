@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    PhotoShare - Homepage
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <main>
+            <article>
+                <header>
+                    <h2 class="text-center">
+                    </h2>
+                </header>
+                {% for photo in photos %}
+                        <a href="{{ url('photo_view', {'id':photo.id}) }}">
+                            {{ photo.description }}
+                        </a>
+                {% endfor %}
+
+                {% for user in users %}
+                    <a href="{{ url('user_view', {'id':user.id}) }}">
+                        {{ user.login }}
+                    </a>
+                {% endfor %}
+
+            </article>
+        </main>
+    {% endblock %}
+{% endblock %}

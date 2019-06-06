@@ -38,6 +38,28 @@ class PhotoRepository extends ServiceEntityRepository
 //            ->where('l.photo= p.id')
     ;}
 
+
+//    /**
+//     * Query all records.
+//     *
+//     * @return \Doctrine\ORM\QueryBuilder Query builder
+//     */
+//    public function queryAll(): QueryBuilder
+//    {
+//        return $this->getOrCreateQueryBuilder()//join likes
+//        /* SELECT photo.description, COUNT(likerate.id) AS likes FROM photo inner join likerate ON (likerate.photo_id = photo.id) Group by likerate.photo_id; */
+//
+//        ->innerJoin('p.likerates', 'l')
+////            ->addSelect('p')
+//            ->select("p.id, p.source, p.description, COUNT(l.id) AS likes")
+//            ->addGroupBy('l.photo')
+//            ->orderBy('p.publication_date', 'DESC')
+////            ->where('l.photo= p.id')
+//            ;}
+//
+
+
+
     /**
      * Get or create new query builder.
      *
@@ -90,6 +112,27 @@ class PhotoRepository extends ServiceEntityRepository
             ->innerJoin('p.tags', 't')
             ->where('t = :val')
             ->setParameter('val', $tag);
+
+//            ->addSelect('p')
+//            ->select('p.id', 'p.description', 'p.description', 'p.camera_specyfication');
+    }
+
+
+    /**
+    * @return Photo[] Returns an array of Photo objects
+    */
+
+    public function findBySearchValue($value)
+    {
+        return $this->queryAll()
+            ->innerJoin('p.tags', 't')
+            ->where('t.name LIKE :val')
+            ->setParameter('val', '%'.$value.'%');
+
+//        return $this->queryAll()
+//            ->innerJoin('p.tags', 't')
+//            ->where('p.description = :val')
+//            ->setParameter('val', '%'.$value.'%');
 
 //            ->addSelect('p')
 //            ->select('p.id', 'p.description', 'p.description', 'p.camera_specyfication');

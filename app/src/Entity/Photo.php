@@ -13,18 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Photo.
  *
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
- * @ORM\Table(
- *     name="photo",
- *     uniqueConstraints={
- *          @ORM\UniqueConstraint(
- *              columns={"source"},
- *          ),
- *     },
- * )
  *
- * @UniqueEntity(
- *     fields={"source"}
- * )
+
  */
 class Photo
 {
@@ -52,22 +42,7 @@ class Photo
      */
     private $id;
 
-    /**
-     * Source.
-     *
-     * @ORM\Column(
-     *     type="string",
-     *     length=255,
-     *     nullable=false,
-     *     unique=true,
-     * )
-     *
-     * @Assert\Image(
-     *     maxSize = "1024k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
-     * )
-     */
-    private $source;
+
 
     /**
      * Publication Date.
@@ -138,6 +113,12 @@ class Photo
      */
     private $tags;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\File", inversedBy="photo", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $file;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -155,25 +136,6 @@ class Photo
         return $this->id;
     }
 
-    /**
-     * Getter for the Source.
-     *
-     * @return string|null Result
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * Setter for Source.
-     *
-     * @param string $source Source
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
-    }
 
     /**
      * Getter for the Publication Date.
@@ -338,4 +300,24 @@ class Photo
 
         return $this;
     }
+
+    /**
+     * @return file|null
+     */
+    public function getFile(): ?file
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param file $file
+     * @return Photo
+     */
+    public function setFile(file $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
 }

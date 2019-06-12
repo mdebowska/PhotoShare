@@ -28,10 +28,10 @@ class PhotoRepository extends ServiceEntityRepository
      */
     public function queryAll(): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()//join likes
+        return $this->getOrCreateQueryBuilder()//join file
             /* SELECT photo.description, COUNT(likerate.id) AS likes FROM photo inner join likerate ON (likerate.photo_id = photo.id) Group by likerate.photo_id; */
-//            ->innerJoin('p.likerates', 'l')
-//            ->addSelect('p')
+            ->innerJoin('p.file', 'f')
+            ->addSelect('f')
 //            ->addSelect('COUNT(l.id) AS likes')
 //            ->addGroupBy('l.photo')
             ->orderBy('p.publication_date', 'DESC')

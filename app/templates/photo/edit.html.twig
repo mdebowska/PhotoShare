@@ -6,7 +6,7 @@
 
 {% block body %}
     <figure class="col-md-3">
-        <img src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
+        <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
     </figure>
 {% include 'default/_form.html.twig' with {
     page_title: 'title.photo_edit',

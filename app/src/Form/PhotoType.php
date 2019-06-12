@@ -49,47 +49,60 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-//        $builder->add(
-//            'description',
-//            TextType::class,
-//            [
-//                'label' => 'label.description',
-//                'required' => false,
-//                'attr' => ['max_length' => 255],
-//            ]
-//        );
-//        $builder->add(
-//            'camera_specification',
-//            TextType::class,
-//            [
-//                'label' => 'label.camera_specification',
-//                'required' => false,
-//                'attr' => ['max_length' => 225],
-//            ]
-//        );
-//        $builder->add(
-//            'tags',
-//            TextType::class,
-//            [
-//                'label' => 'label.tags',
-//                'required' => false,
-//                'attr' => [
-//                    'max_length' => 255,
-//                ],
-//            ]
-//        );
+        $builder->add(
+            'description',
+            TextType::class,
+            [
+                'label' => 'label.description',
+                'required' => false,
+                'attr' => ['max_length' => 255],
+            ]
+        );
+        $builder->add(
+            'camera_specification',
+            TextType::class,
+            [
+                'label' => 'label.camera_specification',
+                'required' => false,
+                'attr' => ['max_length' => 225],
+            ]
+        );
+        $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label.tags',
+                'required' => false,
+                'attr' => [
+                    'max_length' => 255,
+                ],
+            ]
+        );
 
-//        if (($options['data']->getSource())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
+        if (($options['data']->getId())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
             $builder->add(
                 'source',
                 FileType::class,
                 [
                     'label' => 'label.source',
-                    'required' => true,
-//                    'data_class' => null,
-//                    'mapped' => false
+                    'required' => false,
+                    'data_class' => null,
+                    'mapped' => false
                 ]
             );
+        }
+
+//        if (($options['data']->getSource())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
+//            $builder->add(
+//                'source',
+//                FileType::class,
+//                [
+//                    'label' => 'label.source',
+//                    'required' => false,
+////                    'data_class' => null,
+////                    'mapped' => false
+//                ]
+//            );
 //        }
 
         $builder->get('tags')->addModelTransformer(

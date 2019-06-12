@@ -12,6 +12,7 @@ use App\Entity\Tag;
 use App\Form\CommentType;
 use App\Form\PhotoType;
 use App\Repository\CommentRepository;
+use App\Repository\FileRepository;
 use App\Repository\LikerateRepository;
 use App\Repository\PhotoRepository;
 use App\Service\FileUploader;
@@ -190,9 +191,10 @@ class PhotoController extends AbstractController
      *     name="photo_new",
      * )
      */
-    public function new(Request $request, PhotoRepository $repository): Response
+    public function new(Request $request, PhotoRepository $repository, FileRepository $fileRepository): Response
     {
         $photo = new Photo();
+        $file = new \App\Entity\File();
         $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
@@ -203,11 +205,15 @@ class PhotoController extends AbstractController
 
 //            $this->uploaderService->upload($photo->getSource());
 
+            dump($photo->getSource());
+            $file->setSource($photo->getSource());//jak pobrać dobrą ścieżkę?
+            $fileRepository->save($file);
+            $photo->setFile($file);
             $repository->save($photo);
 
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('photo_index');
+//            return $this->redirectToRoute('photo_index');
         }
 
         return $this->render(
@@ -221,7 +227,6 @@ class PhotoController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Entity\Photo                      $photo   Photo entity
      * @param \App\Repository\PhotoRepository        $repository Photo repository
-     * @param \Symfony\Component\Security\Core\Encoder\PhotoPasswordEncoderInterface $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -264,7 +269,7 @@ class PhotoController extends AbstractController
 //            $filePath = $originalPhoto->getSource();
 //            $photo->setSource($filePath);
 //
-//            $repository->save($photo);
+            $repository->save($photo);
 
             $this->addFlash('success', 'message.updated_successfully');
 

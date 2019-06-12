@@ -8,7 +8,7 @@
 {% block content %}
     {% if photo is defined and photo|length %}
        <figure class="text-center">
-                 <img id="view" src="{{ asset('uploads/photos/' ~ photo.source) }}" alt="{{ photo.source }}">
+                 <img id="view" src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
        </figure>
         <div class="flex-container crud container">
             {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}

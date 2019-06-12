@@ -21,6 +21,4 @@ Do wyjasnienia:
 
 
 jak poprawnie zrobić wyszukiwarkę do wpisywania tagów/nazwy użytkownika, żeby jej nie łączyć z żadną encją?
-upload - edit photo nie działa -> wymaga pliku
-queryBuilder->join w Repository -> jak sortować po ilości like-ów, żeby łączyły się one ze zdjęciami a nie były poza?
-
+upload - zła ścieżka do File entity

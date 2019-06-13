@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190612220403 extends AbstractMigration
+final class Version20190613154807 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,10 +22,12 @@ final class Version20190612220403 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE file (id INT AUTO_INCREMENT NOT NULL, source VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE photo ADD file_id INT NOT NULL');
+        $this->addSql('CREATE TABLE file (id INT AUTO_INCREMENT NOT NULL, source VARCHAR(191) NOT NULL, UNIQUE INDEX UNIQ_8C9F36105F8A7F73 (source), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE photo ADD file_id INT NOT NULL, DROP source');
         $this->addSql('ALTER TABLE photo ADD CONSTRAINT FK_14B7841893CB796C FOREIGN KEY (file_id) REFERENCES file (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_14B7841893CB796C ON photo (file_id)');
+        $this->addSql('DROP INDEX email_idx ON users');
+        $this->addSql('CREATE UNIQUE INDEX email_idx ON users (email, login)');
     }
 
     public function down(Schema $schema) : void
@@ -36,6 +38,8 @@ final class Version20190612220403 extends AbstractMigration
         $this->addSql('ALTER TABLE photo DROP FOREIGN KEY FK_14B7841893CB796C');
         $this->addSql('DROP TABLE file');
         $this->addSql('DROP INDEX UNIQ_14B7841893CB796C ON photo');
-        $this->addSql('ALTER TABLE photo DROP file_id');
+        $this->addSql('ALTER TABLE photo ADD source VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci, DROP file_id');
+        $this->addSql('DROP INDEX email_idx ON users');
+        $this->addSql('CREATE UNIQUE INDEX email_idx ON users (email)');
     }
 }

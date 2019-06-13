@@ -33,7 +33,7 @@ class File
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191)
      * @Assert\NotBlank
      */
     private $source;
@@ -54,7 +54,7 @@ class File
     /**
      * @return string|null
      */
-    public function getSource(): ?string
+    public function getSource()
     {
         return $this->source;
     }
@@ -62,7 +62,7 @@ class File
     /**
      * @param string $source
      */
-    public function setSource(string $source): void
+    public function setSource($source): void
     {
         $this->source = $source;
     }

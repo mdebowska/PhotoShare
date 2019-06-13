@@ -193,22 +193,28 @@ class PhotoController extends AbstractController
      */
     public function new(Request $request, PhotoRepository $repository, FileRepository $fileRepository): Response
     {
-        $photo = new Photo();
+
+        /*1 podzielony formularz na 2*/
+
         $file = new \App\Entity\File();
-        $form = $this->createForm(PhotoType::class, $photo);
+        $form = $this->createForm(PhotoType::class);
+//        $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $photo = new Photo();
             $photo->setPublicationDate(new \DateTime());
             $photo->setUser($this->getUser());
 
 //            $this->uploaderService->upload($photo->getSource());
 
-            dump($photo);
-            $file->setSource($photo->getSource());//jak pobrać dobrą ścieżkę?
+            $file->setSource($form->get('source')->getData());//jak pobrać dobrą ścieżkę? albo zrobić upload pliku?
             $fileRepository->save($file);
+
             $photo->setFile($file);
+            $photo->setDescription($form->get('description')->getData());
+            $photo->setCameraSpecification($form->get('camera_specification')->getData());
             $repository->save($photo);
 
             $this->addFlash('success', 'message.created_successfully');
@@ -243,6 +249,8 @@ class PhotoController extends AbstractController
      */
     public function edit(Request $request, Photo $photo, PhotoRepository $repository, FileUploader $uploadService): Response
     {
+
+        /*1 podzielony formularz na 2*/
 
         if ($photo->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
             $this->addFlash('warning', 'message.it_is_not_your_photo');

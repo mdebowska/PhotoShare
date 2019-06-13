@@ -49,6 +49,22 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+//        $builder->add(
+//            'file',
+//            PhotoFileType::class,
+//            [
+//                'label' => 'label.image'
+//            ]);
+//        $builder->add(
+//            'photo_data',
+//            PhotodataType::class,
+//            [
+//                'label' => 'label.data'
+//            ]);
+
+
+
+
         $builder->add(
             'description',
             TextType::class,
@@ -79,31 +95,18 @@ class PhotoType extends AbstractType
             ]
         );
 
-        if (($options['data']->getId())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
+        if (isset($options['data'])==false){  //jeśli dodawanie to dodaj pole załączenia pliku
             $builder->add(
                 'source',
                 FileType::class,
                 [
                     'label' => 'label.source',
-                    'required' => false,
-                    'data_class' => null,
-                    'mapped' => false
+                    'required' => true,
+//                    'data_class' => null,
+//                    'mapped' => false
                 ]
             );
         }
-
-//        if (($options['data']->getSource())==''){  //jeśli dodawanie to dodaj pole załączenia pliku
-//            $builder->add(
-//                'source',
-//                FileType::class,
-//                [
-//                    'label' => 'label.source',
-//                    'required' => false,
-////                    'data_class' => null,
-////                    'mapped' => false
-//                ]
-//            );
-//        }
 
         $builder->get('tags')->addModelTransformer(
             $this->tagsDataTransformer
@@ -117,7 +120,12 @@ class PhotoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Photo::class]);
+        $resolver->setDefaults(
+            [
+//                'data_class' => Photo::class
+                'validation_groups' => ['full_photo']
+            ]
+        );
     }
 
     /**

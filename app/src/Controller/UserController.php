@@ -171,9 +171,6 @@ class UserController extends AbstractController
 
         $userdata = $repository_data->findOneByUser($user->getId());
 
-//        $userdata = new Userdata();
-//        $userdata->setUser($this->getUser());
-
         $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
         $form_email->handleRequest($request);
 

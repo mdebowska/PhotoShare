@@ -127,6 +127,7 @@ class PhotoRepository extends ServiceEntityRepository
         return $this->queryAll()
             ->innerJoin('p.tags', 't')
             ->where('t.name LIKE :val')
+            ->orWhere('p.description LIKE :val')
             ->setParameter('val', '%'.$value.'%');
 
 //        return $this->queryAll()

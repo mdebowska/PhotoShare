@@ -95,16 +95,11 @@ class UserRepository extends ServiceEntityRepository
     public function findBySearchValue($value)
     {
         return $this->queryAll()
+            ->innerJoin('u.userdata', 'ud')
             ->where('u.login LIKE :val')
+            ->orWhere('ud.name LIKE :val')
+            ->orWhere('ud.surname LIKE :val')
             ->setParameter('val', '%'.$value.'%');
-
-//        return $this->queryAll()
-//            ->innerJoin('p.tags', 't')
-//            ->where('p.description = :val')
-//            ->setParameter('val', '%'.$value.'%');
-
-//            ->addSelect('p')
-//            ->select('p.id', 'p.description', 'p.description', 'p.camera_specyfication');
     }
 
 

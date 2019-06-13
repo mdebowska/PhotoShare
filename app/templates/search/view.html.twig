@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    PhotoShare - Homepage
+    PhotoShare - Search
 {% endblock %}
 
 {% block body %}
     {% block content %}
         <main>
+            {% if photos is defined and photos|length %}
             <article>
                 <header>
                     <h2 class="text-center">
+                        {{ 'photos'|trans }}
                     </h2>
                 </header>
                 {% for photo in photos %}
@@ -17,14 +19,22 @@
                             {{ photo.description }}
                         </a>
                 {% endfor %}
-
+            </article>
+            {% endif %}
+            {% if users is defined and users|length %}
+            <article>
+                <header>
+                    <h2 class="text-center">
+                        {{ 'users'|trans }}
+                    </h2>
+                </header>
                 {% for user in users %}
                     <a href="{{ url('user_view', {'id':user.id}) }}">
                         {{ user.login }}
                     </a>
                 {% endfor %}
-
             </article>
+            {% endif %}
         </main>
     {% endblock %}
 {% endblock %}

@@ -131,7 +131,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('home_index');
         }
 
         return $this->render(
@@ -187,7 +187,8 @@ class UserController extends AbstractController
             $repository->save($user);
 
             $this->addFlash('success', 'message.updated_successfully');
-            return $this->redirectToRoute('user_index');
+
+            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
         }
 
         if ($form_password->isSubmitted() && $form_password->isValid()) {
@@ -200,14 +201,15 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'message.updated_successfully');
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
         }
 
         if ($form_data->isSubmitted() && $form_data->isValid()) {
             $repository_data->save($userdata);
 
             $this->addFlash('success', 'message.updated_successfully');
-            return $this->redirectToRoute('user_index');
+
+            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
         }
 
         return $this->render(
@@ -256,7 +258,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('home_index');
         }
 
         return $this->render(

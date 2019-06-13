@@ -65,13 +65,13 @@ class PhotoUploadListener
     /**
      * Upload file.
      *
-     * @param $entity entity
+     * @param \App\Entity\File $entity File entity
      *
      * @throws \Exception
      */
     private function uploadFile($entity): void
     {
-        if (!$entity instanceof Photofile) {
+        if (!$entity instanceof \App\Entity\File) {
             return;
         }
 

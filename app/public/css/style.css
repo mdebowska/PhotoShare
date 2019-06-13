@@ -1,7 +1,7 @@
 #like{
     width: 100px;
 }
-#like h1, h2{
+#like h1, #like h2{
     display: none;
 }
 
@@ -201,6 +201,7 @@ header.main{
 
 img{
     /*width:100%;*/
+    width: inherit;
 }
 
 figure.text-on-figure-bottom{

@@ -2,23 +2,15 @@
 Do zrobienia:
 -----------------
 
-sortowanie photos likes
 upload files
-wyszukiwanie po tagach
-
 css
 tłumaczenia
 inspekcja komentarzy (documentor)
+*sortowanie komentarzy
 
 -----------------
 Do wyjasnienia:
 -----------------
 
-#Formularz dodawania like jest, ale się nie zapisuje, nie wchodzi do if submitted (brak błędu z informacją)
-#photoTag - problem z parametrem Tag
-#upload photo - nie tworzy ścierzki i/lub twierdzi, że nie załączam pliku
-#jak w edycji użytkownika wziąć Userdata dobrego formatu (żeby obecne dane były na wejściu)? (przekazanie przez parametr/ $userdata = $repository_data->findByUser($user->getId()); nie działa)
-
-
-jak poprawnie zrobić wyszukiwarkę do wpisywania tagów/nazwy użytkownika, żeby jej nie łączyć z żadną encją?
 upload - zła ścieżka do File entity
+tagi się nie usuwają wraz ze zdjęciem

@@ -57,7 +57,7 @@ class CommentController extends AbstractController
 
             $this->addFlash('success', 'message.updated_successfully');
 
-            return $this->redirectToRoute('photo_index');
+            return $this->redirectToRoute('photo_view', ['id' => $comment->getPhoto()->getId()], 301);
         }
 
         return $this->render(
@@ -94,6 +94,7 @@ class CommentController extends AbstractController
 
             return $this->redirectToRoute('home_index');
         }
+        $photo_id = $comment->getPhoto()->getId();
 
         $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -104,7 +105,7 @@ class CommentController extends AbstractController
 
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('photo_index');
+            return $this->redirectToRoute('photo_view', ['id' => $photo_id], 301);
         }
 
         return $this->render(

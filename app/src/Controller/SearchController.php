@@ -70,7 +70,7 @@ class SearchController extends AbstractController
     public function view(Request $request, PhotoRepository $photoRepository, UserRepository $userRepository, $value): Response
     {
         $photos = $photoRepository->findBySearchValue($value)->getQuery()->getResult();
-        dump($photos);
+//        dump($photos);
         $users = $userRepository->findBySearchValue($value)->getQuery()->getResult();
 //        dump($users);
 

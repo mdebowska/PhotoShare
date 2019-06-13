@@ -205,7 +205,7 @@ class PhotoController extends AbstractController
 
 //            $this->uploaderService->upload($photo->getSource());
 
-            dump($photo->getSource());
+            dump($photo);
             $file->setSource($photo->getSource());//jak pobrać dobrą ścieżkę?
             $fileRepository->save($file);
             $photo->setFile($file);
@@ -213,7 +213,8 @@ class PhotoController extends AbstractController
 
             $this->addFlash('success', 'message.created_successfully');
 
-//            return $this->redirectToRoute('photo_index');
+            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
+
         }
 
         return $this->render(
@@ -273,7 +274,8 @@ class PhotoController extends AbstractController
 
             $this->addFlash('success', 'message.updated_successfully');
 
-            return $this->redirectToRoute('photo_index');
+//            return $this->redirectToRoute('photo_index');
+            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
 
         return $this->render(
@@ -321,7 +323,7 @@ class PhotoController extends AbstractController
 
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('photo_index');
+            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
         }
 
         return $this->render(

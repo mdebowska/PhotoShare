@@ -137,7 +137,7 @@ h1:not(.logo):not(.login):first-letter, h2:first-letter, h3:first-letter{
     color: #f0f0f0;
 }
 
-footer#last{
+footer{
     position:absolute;
     bottom:0;
     width:100%;
@@ -204,17 +204,20 @@ img{
     width: inherit;
 }
 
-figure.text-on-figure-bottom{
+figure.text-on-figure{
     position: relative;
 }
 
-img.text-on-figure-bottom{
+img.text-on-figure{
     position: relative;
 }
-figcaption.text-on-figure-bottom{
+.text-on-figure figcaption{
     position: absolute;
-    bottom:0;
+    top: 0;
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
 }
 
 /*figcaption .buttons,*/
@@ -222,7 +225,7 @@ figcaption.text-on-figure-bottom{
     float: left;
 }
 
-figure.text-on-figure-bottom a:hover:not(.btn), .disabled a:hover{
+figure.text-on-figure a:hover:not(.btn), .disabled a:hover{
     filter: initial;
 }
 

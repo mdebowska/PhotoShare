@@ -1,46 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    PhotoShare - Homepage
+    PhotoShare - {{ 'search'|trans }}
 {% endblock %}
 
 {% block body %}
     {% block content %}
         <main>
-
-            <form name="search" method="post", action="{{ url('search_index')}}" >
-                <input type="search" id="search" name="search" required="required">
-                <input type="submit" value="ok" class="btn btn-success">
-            </form>
-            {#<article class="center-blok container">#}
-                {#<header>#}
-                    {#<h1 class="text-center"><span class="logo"> {{ 'search'|trans }}</span>#}
-                    {#</h1>#}
-                {#</header>#}
-                {#<hr>#}
-
-
-                {#{{ form_start(form, { method: 'post', action: url('search_index') }) }}#}
-                {#{{ form_widget(form) }}#}
-                {#<input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />#}
-                {#{{ form_end(form) }}#}
-
-
+            <div class="container text-center">
+                <h3>{{ 'action.search'|trans }}</h3>
+                <form name="search" method="post", action="{{ url('search_index')}}" >
+                    <input type="search" id="search" name="search" required="required">
+                    <input type="submit" value="ok" class="btn btn-success">
+                </form>
+            </div>
 
                 {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
-            <article>
+            <article class="container">
                     <header>
                         <h2 class="text-center">
-                            {{ 'popular_tags'|trans }}
+                            {{ 'tags'|trans }}
                         </h2>
                     </header>
+                <section class="flex-container flex-justify-start">
                 {% for tag in tags %}
-                <button class="btn btn-default">
-                    <a href="{{ url('photo_tag', {'id':tag.id}) }}">
+                    <a class="btn btn-default" href="{{ url('photo_tag', {'id':tag.id}) }}">
                         {{ tag.name }}
                     </a>
-                </button>
                 {% endfor %}
+                </section>
             </article>
         </main>
     {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'user_edit'|trans({'%id%': user.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
@@ -39,29 +39,3 @@
 
 
 {% endblock %}
-
-
-{#<h1>#}
-    {#{% block title %}#}
-        {#{{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}#}
-    {#{% endblock %}#}
-{#</h1>#}
-{#{{ form_start(form_email, { method: 'POST', action: url('user_edit', {'id': user.id}) }) }}#}
-    {#{% if false == form_email.vars.valid %}#}
-        {#{% include 'default/_single_flash_message.html.twig' with {#}
-            {#type: 'danger',#}
-            {#message: 'message.form_error'|trans,#}
-        {#}%}#}
-    {#{% endif %}#}
-    {#{{ form_widget(form_email) }}#}
-{#<div class="form-group row float-sm-right">#}
-    {#<input type="submit" value="{{ submit_label|default('action.save'|trans) }}" class="btn btn-primary" />#}
-{#</div>#}
-{#{% if back_to_list_path|default(false) %}#}
-    {#<div class="form-group row float-sm-left">#}
-        {#<a href="{{ url(back_to_list_path) }}" class="btn btn-link">#}
-            {#{{ 'action.back_to_list'|trans }}#}
-        {#</a>#}
-    {#</div>#}
-{#{% endif %}#}
-    {#{{ form_end(form_email) }}#}

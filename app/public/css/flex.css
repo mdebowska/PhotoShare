@@ -5,7 +5,7 @@
     flex-wrap: wrap;
 
 }
-.flex-container .photo img{
+.flex-container .photo img, .flex-container.photo img{
     height: 20rem;
     width: auto!important;
 }
@@ -17,3 +17,16 @@
 .comment .flex-container{
     justify-content: space-between;
 }
+
+.flex-justify-start{
+    justify-content: start;
+}
+
+.flex-justify-space_between{
+    justify-content: space-between;
+}
+
+.flex-justify-start>a{
+    margin: 0.2em;
+}
+

@@ -6,33 +6,45 @@
 
 {% block body %}
     {% block content %}
+        {#<div class="container text-center">#}
+            {#<h3>{{ 'action.search'|trans }}</h3>#}
+            {#<form name="search" method="post", action="{{ url('search_index')}}" >#}
+                {#<input type="search" id="search" name="search" required="required">#}
+                {#<input type="submit" value="ok" class="btn btn-success">#}
+            {#</form>#}
+        {#</div>#}
         <main>
             {% if photos is defined and photos|length %}
             <article>
                 <header>
                     <h2 class="text-center">
-                        {{ 'photos'|trans }}
+                        {{ 'label.photos'|trans }}
                     </h2>
                 </header>
+                <div class="flex-container photo">
                 {% for photo in photos %}
                         <a href="{{ url('photo_view', {'id':photo.id}) }}">
-                            {{ photo.description }}
+                            {#{{ photo.description }}#}
+                            <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
                         </a>
                 {% endfor %}
+                </div>
             </article>
             {% endif %}
             {% if users is defined and users|length %}
-            <article>
+            <article class="container">
                 <header>
                     <h2 class="text-center">
-                        {{ 'users'|trans }}
+                        {{ 'label.users'|trans }}
                     </h2>
                 </header>
+                <div class="flex-container flex-justify-start">
                 {% for user in users %}
-                    <a href="{{ url('user_view', {'id':user.id}) }}">
+                    <a class="btn btn-default" href="{{ url('user_view', {'id':user.id}) }}">
                         {{ user.login }}
                     </a>
                 {% endfor %}
+                </div>
             </article>
             {% endif %}
         </main>

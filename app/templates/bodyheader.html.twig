@@ -2,10 +2,17 @@
             <a href="{{ url('home_index') }}" title="PhotoShow">
                 <h1 class="logo">PhotoShare</h1>
             </a>
-                    <a href="{{ url('search_index') }}" title="{{ 'search.label'|trans }}">
-                        {{ 'search.label'|trans }}
-                        <i class="fa fa-search"></i>
-                    </a>
+    <form name="search" method="post", action="{{ url('search_index')}}" >
+        <input type="search" id="search" name="search"">
+        {#<input type="submit" value="ok" class="btn btn-success">#}
+        <button type="submit">
+        {#<a href="{{ url('search_index') }}" title="{{ 'search.label'|trans }}">#}
+            {{ 'search.label'|trans }}
+            <i class="fa fa-search"></i>
+        {#</a>#}
+        </button>
+    </form>
+
                     <form action='' method='POST'>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a href="{{ url('security_logout') }}" title="{{ 'auth.logout.label'|trans }}">
@@ -17,8 +24,8 @@
                                 {{ 'auth.login.label'|trans }}
                                 <i class="glyphicon glyphicon-log-in"></i>
                             </a>
-                            <a href="{{ url('user_new') }}" title="{{ 'user.new.label'|trans }}">
-                                {{ 'user.new.label'|trans }}
+                            <a class="btn btn-default" id="registry" href="{{ url('user_new') }}" title="{{ 'action.registry'|trans }}">
+                                {{ 'action.registry'|trans }}
                                 <i class="fa fa-user"></i>
                             </a>
                         {% endif %}

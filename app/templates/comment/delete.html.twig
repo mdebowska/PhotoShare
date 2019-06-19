@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'comment_delete'|trans({'%id%': comment.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
@@ -10,13 +10,12 @@
     <p>{{ 'sure'|trans }}</p>
 
 {% include 'default/_form.html.twig' with {
-    page_title: 'title.comment_delete',
+    page_title: 'comment_delete',
     page_title_param: {'%id%': comment.id},
     attr: {
         method: 'DELETE',
         action: url('comment_delete', {'id': comment.id}),
     },
-    back_to_list_path: 'photo_index',
 } %}
 
 {% endblock %}

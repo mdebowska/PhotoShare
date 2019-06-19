@@ -73,6 +73,10 @@
             </trans-unit>
 
 
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>id</target>
+            </trans-unit>
             <trans-unit id="label.login">
                 <source>label.login</source>
                 <target>login:</target>
@@ -86,9 +90,9 @@
                 <target>repeat:</target>
             </trans-unit>
 
-            <trans-unit id="label.mail">
-                <source>label.mail</source>
-                <target>mail:</target>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>email:</target>
             </trans-unit>
             <trans-unit id="label.name">
                 <source>label.name</source>
@@ -101,6 +105,14 @@
             <trans-unit id="label.title">
                 <source>label.title</source>
                 <target>title:</target>
+            </trans-unit>
+            <trans-unit id="label.description">
+                <source>label.description</source>
+                <target>description:</target>
+            </trans-unit>
+            <trans-unit id="label.camera_specification">
+                <source>label.camera_specification</source>
+                <target>camera specification:</target>
             </trans-unit>
             <trans-unit id="label.tags">
                 <source>label.tags</source>
@@ -127,7 +139,10 @@
                 <target>Sign in</target>
             </trans-unit>
 
-
+            <trans-unit id="logged_as">
+                <source>logged_as</source>
+                <target>logged as</target>
+            </trans-unit>
 
             <trans-unit id="action.tags">
                 <source>action.tags</source>
@@ -138,8 +153,8 @@
                 <source>if_tags_click</source>
                 <target>If you want to go to list of all tags click on the button</target>
             </trans-unit>
-	    <trans-unit id="action.users">
-                <source>action.users</source>
+	    <trans-unit id="label.users">
+                <source>label.users</source>
                 <target>list of users</target>
             </trans-unit>
 
@@ -199,9 +214,14 @@
                 <source>profile_delete</source>
                 <target>profile delete</target>
             </trans-unit>
-            <trans-unit id="profile_edit">
-                <source>profile_edit</source>
-                <target>profile edit</target>
+            <trans-unit id="user_edit">
+                <source>user_edit</source>
+                <target>edit user</target>
+            </trans-unit>
+
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>view</target>
             </trans-unit>
 
             <trans-unit id="tag_delete">
@@ -228,6 +248,11 @@
                 <target>Found photos</target>
             </trans-unit>
 
+            <trans-unit id="label.photos">
+                <source>label.photos</source>
+                <target>photos</target>
+            </trans-unit>
+
 
             <trans-unit id="label.go_to">
                 <source>label.go_to</source>
@@ -242,7 +267,7 @@
                 <target>'s gallery</target>
             </trans-unit>
 
-            <trans-unit id="label.bac">
+            <trans-unit id="label.back">
                 <source>label.back</source>
                 <target>back</target>
             </trans-unit>
@@ -256,9 +281,9 @@
                 <target>back to photo</target>
             </trans-unit>
 
-            <trans-unit id="label.go_to_add_photo">
-                <source>label.go_to_add_photo</source>
-                <target>go to adding photo</target>
+            <trans-unit id="upload_photo">
+                <source>upload_photo</source>
+                <target>upload photo</target>
             </trans-unit>
 
             <trans-unit id="label.back_to_my_profile">
@@ -304,9 +329,9 @@
                 <source>surname</source>
                 <target>surname</target>
             </trans-unit>
-            <trans-unit id="mail">
-                <source>mail</source>
-                <target>mail</target>
+            <trans-unit id="email">
+                <source>email</source>
+                <target>email</target>
             </trans-unit>
             <trans-unit id="title">
                 <source>title</source>
@@ -378,6 +403,11 @@
                 <target>Record not found.</target>
             </trans-unit>
 
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>Nothing to show.</target>
+            </trans-unit>
+
 	    <trans-unit id="Bad credentials.">
                 <source>Bad credentials.</source>
                 <target>Bad credentials.</target>
@@ -388,8 +418,16 @@
                 <source>message.element_successfully_added</source>
                 <target>Element successfully added.</target>
             </trans-unit>
+	    <trans-unit id="message.created_successfullyd">
+                <source>message.created_successfully</source>
+                <target>Element successfully added.</target>
+            </trans-unit>
 	    <trans-unit id="message.element_successfully_edited">
                 <source>message.element_successfully_edited</source>
+                <target>Element successfully edited.</target>
+            </trans-unit>
+	    <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
                 <target>Element successfully edited.</target>
             </trans-unit>
 	    <trans-unit id="message.element_successfully_deleted">

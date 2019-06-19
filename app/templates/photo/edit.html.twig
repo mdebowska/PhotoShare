@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'photo_edit'|trans({'%id%': photo.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
@@ -9,13 +9,12 @@
         <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
     </figure>
 {% include 'default/_form.html.twig' with {
-    page_title: 'title.photo_edit',
+    page_title: 'photo_edit',
     page_title_param: {'%id%': photo.id},
     attr: {
         method: 'PUT',
         action: url('photo_edit', {'id': photo.id}),
     },
-    back_to_list_path: 'photo_index',
 } %}
 
 {% endblock %}

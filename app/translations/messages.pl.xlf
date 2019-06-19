@@ -46,6 +46,10 @@
                 <source>action.edit</source>
                 <target>edytuj</target>
             </trans-unit>
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>zobacz</target>
+            </trans-unit>
 
 
 
@@ -63,18 +67,27 @@
                 <target>wyloguj</target>
             </trans-unit>
 
+            <trans-unit id="logged_as">
+                <source>logged_as</source>
+                <target>zalogowany jako</target>
+            </trans-unit>
+
             <trans-unit id="action.registry">
                 <source>action.registry</source>
                 <target>zarejestruj się</target>
             </trans-unit>
 	    <trans-unit id="registration">
                 <source>registration</source>
-                <target>tworzenie konta</target>
+                <target>utwórz konto</target>
             </trans-unit>
 
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>id</target>
+            </trans-unit>
             <trans-unit id="label.login">
                 <source>label.login</source>
-                <target>login:</target>
+                <target>login</target>
             </trans-unit>
             <trans-unit id="label.password">
                 <source>label.password</source>
@@ -86,9 +99,9 @@
             </trans-unit>
 
 
-            <trans-unit id="label.mail">
-                <source>label.mail</source>
-                <target>mail:</target>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>email:</target>
             </trans-unit>
             <trans-unit id="label.name">
                 <source>label.name</source>
@@ -101,6 +114,14 @@
             <trans-unit id="label.title">
                 <source>label.title</source>
                 <target>tytuł:</target>
+            </trans-unit>
+            <trans-unit id="label.description">
+                <source>label.description</source>
+                <target>opis:</target>
+            </trans-unit>
+            <trans-unit id="label.camera_specification">
+                <source>label.camera_specification</source>
+                <target>specyfikacja aparatu:</target>
             </trans-unit>
             <trans-unit id="label.tags">
                 <source>label.tags</source>
@@ -124,7 +145,7 @@
 
             <trans-unit id="title.auth_login">
                 <source>title.auth_login</source>
-                <target>Zaloguj</target>
+                <target>Zaloguj się</target>
             </trans-unit>
 
 
@@ -138,8 +159,8 @@
                 <source>if_tags_click</source>
                 <target>Jeśli chcesz przejść do listy tagów kliknij 'lista tagow'.</target>
             </trans-unit>
-	    <trans-unit id="action.users">
-                <source>action.users</source>
+	    <trans-unit id="label.users">
+                <source>label.users</source>
                 <target>użytkownicy</target>
             </trans-unit>
 
@@ -183,6 +204,10 @@
                 <source>comment_delete</source>
                 <target>usuń komentarz</target>
             </trans-unit>
+            <trans-unit id="comment_edit">
+                <source>comment_edit</source>
+                <target>edytuj komentarz</target>
+            </trans-unit>
 
             <trans-unit id="photo_delete">
                 <source>photo_delete</source>
@@ -193,12 +218,12 @@
                 <target>edytuj zdjęcie</target>
             </trans-unit>
 
-            <trans-unit id="profile_delete">
-                <source>profile_delete</source>
-                <target>usuń profil</target>
+            <trans-unit id="user_delete">
+                <source>user_delete</source>
+                <target>usuń użytkownika</target>
             </trans-unit>
-            <trans-unit id="profile_edit">
-                <source>profile_edit</source>
+            <trans-unit id="user_edit">
+                <source>user_edit</source>
                 <target>edytuj profil</target>
             </trans-unit>
 
@@ -227,6 +252,11 @@
                 <target>Znalezione zdjęcia</target>
             </trans-unit>
 
+            <trans-unit id="label.photos">
+                <source>label.photos</source>
+                <target>zdjęcia</target>
+            </trans-unit>
+
 
             <trans-unit id="label.go_to">
                 <source>label.go_to</source>
@@ -251,9 +281,9 @@
                 <target>wróć do zdjecia</target>
             </trans-unit>
 
-            <trans-unit id="label.go_to_add_photo">
-                <source>label.go_to_add_photo</source>
-                <target>przejdź do dodawania zdjęcia</target>
+            <trans-unit id="upload_photo">
+                <source>upload_photo</source>
+                <target>Dodaj zdjęcie</target>
             </trans-unit>
 
             <trans-unit id="label.back_to_my_profile">
@@ -299,9 +329,9 @@
                 <source>surname</source>
                 <target>nazwisko</target>
             </trans-unit>
-            <trans-unit id="mail">
-                <source>mail</source>
-                <target>mail</target>
+            <trans-unit id="email">
+                <source>email</source>
+                <target>email</target>
             </trans-unit>
             <trans-unit id="title">
                 <source>title</source>
@@ -368,6 +398,10 @@
                 <source>message.record_not_found</source>
                 <target>Nie znaleziono wyniku.</target>
             </trans-unit>
+	    <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>Brak zdjęć.</target>
+            </trans-unit>
 
 	    <trans-unit id="Bad credentials.">
                 <source>Bad credentials.</source>
@@ -379,8 +413,16 @@
                 <source>message.element_successfully_added</source>
                 <target>Element został dodany.</target>
             </trans-unit>
+	    <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Element został dodany.</target>
+            </trans-unit>
 	    <trans-unit id="message.element_successfully_edited">
                 <source>message.element_successfully_edited</source>
+                <target>Element został edytowany.</target>
+            </trans-unit>
+	    <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
                 <target>Element został edytowany.</target>
             </trans-unit>
 	    <trans-unit id="message.element_successfully_deleted">

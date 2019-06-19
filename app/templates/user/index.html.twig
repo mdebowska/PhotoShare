@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_list'|trans }}
+    {{ 'label.users'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.user_list'|trans }}</h1>
-    <a class="btn btn-primary" href="{{ url('user_new') }}" title="{{ 'action.new'|trans }}">{{ 'new'|trans }}</a>
+    <h1>{{ 'label.users'|trans }}</h1>
     {% if pagination is defined and pagination|length %}
 
         <div class="navigation text-center">

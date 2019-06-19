@@ -11,6 +11,7 @@
     --main-font-color: #424242;
     --main-background-color: #FFFEFF;
     --first-color: #dfbd99;
+    --first-color-alpha: rgba(223, 189, 153, 0.3);
     --first-darker-color: #b49e88;
     --second-color: #424242;
     --third-color: #7c2f6a;
@@ -37,6 +38,9 @@ a:hover {
     filter: brightness(0.85);
 }
 
+article{
+    margin: 2em 0;
+}
 
 /*BODYHEADER*/
 .logo{
@@ -57,14 +61,41 @@ header.main{
 /*INDEX HOME*/
 
 
-
-
-button .btn-default{
-    background-color: var(--first-color);
+.btn, input, .comment{
+    border-radius: 20px!important;
+}
+.btn-danger {
+    color: #fff;
+    background-color: var(--first-darker-color); /*#b49e88;*/
+    border-color: var(--second-color);
 }
 
-.btn-default a, .btn-default a:hover{
+.btn-primary {
+    color: #fff;
+    background-color: var(--first-darker-color);
+    border-color: var(--second-color);
+}
+
+a.btn-default{
+    background-color: var(--main-background-color);
+    border: 1px solid var(--first-color);
+}
+
+a.btn-default, a.btn-default:hover{
     color: var(--second-color);
+}
+
+form button{
+    background: no-repeat;
+    border: none;
+    color: var(--first-color);
+    cursor: pointer;
+}
+
+#registry{
+    padding: 0.1em 0.3em;
+    margin: 0 0.3em;
+    background-color: var(--first-color);
 }
 
 .nav-gallery {
@@ -116,3 +147,31 @@ button i{
 button:hover i{
     color: var(--first-darker-color);
 }
+
+
+
+.comment{
+    /*background-color: var(--first-color-alpha);*/
+    border: 1px solid var(--first-color);
+    padding: 1em;
+}
+.comment ul {
+    border-right: 1px solid var(--first-color);
+    width: inherit;
+    padding: 0;
+    padding-right: 0.5em;
+    margin-right: 0.5em;
+}
+
+form #comment{
+    display: inline-block;
+}
+
+
+.glyph-image{
+    display: block;
+    font-size: 1000%;
+    color: #00000026;
+    margin: 0.3em;
+}
+

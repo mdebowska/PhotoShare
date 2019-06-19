@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.photo_view'|trans({'%id%': photo.id|default('')}) }}
+    PhotoShare - {{ 'photo'|trans({'%id%': photo.id|default('')}) }}
 {% endblock %}
 {% block body %}
 
@@ -12,11 +12,11 @@
        </figure>
         <div class="flex-container crud container">
             {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==photo.user.id or is_granted('ROLE_ADMIN') %}
-                <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary btn-xs">
+                <a href="{{ url('photo_edit', {'id':photo.id}) }}" class="btn btn-primary">
                     <i class="fa fa-edit"></i>
                     {{ 'edit'|trans }}
                 </a>
-                <a href="{{ url('photo_delete', {'id':photo.id}) }}" class="btn btn-danger btn-xs">
+                <a href="{{ url('photo_delete', {'id':photo.id}) }}" class="btn btn-danger">
                     <i class="fa fa-trash"></i>
                     {{ 'delete'|trans }}
                 </a>
@@ -48,7 +48,7 @@
                     {#{{ 'label.description'|trans }}#}
                     {{ photo.description }}
                 </p>
-                <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}" class="btn btn-default">
+                <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}">
                     <i class="fa fa-user"></i>
                     {#{{ 'label.author'|trans }}#}
                     {{ photo.user.login }}
@@ -58,13 +58,11 @@
                     {#{{ 'label.camera_specyfication'|trans }}#}
                      {{ photo.cameraSpecification }}
                  </p>
-                <p>{{ 'publicationDate'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
+                <p>{{ 'publication_date'|trans }}: {{ photo.publicationDate|localizeddate }}</p>
                 {% if photo.tags|length %}
                     <p>{{ 'tags'|trans }}:
                         {% for tag in photo.tags %}
-                            <button class="btn btn-default">
-                                <a href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
-                            </button>
+                                <a class="btn btn-default" href="{{ url('photo_tag', {'id':tag.id}) }}">{{ tag.name }}</a>
                         {% endfor %}
                     </p>
                 {% endif %}
@@ -83,27 +81,34 @@
                         <ul>
                             {% for comment in photo.comments %}
                                 <li>
-                                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 comment">
-                                        <div class="flex-container">
-                                            <p>By: <a href="{{  url('user_view', {'id':comment.user.id}) }}" class="">{{ comment.user.login }}</a></p>
-                                            <p>{{ comment.publicationDate|localizeddate}}</p>
+                                    <div class="comment flex-container flex-justify-space_between">
+                                    <div class="flex-container flex-justify-start">
+                                        <div>
+                                         <ul>
+                                            <li>
+                                                <i class="fa fa-user"></i>
+                                                <a href="{{  url('user_view', {'id':comment.user.id}) }}" class="">{{ comment.user.login }}</a>
+                                             </li>
+                                            <li>{{ comment.publicationDate|localizeddate}}</li>
+                                         </ul>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div>
                                             <p>{{ comment.text }}</p>
                                         </div>
-                                     </div>
-                                    {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==comment.user.id %}
-                                        <div class="">
-                                            <a href="{{ url('comment_edit', {'id':comment.id}) }}" class="btn btn-primary">
-                                                <i class="fa fa-edit"></i>
-                                                {{ 'edit'|trans }}
-                                            </a>
-                                            <a href="{{ url('comment_delete', {'id':comment.id}) }}" class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                                {{ 'delete'|trans }}
-                                            </a>
-                                        </div>
-                                    {% endif %}
+                                    </div>
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.id==comment.user.id %}
+                                            <div class="crud">
+                                                <a href="{{ url('comment_edit', {'id':comment.id}) }}" class="btn btn-primary">
+                                                    <i class="fa fa-edit"></i>
+                                                    {#{{ 'edit'|trans }}#}
+                                                </a>
+                                                <a href="{{ url('comment_delete', {'id':comment.id}) }}" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                    {#{{ 'delete'|trans }}#}
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </li>
                             {% endfor %}
                         </ul>

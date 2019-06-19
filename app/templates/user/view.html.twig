@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_view'|trans({'%id%': user.id|default('')}) }}
+    {{ user.login|default('') }}
 {% endblock %}
 
 {% block body %}
@@ -13,6 +13,19 @@
         </header>
         <div>
             {% if user|length %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
+                <div class="container flex-container flex-justify-start">
+                    <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'user_edit'|trans  }}" class="btn btn-primary btn-xs" >
+                        <i class="fa fa-edit"></i>
+                        {#{{ 'edit'|trans }}#}
+                    </a>
+                    <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'user_delete'|trans  }}" class="btn btn-danger btn-xs" >
+                        <i class="fa fa-trash"></i>
+                        {#{{ 'delete'|trans }}#}
+                    </a>
+                </div>
+
+            {% endif %}
             <article class="center-blok container">
                 <div class="flex-container">
                     <div>
@@ -25,20 +38,10 @@
                         {% if is_granted('ROLE_ADMIN') %}<p>
                             <span class="description">{{ 'email'|trans }}:</span> {{ user.email }}</p> {% endif %}
                     </div>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
-                        <div class="flex-container">
-
-                            <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'user_edit'|trans  }}" class="btn btn-primary btn-xs" >
-                                <i class="fa fa-edit"></i>
-                                {{ 'edit'|trans }}
-                            </a>
-                                <a href="{{ url('user_delete', {id: user.id}) }}" title="{{ 'user_delete'|trans  }}" class="btn btn-danger btn-xs" >
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'delete'|trans }}
-                                </a>
-                            </div>
-                        </div>
-                    {% endif %}
+                    <div>
+                       <i class="fa fa-user glyph-image"></i>
+                    </div>
+                </div>
             </article>
         </div>
         <hr>
@@ -50,7 +53,7 @@
                         <div class="flex-container crud">
                             <a href="{{ url('photo_new') }}" class="btn btn-success btn-sm">
                                 <i class="material-icons">&#xe2c3;</i>
-                                {{ 'new'|trans }}
+                                {{ 'upload_photo'|trans }}
                             </a>
                         </div>
                         {% endif %}
@@ -68,35 +71,3 @@
         {% endif %}
     </main>
 {% endblock %}
-
-
-{#{% block body %}#}
-    {#<h1>{{ 'title.user_list'|trans({'%id%': user.id|default('')}) }}</h1>#}
-    {#{% if user is defined and user|length %}#}
-        {#<dl class="dl-horizontal">#}
-            {#<dt>{{ 'label.id'|trans }}</dt>#}
-            {#<dd>{{ user.id }}</dd>#}
-            {#<dt>{{ 'label.login'|trans }}</dt>#}
-            {#<dd>{{ user.login }}</dd>#}
-            {#<dt>{{ 'label.email'|trans }}</dt>#}
-            {#<dd>{{ user.email }}</dd>#}
-            {#{% if user.userdata.name|length %}#}
-                {#<dt>{{ 'label.user.name'|trans }}</dt>#}
-                {#<dd>{{ user.userdata.name }}</dd>#}
-            {#{% endif %}#}
-            {#{% if user.userdata.surname|length %}#}
-                {#<dt>{{ 'label.user.surname'|trans }}</dt>#}
-                {#<dd>{{ user.userdata.surname }}</dd>#}
-            {#{% endif %}#}
-            {#<article>#}
-                {#{% block gallery %}#}
-                    {#{% include 'photo/gallery.html.twig' %}#}
-                {#{% endblock %}#}
-            {#</article>#}
-        {#</dl>#}
-    {#{% else %}#}
-        {#<p>#}
-            {#{{ 'message.item_not_found'|trans }}#}
-        {#</p>#}
-    {#{% endif %}#}
-{#{% endblock %}#}

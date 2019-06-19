@@ -52,8 +52,8 @@ class UserType extends AbstractType
         $builder->add(
             'password',RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'label.password'],
+                'second_options' => ['label' => 'label.repeat.password'],
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

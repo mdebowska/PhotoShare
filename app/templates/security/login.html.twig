@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.login'|trans }}
+    {{ 'title.auth_login'|trans }}
 {% endblock %}
 
 {% block body %}
 
-    <h1>
-        {{ 'title.login'|trans }}
-    </h1>
+    <h3 class="text-center">
+        {{ 'title.auth_login'|trans }}
+    </h3>
 <div class="container">
     <form method="post" action="{{ url('security_login') }}">
         {% if error %}

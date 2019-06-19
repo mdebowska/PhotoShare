@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'action.registry'|trans({'%id%': user.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
 
 
     {% include 'default/_form.html.twig' with {
-    page_title: 'title.user_new',
+    page_title: 'action.registry',
     attr: {
         method: 'POST',
         action: url('user_new')
     },
-    back_to_list_path: 'user_index',
 } %}
 
 {% endblock %}

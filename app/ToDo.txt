@@ -2,15 +2,10 @@
 Do zrobienia:
 -----------------
 
-upload files
 css
-tłumaczenia
 inspekcja komentarzy (documentor)
-*sortowanie komentarzy
+usuwanie tagów wraz ze zdjęciem
 
 -----------------
 Do wyjasnienia:
 -----------------
-
-upload - zła ścieżka do File entity
-tagi się nie usuwają wraz ze zdjęciem

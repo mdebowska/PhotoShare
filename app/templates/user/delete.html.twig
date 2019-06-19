@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.user_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'user_delete'|trans({'%id%': user.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
@@ -10,13 +10,12 @@
     </h3>
     <p>{{ 'sure'|trans }}</p>
     {% include 'default/_form.html.twig' with {
-    page_title: 'title.user_delete',
+    page_title: 'user_delete',
     page_title_param: {'%id%': user.id},
     attr: {
         method: 'DELETE',
         action: url('user_delete', {'id': user.id}),
     },
-    back_to_list_path: 'user_index',
 } %}
 
 {% endblock %}

@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-
 {% include 'default/_form.html.twig' with {
     page_title: 'comment_edit',
     page_title_param: {'%id%': comment.id},
@@ -14,5 +13,4 @@
         action: url('comment_edit', {'id': comment.id}),
     },
 } %}
-
 {% endblock %}

@@ -6,7 +6,6 @@
 
 {% block body %}
     <article class="container text-center">
-
         <h3>Usuń zdjęcie</h3>
         <div class="flex-container">
     <figure class="col-md-3">
@@ -20,15 +19,6 @@
                 <input type="submit" value="ok" class="btn btn-primary" />
             </div>
             {{ form_end(form) }}
-
-            {#{% include 'default/_form.html.twig' with {#}
-                {#page_title: '',#}
-                {#page_title_param: {'%id%': photo.id},#}
-                {#attr: {#}
-                    {#method: 'DELETE',#}
-                    {#action: url('photo_delete', {'id': photo.id}),#}
-                {#},#}
-            {#} %}#}
         </div>
         </div>
     </article>

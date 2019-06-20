@@ -19,12 +19,9 @@ use App\Service\FileUploader;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class PhotoController.
@@ -35,6 +32,10 @@ class PhotoController extends AbstractController
 {
     private $uploaderService = null;
 
+    /**
+     * PhotoController constructor.
+     * @param FileUploader $uploaderService
+     */
     public function __construct(FileUploader $uploaderService)
     {
         $this->uploaderService = $uploaderService;
@@ -92,7 +93,7 @@ class PhotoController extends AbstractController
         $like = new Likerate();
         $form_like = $this->createForm(FormType::class, $like);
         $form_like->handleRequest($request);
-//
+
         if ($this->getUser()){
             $userHaveLiked = $likeRepository->CheckIfUserLikedPhoto($this->getUser()->getId(), $photo->getId());
         }else{
@@ -105,8 +106,6 @@ class PhotoController extends AbstractController
             $like->setUser($this->getUser());
 
             $likeRepository->save($like);
-
-//            $this->addFlash('success', 'message.liked_successfully');
 
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
@@ -121,13 +120,10 @@ class PhotoController extends AbstractController
             $comment->setUser($this->getUser());
             $comment->setPhoto($photo);
 
-//            dump($comment);
 
             $commentRepository->save($comment);
 
             $this->addFlash('success', 'message.created_successfully');
-
-//            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
 
 
@@ -160,14 +156,11 @@ class PhotoController extends AbstractController
      */
     public function tag(Request $request, Tag $tag, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
-
-
         $pagination = $paginator->paginate(
             $repository->findByTag($tag),
             $request->query->getInt('page', 1),
             Photo::NUMBER_OF_ITEMS
         );
-
 
         return $this->render(
             'photo/tag.html.twig',
@@ -198,9 +191,7 @@ class PhotoController extends AbstractController
         /*1 podzielony formularz na 2*/
 
         $file = new \App\Entity\File();
-//        dump($file);
         $form = $this->createForm(PhotoType::class);
-//        $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -209,10 +200,7 @@ class PhotoController extends AbstractController
             $photo->setPublicationDate(new \DateTime());
             $photo->setUser($this->getUser());
 
-//            $this->uploaderService->upload($photo->getSource());
-
-            $file->setSource($form->get('source')->getData());//jak pobrać dobrą ścieżkę? albo zrobić upload pliku?
-//            dump($file);
+            $file->setSource($form->get('source')->getData());
             $fileRepository->save($file);
 
             $photo->setFile($file);
@@ -250,7 +238,7 @@ class PhotoController extends AbstractController
      *     name="photo_edit",
      * )
      */
-    public function edit(Request $request, Photo $photo, PhotoRepository $repository, FileUploader $uploadService): Response
+    public function edit(Request $request, Photo $photo, PhotoRepository $repository): Response
     {
 
         /*1 podzielony formularz na 2*/
@@ -261,31 +249,16 @@ class PhotoController extends AbstractController
             return $this->redirectToRoute('home_index');
         }
 
-//        $originalPhoto = clone $photo;
-
-//        dump($uploadService->getTargetDir());
-//        $photo->setSource(new File($uploadService->getTargetDir().'/'.$photo->getSource()));
         $form = $this->createForm(PhotoType::class, $photo, ['method' => 'put']);
         $form->handleRequest($request);
 
-//        $formData = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            dump($photo);
-//            dump($originalPhoto);
-//            die();
-
-//            //???????? on ma pobrać ścieżkę, czy plik?
-//            $originalPhoto = clone $photo;
-//            $filePath = $originalPhoto->getSource();
-//            $photo->setSource($filePath);
-//
             $repository->save($photo);
 
             $this->addFlash('success', 'message.updated_successfully');
 
-//            return $this->redirectToRoute('photo_index');
             return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
 
@@ -329,7 +302,6 @@ class PhotoController extends AbstractController
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE')) {
-//            $form->submit($request->request->get($form->getName()));
             $repository->delete($photo);
 
             $this->addFlash('success', 'message.deleted_successfully');

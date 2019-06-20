@@ -5,10 +5,7 @@
 
 namespace App\Form;
 
-use App\Entity\Photo;
-use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -49,22 +46,6 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-//        $builder->add(
-//            'file',
-//            PhotoFileType::class,
-//            [
-//                'label' => 'label.image'
-//            ]);
-//        $builder->add(
-//            'photo_data',
-//            PhotodataType::class,
-//            [
-//                'label' => 'label.data'
-//            ]);
-
-
-
-
         $builder->add(
             'description',
             TextType::class,
@@ -102,8 +83,6 @@ class PhotoType extends AbstractType
                 [
                     'label' => 'label.source',
                     'required' => true,
-//                    'data_class' => null,
-//                    'mapped' => false
                 ]
             );
         }
@@ -122,7 +101,6 @@ class PhotoType extends AbstractType
     {
         $resolver->setDefaults(
             [
-//                'data_class' => Photo::class
                 'validation_groups' => ['full_photo']
             ]
         );

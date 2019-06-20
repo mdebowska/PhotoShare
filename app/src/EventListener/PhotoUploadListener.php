@@ -5,7 +5,6 @@
 
 namespace App\EventListener;
 
-use App\Entity\File as Photofile;
 use App\Service\FileUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;

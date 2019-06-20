@@ -24,13 +24,11 @@
         </div>
        <article class="center-blok container">
            <div id="like">
-               {#{{ 'label.like'|trans }}#}
 
                {% if userHaveLiked == false %}
                    <div>
                        {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
                        {{ form_widget(form_like) }}
-                       {#<input type="submit" value="&lt;i class='material-icons enabled'&gt;thumb_up&lt;i/&gt;" class="btn btn-success" />#}
                        <button type="submit" class="like">
                            <i class="material-icons enabled">thumb_up</i>
                        </button>
@@ -45,7 +43,6 @@
            </div>
             <div>
                 <p id="photo-description">
-                    {#{{ 'label.description'|trans }}#}
                     {{ photo.description }}
                 </p>
                 <a href="{{ url('user_view', {'id':photo.user.id}) }}" title="{{ 'label.go_to_gallery'|trans }}">
@@ -55,7 +52,6 @@
                 </a>
                 <hr>
                 <p><i class="fa fa-camera"></i>
-                    {#{{ 'label.camera_specyfication'|trans }}#}
                      {{ photo.cameraSpecification }}
                  </p>
                 <p>{{ 'publication_date'|trans }}: {{ photo.publicationDate|localizeddate }}</p>

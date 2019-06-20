@@ -9,7 +9,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -89,9 +88,9 @@ class UserRepository extends ServiceEntityRepository
 
 
     /**
-     * @return User[] Returns an array of Photo objects
+     * @param $value
+     * @return QueryBuilder
      */
-
     public function findBySearchValue($value)
     {
         return $this->queryAll()

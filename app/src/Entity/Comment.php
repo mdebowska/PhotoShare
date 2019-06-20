@@ -132,7 +132,6 @@ class Comment
 
     /**
      * @param user|null $user
-     * @return Comment
      */
     public function setUser(?user $user): void
     {

@@ -30,21 +30,34 @@ class Tag
      */
     private $photos;
 
+    /**
+     * Tag constructor.
+     */
     public function __construct()
     {
         $this->photos = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Tag
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -60,6 +73,10 @@ class Tag
         return $this->photos;
     }
 
+    /**
+     * @param Photo $photo
+     * @return Tag
+     */
     public function addPhoto(Photo $photo): self
     {
         if (!$this->photos->contains($photo)) {
@@ -70,6 +87,10 @@ class Tag
         return $this;
     }
 
+    /**
+     * @param Photo $photo
+     * @return Tag
+     */
     public function removePhoto(Photo $photo): self
     {
         if ($this->photos->contains($photo)) {

@@ -77,7 +77,7 @@ class Userdata
     /**
      * Setter for the Name.
      *
-     * @param string $name Name
+     * @param string|null $name
      */
     public function setName(?string $name): void
     {
@@ -97,7 +97,7 @@ class Userdata
     /**
      * Setter for the Surname.
      *
-     * @param string $surname Surname
+     * @param string|null $surname
      */
     public function setSurname(?string $surname): void
     {
@@ -107,7 +107,7 @@ class Userdata
     /**
      * Getter for the User.
      *
-     * @return string|null User
+     * @return user|null
      */
     public function getUser(): ?user
     {
@@ -117,7 +117,7 @@ class Userdata
     /**
      * Setter for the User.
      *
-     * @param int $user User
+     * @param user $user
      */
     public function setUser(user $user)
     {

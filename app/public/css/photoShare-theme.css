@@ -126,7 +126,9 @@ li.page-item.active .page-link, li .btn{
 /*VIEW PHOTO*/
 
 img#view{
-    height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+    max-width: 100%;
+    height: auto;
 }
 
 #like{

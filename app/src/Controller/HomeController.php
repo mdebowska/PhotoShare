@@ -6,10 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Photo;
-use App\Form\SearchType;
 use App\Repository\PhotoRepository;
-use App\Repository\TagRepository;
-use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

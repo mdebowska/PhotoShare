@@ -100,7 +100,6 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE')) {
-//            $form->submit($request->request->get($form->getName()));
             $repository->delete($comment);
 
             $this->addFlash('success', 'message.deleted_successfully');

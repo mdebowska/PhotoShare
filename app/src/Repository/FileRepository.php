@@ -14,6 +14,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class FileRepository extends ServiceEntityRepository
 {
+    /**
+     * FileRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, File::class);
@@ -22,7 +26,7 @@ class FileRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Photo $photo Photo entity
+     * @param \App\Entity\File $file File entity
      *
      * @return void
      *

@@ -6,13 +6,6 @@
 
 {% block body %}
     {% block content %}
-        {#<div class="container text-center">#}
-            {#<h3>{{ 'action.search'|trans }}</h3>#}
-            {#<form name="search" method="post", action="{{ url('search_index')}}" >#}
-                {#<input type="search" id="search" name="search" required="required">#}
-                {#<input type="submit" value="ok" class="btn btn-success">#}
-            {#</form>#}
-        {#</div>#}
         <main>
             {% if photos is defined and photos|length %}
             <article>
@@ -21,12 +14,14 @@
                         {{ 'label.photos'|trans }}
                     </h2>
                 </header>
-                <div class="flex-container photo">
+                <div class="flex-container">
                 {% for photo in photos %}
+
+                    <div class="photo">
                         <a href="{{ url('photo_view', {'id':photo.id}) }}">
-                            {#{{ photo.description }}#}
                             <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
                         </a>
+                    </div>
                 {% endfor %}
                 </div>
             </article>

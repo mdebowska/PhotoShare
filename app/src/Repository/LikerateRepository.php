@@ -15,6 +15,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class LikerateRepository extends ServiceEntityRepository
 {
+    /**
+     * LikerateRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Likerate::class);
@@ -23,7 +27,7 @@ class LikerateRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Comment $comment Comment entity
+     * @param \App\Entity\Likerate $like Likerate entity
      *
      * @return void
      *
@@ -36,6 +40,11 @@ class LikerateRepository extends ServiceEntityRepository
         $this->_em->flush($like);
     }
 
+    /**
+     * @param $user_id
+     * @param $photo_id
+     * @return bool
+     */
     public function CheckIfUserLikedPhoto($user_id, $photo_id){
         $result = $this->createQueryBuilder('l')
             ->andWhere('l.user = :valu')

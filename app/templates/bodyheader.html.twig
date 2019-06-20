@@ -3,13 +3,10 @@
                 <h1 class="logo">PhotoShare</h1>
             </a>
     <form name="search" method="post", action="{{ url('search_index')}}" >
-        <input type="search" id="search" name="search"">
-        {#<input type="submit" value="ok" class="btn btn-success">#}
+        <input type="search" id="search" name="search">
         <button type="submit">
-        {#<a href="{{ url('search_index') }}" title="{{ 'search.label'|trans }}">#}
             {{ 'search.label'|trans }}
             <i class="fa fa-search"></i>
-        {#</a>#}
         </button>
     </form>
 
@@ -41,5 +38,4 @@
                         </a>
                     </div>
                 {% endif %}
-    </div>
 </nav>

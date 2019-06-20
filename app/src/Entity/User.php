@@ -8,10 +8,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -280,6 +278,9 @@ class User implements UserInterface
         return $this->photos;
     }
 
+    /**
+     * @param Photo $photo
+     */
     public function addPhoto(Photo $photo): void
     {
         if (!$this->photos->contains($photo)) {
@@ -290,7 +291,6 @@ class User implements UserInterface
 
     /**
      * @param Photo $photo
-     * @return User
      */
     public function removePhoto(Photo $photo): void
     {
@@ -313,7 +313,6 @@ class User implements UserInterface
 
     /**
      * @param Userdata $userdata
-     * @return User
      */
     public function setUserdata(Userdata $userdata): void
     {
@@ -333,6 +332,10 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     * @return User
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -343,6 +346,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return User
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -364,6 +371,10 @@ class User implements UserInterface
         return $this->likerates;
     }
 
+    /**
+     * @param Likerate $likerate
+     * @return User
+     */
     public function addLikerate(Likerate $likerate): self
     {
         if (!$this->likerates->contains($likerate)) {
@@ -374,6 +385,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Likerate $likerate
+     * @return User
+     */
     public function removeLikerate(Likerate $likerate): self
     {
         if ($this->likerates->contains($likerate)) {

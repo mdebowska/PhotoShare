@@ -1,7 +1,6 @@
 <?php
 namespace App\EventListener;
 
-use App\Entity\Photo;
 use App\Service\FileUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -10,13 +9,23 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class BrochureUploadListener
 {
+    /**
+     * @var FileUploader
+     */
     private $uploader;
 
+    /**
+     * BrochureUploadListener constructor.
+     * @param FileUploader $uploader
+     */
     public function __construct(FileUploader $uploader)
     {
         $this->uploader = $uploader;
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -24,6 +33,9 @@ class BrochureUploadListener
         $this->uploadFile($entity);
     }
 
+    /**
+     * @param PreUpdateEventArgs $args
+     */
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -31,6 +43,10 @@ class BrochureUploadListener
         $this->uploadFile($entity);
     }
 
+    /**
+     * @param $entity
+     * @throws \Exception
+     */
     private function uploadFile($entity)
     {
 // upload only works for Product entities

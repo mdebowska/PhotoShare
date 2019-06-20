@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
-use App\Entity\Tag;
-use App\Form\SearchType;
 use App\Repository\PhotoRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,7 +54,7 @@ class SearchController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      *
      * @param \App\Repository\PhotoRepository        $photoRepository Photo repository
-     * @param \App\Repository\PhotoRepository        $userRepository User repository
+     * @param \App\Repository\UserRepository      $userRepository User repository
      * @param $value
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -67,13 +63,10 @@ class SearchController extends AbstractController
      *     name="search_view",
      * )
      */
-    public function view(Request $request, PhotoRepository $photoRepository, UserRepository $userRepository, $value): Response
+    public function view(PhotoRepository $photoRepository, UserRepository $userRepository, $value): Response
     {
         $photos = $photoRepository->findBySearchValue($value)->getQuery()->getResult();
-//        dump($photos);
         $users = $userRepository->findBySearchValue($value)->getQuery()->getResult();
-//        dump($users);
-
 
         return $this->render(
             'search/view.html.twig',
@@ -83,6 +76,4 @@ class SearchController extends AbstractController
             ]
         );
     }
-
-
 }

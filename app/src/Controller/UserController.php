@@ -114,10 +114,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $user->setRoles(['ROLE_USER']);
-//        $user->setPassword($this->passwordEncoder->encodePassword(
-//            $user,
-//            $user['password']
-//        ));
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $user->getPassword()
@@ -226,8 +222,6 @@ class UserController extends AbstractController
             }
         }
 
-//            $repository->save($user);
-
         return $this->render(
             'user/edit.html.twig',
             [
@@ -270,7 +264,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE')) {
-//            $form->submit($request->request->get($form->getName()));
             $repository->delete($user);
 
             $this->addFlash('success', 'message.deleted_successfully');

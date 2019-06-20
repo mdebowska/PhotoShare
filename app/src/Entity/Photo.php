@@ -219,6 +219,10 @@ class Photo
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     * @return Photo
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -229,6 +233,10 @@ class Photo
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     * @return Photo
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -250,6 +258,10 @@ class Photo
         return $this->likerates;
     }
 
+    /**
+     * @param Likerate $likerate
+     * @return Photo
+     */
     public function addLikerate(Likerate $likerate): self
     {
         if (!$this->likerates->contains($likerate)) {
@@ -260,6 +272,10 @@ class Photo
         return $this;
     }
 
+    /**
+     * @param Likerate $likerate
+     * @return Photo
+     */
     public function removeLikerate(Likerate $likerate): self
     {
         if ($this->likerates->contains($likerate)) {
@@ -281,6 +297,10 @@ class Photo
         return $this->tags;
     }
 
+    /**
+     * @param tag $tag
+     * @return Photo
+     */
     public function addTag(tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
@@ -290,6 +310,10 @@ class Photo
         return $this;
     }
 
+    /**
+     * @param tag $tag
+     * @return Photo
+     */
     public function removeTag(tag $tag): self
     {
         if ($this->tags->contains($tag)) {

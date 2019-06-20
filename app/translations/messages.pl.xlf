@@ -409,6 +409,10 @@
             </trans-unit>
 
 
+            <trans-unit id="message.account_successfully_added">
+                <source>message.account_successfully_added</source>
+                <target>Konto zostało utworzone pomyślnie.</target>
+            </trans-unit>
 	    <trans-unit id="message.element_successfully_added">
                 <source>message.element_successfully_added</source>
                 <target>Element został dodany.</target>
@@ -425,9 +429,15 @@
                 <source>message.updated_successfully</source>
                 <target>Element został edytowany.</target>
             </trans-unit>
-	    <trans-unit id="message.element_successfully_deleted">
-                <source>message.element_successfully_deleted</source>
+	    <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
                 <target>Element został usunięty.</target>
+            </trans-unit>
+
+
+	    <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>Błąd.</target>
             </trans-unit>
 
 

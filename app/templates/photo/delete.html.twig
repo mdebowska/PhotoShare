@@ -5,17 +5,31 @@
 {% endblock %}
 
 {% block body %}
+    <article class="container text-center">
+
+        <h3>Usuń zdjęcie</h3>
+        <div class="flex-container">
     <figure class="col-md-3">
         <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
     </figure>
-    <p>{{ 'sure'|trans }}</p>
-{% include 'default/_form.html.twig' with {
-    page_title: 'photo_delete',
-    page_title_param: {'%id%': photo.id},
-    attr: {
-        method: 'DELETE',
-        action: url('photo_delete', {'id': photo.id}),
-    },
-} %}
+        <div class="">
+            <p>{{ 'sure'|trans }}</p>
+            {{ form_start(form, { method: 'DELETE', action: url('photo_delete', {'id':photo.id}) }) }}
+            {{ form_widget(form) }}
+            <div class="form-group row float-sm-right">
+                <input type="submit" value="ok" class="btn btn-primary" />
+            </div>
+            {{ form_end(form) }}
 
+            {#{% include 'default/_form.html.twig' with {#}
+                {#page_title: '',#}
+                {#page_title_param: {'%id%': photo.id},#}
+                {#attr: {#}
+                    {#method: 'DELETE',#}
+                    {#action: url('photo_delete', {'id': photo.id}),#}
+                {#},#}
+            {#} %}#}
+        </div>
+        </div>
+    </article>
 {% endblock %}

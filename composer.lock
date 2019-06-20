@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "a1e279d3aafa9815e7c09ad09d7a33bb",
-    "content-hash": "ee2ed18fd09bb84fae2427d40d00532d",
+    "content-hash": "c8d4944c2111ccfee9265eb3e4913a18",
     "packages": [],
     "packages-dev": [
         {
@@ -65,7 +64,7 @@
                 "cli",
                 "microframework"
             ],
-            "time": "2014-03-29 14:03:13"
+            "time": "2014-03-29T14:03:13+00:00"
         },
         {
             "name": "cilex/console-service-provider",
@@ -124,7 +123,7 @@
                 "service-provider",
                 "silex"
             ],
-            "time": "2012-12-19 10:50:58"
+            "time": "2012-12-19T10:50:58+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -155,7 +154,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
-            "time": "2017-02-14 19:40:03"
+            "time": "2017-02-14T19:40:03+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -223,7 +222,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2017-12-06 07:11:42"
+            "time": "2017-12-06T07:11:42+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -277,7 +276,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-07-22 11:58:36"
+            "time": "2017-07-22T11:58:36+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -331,7 +330,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -377,7 +376,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2018-03-08 01:11:30"
+            "time": "2018-03-08T01:11:30+00:00"
         },
         {
             "name": "herrera-io/json",
@@ -438,7 +437,7 @@
                 "validate"
             ],
             "abandoned": "kherge/json",
-            "time": "2013-10-30 16:51:34"
+            "time": "2013-10-30T16:51:34+00:00"
         },
         {
             "name": "herrera-io/phar-update",
@@ -496,7 +495,7 @@
                 "update"
             ],
             "abandoned": true,
-            "time": "2013-10-30 17:23:01"
+            "time": "2013-10-30T17:23:01+00:00"
         },
         {
             "name": "hoa/compiler",
@@ -578,7 +577,7 @@
                 "trace",
                 "uniform"
             ],
-            "time": "2017-08-08 07:44:07"
+            "time": "2017-08-08T07:44:07+00:00"
         },
         {
             "name": "hoa/consistency",
@@ -641,7 +640,7 @@
                 "keyword",
                 "library"
             ],
-            "time": "2017-05-02 12:18:12"
+            "time": "2017-05-02T12:18:12+00:00"
         },
         {
             "name": "hoa/event",
@@ -697,7 +696,7 @@
                 "listener",
                 "observer"
             ],
-            "time": "2017-01-13 15:30:50"
+            "time": "2017-01-13T15:30:50+00:00"
         },
         {
             "name": "hoa/exception",
@@ -751,7 +750,7 @@
                 "exception",
                 "library"
             ],
-            "time": "2017-01-16 07:53:27"
+            "time": "2017-01-16T07:53:27+00:00"
         },
         {
             "name": "hoa/file",
@@ -813,7 +812,7 @@
                 "link",
                 "temporary"
             ],
-            "time": "2017-07-11 07:42:15"
+            "time": "2017-07-11T07:42:15+00:00"
         },
         {
             "name": "hoa/iterator",
@@ -867,7 +866,7 @@
                 "iterator",
                 "library"
             ],
-            "time": "2017-01-10 10:34:47"
+            "time": "2017-01-10T10:34:47+00:00"
         },
         {
             "name": "hoa/math",
@@ -932,7 +931,7 @@
                 "sampler",
                 "set"
             ],
-            "time": "2017-05-16 08:02:17"
+            "time": "2017-05-16T08:02:17+00:00"
         },
         {
             "name": "hoa/protocol",
@@ -992,7 +991,7 @@
                 "stream",
                 "wrapper"
             ],
-            "time": "2017-01-14 12:26:10"
+            "time": "2017-01-14T12:26:10+00:00"
         },
         {
             "name": "hoa/regex",
@@ -1048,7 +1047,7 @@
                 "library",
                 "regex"
             ],
-            "time": "2017-01-13 16:10:24"
+            "time": "2017-01-13T16:10:24+00:00"
         },
         {
             "name": "hoa/stream",
@@ -1112,7 +1111,7 @@
                 "stream",
                 "wrapper"
             ],
-            "time": "2017-02-21 16:01:06"
+            "time": "2017-02-21T16:01:06+00:00"
         },
         {
             "name": "hoa/ustring",
@@ -1172,7 +1171,7 @@
                 "string",
                 "unicode"
             ],
-            "time": "2017-01-16 07:08:25"
+            "time": "2017-01-16T07:08:25+00:00"
         },
         {
             "name": "hoa/visitor",
@@ -1227,7 +1226,7 @@
                 "visit",
                 "visitor"
             ],
-            "time": "2017-01-16 07:02:03"
+            "time": "2017-01-16T07:02:03+00:00"
         },
         {
             "name": "hoa/zformat",
@@ -1279,7 +1278,7 @@
                 "parameter",
                 "zformat"
             ],
-            "time": "2017-01-10 10:39:54"
+            "time": "2017-01-10T10:39:54+00:00"
         },
         {
             "name": "jms/metadata",
@@ -1336,7 +1335,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2018-11-09 13:57:43"
+            "time": "2018-11-09T13:57:43+00:00"
         },
         {
             "name": "jms/serializer",
@@ -1420,7 +1419,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2019-02-27 20:38:28"
+            "time": "2019-02-27T20:38:28+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -1486,7 +1485,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2016-01-25 15:43:01"
+            "time": "2016-01-25T15:43:01+00:00"
         },
         {
             "name": "kherge/version",
@@ -1529,7 +1528,7 @@
             "description": "A parsing and comparison library for semantic versioning.",
             "homepage": "http://github.com/kherge/Version",
             "abandoned": true,
-            "time": "2012-08-16 17:13:03"
+            "time": "2012-08-16T17:13:03+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1607,7 +1606,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05 09:00:11"
+            "time": "2018-11-05T09:00:11+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1652,7 +1651,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-09-19 14:15:08"
+            "time": "2015-09-19T14:15:08+00:00"
         },
         {
             "name": "phpdocumentor/fileset",
@@ -1695,7 +1694,7 @@
                 "fileset",
                 "phpdoc"
             ],
-            "time": "2013-08-06 21:07:42"
+            "time": "2013-08-06T21:07:42+00:00"
         },
         {
             "name": "phpdocumentor/graphviz",
@@ -1736,7 +1735,7 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2016-02-02 13:00:08"
+            "time": "2016-02-02T13:00:08+00:00"
         },
         {
             "name": "phpdocumentor/phpdocumentor",
@@ -1825,7 +1824,7 @@
                 "documentation",
                 "phpdoc"
             ],
-            "time": "2016-05-22 09:50:56"
+            "time": "2016-05-22T09:50:56+00:00"
         },
         {
             "name": "phpdocumentor/reflection",
@@ -1879,7 +1878,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2016-05-21 08:42:32"
+            "time": "2016-05-21T08:42:32+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1928,7 +1927,7 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2016-01-25 08:17:30"
+            "time": "2016-01-25T08:17:30+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1974,7 +1973,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
         },
         {
             "name": "psr/cache",
@@ -2020,7 +2019,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/container",
@@ -2069,7 +2068,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/log",
@@ -2116,7 +2115,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20 15:27:04"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -2164,7 +2163,7 @@
                 "psr-16",
                 "simple-cache"
             ],
-            "time": "2017-10-23 01:57:42"
+            "time": "2017-10-23T01:57:42+00:00"
         },
         {
             "name": "seld/jsonlint",
@@ -2213,7 +2212,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2018-01-24 12:46:19"
+            "time": "2018-01-24T12:46:19+00:00"
         },
         {
             "name": "symfony/config",
@@ -2270,7 +2269,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26 09:38:12"
+            "time": "2018-11-26T09:38:12+00:00"
         },
         {
             "name": "symfony/console",
@@ -2331,7 +2330,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-20 15:55:20"
+            "time": "2018-11-20T15:55:20+00:00"
         },
         {
             "name": "symfony/debug",
@@ -2388,7 +2387,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:22:48"
+            "time": "2016-07-30T07:22:48+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2448,7 +2447,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-21 14:20:20"
+            "time": "2018-11-21T14:20:20+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -2497,7 +2496,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-20 05:43:46"
+            "time": "2016-07-20T05:43:46+00:00"
         },
         {
             "name": "symfony/finder",
@@ -2546,7 +2545,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11 11:18:13"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2604,7 +2603,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-08-06 14:22:27"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2663,7 +2662,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21 13:07:52"
+            "time": "2018-09-21T13:07:52+00:00"
         },
         {
             "name": "symfony/process",
@@ -2712,7 +2711,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11 11:18:13"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -2761,7 +2760,7 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11 11:18:13"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2825,7 +2824,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:22:48"
+            "time": "2016-07-30T07:22:48+00:00"
         },
         {
             "name": "symfony/validator",
@@ -2899,7 +2898,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-14 14:06:48"
+            "time": "2018-11-14T14:06:48+00:00"
         },
         {
             "name": "twig/twig",
@@ -2965,7 +2964,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-03-12 18:45:24"
+            "time": "2019-03-12T18:45:24+00:00"
         },
         {
             "name": "zendframework/zend-cache",
@@ -3048,7 +3047,7 @@
                 "psr-6",
                 "zf"
             ],
-            "time": "2018-05-01 21:58:00"
+            "time": "2018-05-01T21:58:00+00:00"
         },
         {
             "name": "zendframework/zend-config",
@@ -3104,7 +3103,7 @@
                 "config",
                 "zf2"
             ],
-            "time": "2016-02-04 23:01:10"
+            "time": "2016-02-04T23:01:10+00:00"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -3158,7 +3157,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2018-04-25 15:33:34"
+            "time": "2018-04-25T15:33:34+00:00"
         },
         {
             "name": "zendframework/zend-filter",
@@ -3223,7 +3222,7 @@
                 "filter",
                 "zf"
             ],
-            "time": "2018-12-17 16:00:04"
+            "time": "2018-12-17T16:00:04+00:00"
         },
         {
             "name": "zendframework/zend-hydrator",
@@ -3281,7 +3280,7 @@
                 "hydrator",
                 "zf2"
             ],
-            "time": "2016-02-18 22:38:26"
+            "time": "2016-02-18T22:38:26+00:00"
         },
         {
             "name": "zendframework/zend-i18n",
@@ -3349,7 +3348,7 @@
                 "i18n",
                 "zf"
             ],
-            "time": "2018-05-16 16:39:13"
+            "time": "2018-05-16T16:39:13+00:00"
         },
         {
             "name": "zendframework/zend-json",
@@ -3399,7 +3398,7 @@
                 "json",
                 "zf"
             ],
-            "time": "2018-01-04 17:51:34"
+            "time": "2018-01-04T17:51:34+00:00"
         },
         {
             "name": "zendframework/zend-serializer",
@@ -3456,7 +3455,7 @@
                 "serializer",
                 "zf"
             ],
-            "time": "2018-05-14 18:45:18"
+            "time": "2018-05-14T18:45:18+00:00"
         },
         {
             "name": "zendframework/zend-servicemanager",
@@ -3508,7 +3507,7 @@
                 "servicemanager",
                 "zf2"
             ],
-            "time": "2018-06-22 14:49:54"
+            "time": "2018-06-22T14:49:54+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -3567,7 +3566,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2016-04-12 21:17:31"
+            "time": "2016-04-12T21:17:31+00:00"
         },
         {
             "name": "zetacomponents/base",
@@ -3631,7 +3630,7 @@
             ],
             "description": "The Base package provides the basic infrastructure that all packages rely on. Therefore every component relies on this package.",
             "homepage": "https://github.com/zetacomponents",
-            "time": "2017-11-28 11:30:00"
+            "time": "2017-11-28T11:30:00+00:00"
         },
         {
             "name": "zetacomponents/document",
@@ -3682,7 +3681,7 @@
             ],
             "description": "The Document components provides a general conversion framework for different semantic document markup languages like XHTML, Docbook, RST and similar.",
             "homepage": "https://github.com/zetacomponents",
-            "time": "2013-12-19 11:40:00"
+            "time": "2013-12-19T11:40:00+00:00"
         }
     ],
     "aliases": [],

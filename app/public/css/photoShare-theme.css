@@ -56,12 +56,17 @@ header.main{
     background-color: var(--second-color);
 }
 
+blockquote{
+    font-style: italic;
+    padding: 1rem;
+    background-color: var(--first-color-alpha);
+}
 
 
 /*INDEX HOME*/
 
 
-.btn, input, .comment{
+.btn, input:not(#photo_source), .comment, .page-link{
     border-radius: 20px!important;
 }
 .btn-danger {
@@ -76,7 +81,7 @@ header.main{
     border-color: var(--second-color);
 }
 
-a.btn-default{
+a.btn-default, .page-link{
     background-color: var(--main-background-color);
     border: 1px solid var(--first-color);
 }
@@ -103,17 +108,17 @@ form button{
 }
 
 li .page-link,li.page-item.disabled .page-link, li.page-item.active .page-link{
-    background-color: var(--first-color);
+    /*background-color: var(--first-color);*/
     color: var(--second-color);
-    border-color: var(--first-darker-color);
+    /*border-color: var(--first-darker-color);*/
 }
 li.page-item.disabled .page-link{
-    background-color: var(--first-darker-color);
+    background-color: var(--first-color-alpha);
     color: var(--main-font-color);
 }
 li.page-item.active .page-link, li .btn{
-    background-color: var(--second-color);
-    color: var(--first-color);
+    background-color: var(--first-color);
+    border-color: var(--first-color);
 }
 
 
@@ -154,6 +159,7 @@ button:hover i{
     /*background-color: var(--first-color-alpha);*/
     border: 1px solid var(--first-color);
     padding: 1em;
+    margin: 1rem;
 }
 .comment ul {
     border-right: 1px solid var(--first-color);
@@ -175,3 +181,11 @@ form #comment{
     margin: 0.3em;
 }
 
+
+
+
+#user_edit .center-form form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

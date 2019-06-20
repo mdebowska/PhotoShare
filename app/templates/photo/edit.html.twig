@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <article class="container flex-container">
     <figure class="col-md-3">
         <img src="{{ asset('uploads/photos/' ~ photo.file.source) }}" alt="{{ photo.file.source }}">
     </figure>
@@ -16,5 +17,5 @@
         action: url('photo_edit', {'id': photo.id}),
     },
 } %}
-
+    </article>
 {% endblock %}

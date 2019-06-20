@@ -5,17 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <p>{{ comment.text }}</p>
+    <article class="container text-center">
 
-    <p>{{ 'sure'|trans }}</p>
-
-{% include 'default/_form.html.twig' with {
-    page_title: 'comment_delete',
-    page_title_param: {'%id%': comment.id},
-    attr: {
-        method: 'DELETE',
-        action: url('comment_delete', {'id': comment.id}),
-    },
-} %}
+        <h3>Usuń komentarz</h3>
+        <div class="flex-container">
+            <blockquote>{{ comment.text }}</blockquote>
+            <div>
+                <p>{{ 'sure'|trans }}</p>
+                {{ form_start(form, { method: 'DELETE', action: url('comment_delete', {'id':comment.id}) }) }}
+                {{ form_widget(form) }}
+                <div class="form-group row float-sm-right">
+                    <input type="submit" value="ok" class="btn btn-primary" />
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </article>
 
 {% endblock %}

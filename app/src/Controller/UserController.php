@@ -129,7 +129,7 @@ class UserController extends AbstractController
             $userdata->setUser($user);
             $userdataRepository->save($userdata);
 
-            $this->addFlash('success', 'message.created_successfully');
+            $this->addFlash('success', 'message.account_successfully_added');
 
             return $this->redirectToRoute('home_index');
         }
@@ -209,12 +209,33 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
         }
 
+        /*ROLES*/
+
+        $user_role = $user->getRoles();
+        $form_role = $this->createForm(FormType::class, $user, ['method' => 'PUT']);
+        $form_role->handleRequest($request);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            if($form_role->isSubmitted() && $form_role->isValid()) {
+                if ($user_role == ['ROLE_USER']) {
+                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+                } else {
+                    $user->setRoles(['ROLE_USER']);
+                }
+                $repository->save($user);
+                dump($user);
+            }
+        }
+
+//            $repository->save($user);
+
         return $this->render(
             'user/edit.html.twig',
             [
                 'form_email' => $form_email->createView(),
                 'form_password' => $form_password->createView(),
                 'form_data' => $form_data->createView(),
+                'form_role' => $form_role->createView(),
                 'user' => $user,
             ]
         );

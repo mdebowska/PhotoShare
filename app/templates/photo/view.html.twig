@@ -72,7 +72,7 @@
                                     <div>
                                     {{ form_start(form_comment, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
                                     {{ form_widget(form_comment) }}
-                                       <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-success" />
+                                       <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary" />
                                     {{ form_end(form_comment) }}
                                     </div>
                         {% endif %}

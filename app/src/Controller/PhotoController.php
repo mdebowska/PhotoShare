@@ -121,12 +121,13 @@ class PhotoController extends AbstractController
             $comment->setUser($this->getUser());
             $comment->setPhoto($photo);
 
+//            dump($comment);
 
             $commentRepository->save($comment);
 
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
+//            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
         }
 
 
@@ -197,12 +198,13 @@ class PhotoController extends AbstractController
         /*1 podzielony formularz na 2*/
 
         $file = new \App\Entity\File();
+//        dump($file);
         $form = $this->createForm(PhotoType::class);
 //        $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-dump($form);
+
             $photo = new Photo();
             $photo->setPublicationDate(new \DateTime());
             $photo->setUser($this->getUser());
@@ -210,6 +212,7 @@ dump($form);
 //            $this->uploaderService->upload($photo->getSource());
 
             $file->setSource($form->get('source')->getData());//jak pobrać dobrą ścieżkę? albo zrobić upload pliku?
+//            dump($file);
             $fileRepository->save($file);
 
             $photo->setFile($file);

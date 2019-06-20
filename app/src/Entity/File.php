@@ -33,8 +33,18 @@ class File
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=191)
+     * @ORM\Column(
+     *     type="string",
+     *     length=191,
+     *     nullable=false,
+     *     unique=true,
+     * )
+     *
      * @Assert\NotBlank
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
+     * )
      */
     private $source;
 

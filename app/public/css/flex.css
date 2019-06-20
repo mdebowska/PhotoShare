@@ -7,7 +7,21 @@
 }
 .flex-container .photo img, .flex-container.photo img{
     height: 20rem;
-    width: auto!important;
+    /* width: auto!important; */
+    /* width: 100%; */
+    min-width: 30rem;
+    object-fit: cover;
+    transition: cubic-bezier(.25,.1,.25,1);
+}
+.flex-container .photo img:hover, .flex-container.photo img:hover{
+    /*object-fit: none;*/
+    filter: brightness(1.1);
+}
+.photo{
+    width: 25%;
+}
+.photo figure{
+    width: 100%;
 }
 
 .flex-container.crud{

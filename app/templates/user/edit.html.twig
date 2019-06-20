@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<div id="user_edit">
 {% include 'default/_form.html.twig' with {
     form: form_email,
     page_title: '',
@@ -36,6 +36,22 @@
         action: url('user_edit', {'id': user.id}),
     },
 } %}
+<div class="center-form margin-15">
 
+    {{ form_start(form_role, { method: 'PUT', action: url('user_edit', {'id':user.id}) }) }}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
+        {% if user.roles | length == 1 %}
+            <p>Nadaj prawa administratora:</p>
+        {% else %}
+            <p>Odbierz prawa administratora:</p>
+        {% endif %}
+    {{ form_widget(form_role) }}
 
+        <div class="form-group row float-sm-right">
+            <input type="submit" value="ok" class="btn btn-primary" />
+        </div>
+    {{ form_end(form_role) }}
+    {% endif %}
+</div>
+</div>
 {% endblock %}

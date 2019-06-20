@@ -223,7 +223,6 @@ class UserController extends AbstractController
                     $user->setRoles(['ROLE_USER']);
                 }
                 $repository->save($user);
-                dump($user);
             }
         }
 

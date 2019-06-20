@@ -6,52 +6,52 @@
 
 {% block body %}
 <div id="user_edit">
-{% include 'default/_form.html.twig' with {
-    form: form_email,
-    page_title: '',
-    page_title_param: {'%id%': user.id},
-    attr: {
-        method: 'PUT',
-        action: url('user_edit', {'id': user.id}),
-    },
-} %}
+    {% include 'default/_form.html.twig' with {
+        form: form_email,
+        page_title: '',
+        page_title_param: {'%id%': user.id},
+        attr: {
+            method: 'PUT',
+            action: url('user_edit', {'id': user.id}),
+        },
+    } %}
 
-{% include 'default/_form.html.twig' with {
-    form: form_password,
-    page_title: '',
-    page_title_param: {'%id%': user.id},
-    attr: {
-        method: 'PUT',
-        action: url('user_edit', {'id': user.id}),
-    },
-} %}
+    {% include 'default/_form.html.twig' with {
+        form: form_password,
+        page_title: '',
+        page_title_param: {'%id%': user.id},
+        attr: {
+            method: 'PUT',
+            action: url('user_edit', {'id': user.id}),
+        },
+    } %}
 
 
-{% include 'default/_form.html.twig' with {
-    form: form_data,
-    page_title: '',
-    page_title_param: {'%id%': user.id},
-    attr: {
-        method: 'PUT',
-        action: url('user_edit', {'id': user.id}),
-    },
-} %}
-<div class="center-form margin-15">
+    {% include 'default/_form.html.twig' with {
+        form: form_data,
+        page_title: '',
+        page_title_param: {'%id%': user.id},
+        attr: {
+            method: 'PUT',
+            action: url('user_edit', {'id': user.id}),
+        },
+    } %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="center-form margin-15">
+                {{ form_start(form_role, { method: 'PUT', action: url('user_edit', {'id':user.id}) }) }}
+                    {% if user.roles | length == 1 %}
+                        <p>Nadaj prawa administratora:</p>
+                    {% else %}
+                        <p>Odbierz prawa administratora:</p>
+                    {% endif %}
+                {{ form_widget(form_role) }}
 
-    {{ form_start(form_role, { method: 'PUT', action: url('user_edit', {'id':user.id}) }) }}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') and (user.id==app.user.id or is_granted('ROLE_ADMIN')) %}
-        {% if user.roles | length == 1 %}
-            <p>Nadaj prawa administratora:</p>
-        {% else %}
-            <p>Odbierz prawa administratora:</p>
+                    <div class="form-group row float-sm-right">
+                        <input type="submit" value="ok" class="btn btn-primary" />
+                    </div>
+                {{ form_end(form_role) }}
+
+            </div>
         {% endif %}
-    {{ form_widget(form_role) }}
-
-        <div class="form-group row float-sm-right">
-            <input type="submit" value="ok" class="btn btn-primary" />
-        </div>
-    {{ form_end(form_role) }}
-    {% endif %}
-</div>
 </div>
 {% endblock %}

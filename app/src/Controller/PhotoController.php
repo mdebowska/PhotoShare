@@ -57,7 +57,6 @@ class PhotoController extends AbstractController
      */
     public function index(Request $request, PhotoRepository $repository, PaginatorInterface $paginator): Response
     {
-
         $pagination = $paginator->paginate(
             $repository->queryAll(),
             $request->query->getInt('page', 1),
@@ -89,18 +88,14 @@ class PhotoController extends AbstractController
      */
     public function view(Request $request, Photo $photo, LikerateRepository $likeRepository, CommentRepository $commentRepository): Response
     {
-
         $like = new Likerate();
         $form_like = $this->createForm(FormType::class, $like);
         $form_like->handleRequest($request);
-
         if ($this->getUser()){
             $userHaveLiked = $likeRepository->CheckIfUserLikedPhoto($this->getUser()->getId(), $photo->getId());
         }else{
             $userHaveLiked = true; //dla anonima
         }
-
-
         if ($form_like->isSubmitted() && $form_like->isValid()) {
             $like->setPhoto($photo);
             $like->setUser($this->getUser());
@@ -115,17 +110,12 @@ class PhotoController extends AbstractController
         $form_comment->handleRequest($request);
 
         if ($form_comment->isSubmitted() && $form_comment->isValid()) {
-
             $comment->setPublicationDate(new \DateTime());
             $comment->setUser($this->getUser());
             $comment->setPhoto($photo);
-
-
             $commentRepository->save($comment);
-
             $this->addFlash('success', 'message.created_successfully');
         }
-
 
         return $this->render(
             'photo/view.html.twig',
@@ -187,7 +177,6 @@ class PhotoController extends AbstractController
      */
     public function new(Request $request, PhotoRepository $repository, FileRepository $fileRepository): Response
     {
-
         /*1 podzielony formularz na 2*/
 
         $file = new \App\Entity\File();
@@ -206,8 +195,11 @@ class PhotoController extends AbstractController
             $photo->setFile($file);
             $photo->setDescription($form->get('description')->getData());
             $photo->setCameraSpecification($form->get('camera_specification')->getData());
+            $tags = $form->get('tags')->getData();
+            foreach($tags as $tag){
+                $photo->addTag($tag);
+            }
             $repository->save($photo);
-
             $this->addFlash('success', 'message.created_successfully');
 
             return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);

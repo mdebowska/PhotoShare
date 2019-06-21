@@ -8,7 +8,7 @@
 .flex-container .photo img, .flex-container.photo img{
     height: 20rem;
     /* width: auto!important; */
-    /* width: 100%; */
+     width: 100%;
     min-width: 30rem;
     object-fit: cover;
     transition: cubic-bezier(.25,.1,.25,1);

@@ -27,7 +27,7 @@
 
                {% if userHaveLiked == false %}
                    <div>
-                       {{ form_start(form_like, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
+                       {{ form_start(form_like, { method: 'post', action: url('photo_like', {'id':photo.id}) }) }}
                        {{ form_widget(form_like) }}
                        <button type="submit" class="like">
                            <i class="material-icons enabled">thumb_up</i>
@@ -66,7 +66,7 @@
                         {% if is_granted('IS_AUTHENTICATED_FULLY')%}
                         {#Jesli zalogowany to moze komentowac#}
                                     <div>
-                                    {{ form_start(form_comment, { method: 'post', action: url('photo_view', {'id':photo.id}) }) }}
+                                    {{ form_start(form_comment, { method: 'post', action: url('photo_comment', {'id':photo.id}) }) }}
                                     {{ form_widget(form_comment) }}
                                        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary" />
                                     {{ form_end(form_comment) }}

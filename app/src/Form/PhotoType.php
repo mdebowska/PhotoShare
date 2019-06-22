@@ -76,7 +76,7 @@ class PhotoType extends AbstractType
             ]
         );
 
-        if (isset($options['data'])==false){  //jeśli dodawanie to dodaj pole załączenia pliku
+        if (gettype($options['data'])=="array"){  //jeśli dodawanie to dodaj pole załączenia pliku
             $builder->add(
                 'source',
                 FileType::class,

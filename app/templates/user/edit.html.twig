@@ -12,7 +12,7 @@
         page_title_param: {'%id%': user.id},
         attr: {
             method: 'PUT',
-            action: url('user_edit', {'id': user.id}),
+            action: url('user_edit_mail', {'id': user.id}),
         },
     } %}
 
@@ -22,7 +22,7 @@
         page_title_param: {'%id%': user.id},
         attr: {
             method: 'PUT',
-            action: url('user_edit', {'id': user.id}),
+            action: url('user_edit_password', {'id': user.id}),
         },
     } %}
 
@@ -33,12 +33,12 @@
         page_title_param: {'%id%': user.id},
         attr: {
             method: 'PUT',
-            action: url('user_edit', {'id': user.id}),
+            action: url('user_edit_data', {'id': user.id}),
         },
     } %}
         {% if is_granted('ROLE_ADMIN') %}
             <div class="center-form margin-15">
-                {{ form_start(form_role, { method: 'PUT', action: url('user_edit', {'id':user.id}) }) }}
+                {{ form_start(form_role, { method: 'PUT', action: url('user_edit_roles', {'id':user.id}) }) }}
                     {% if user.roles | length == 1 %}
                         <p>Nadaj prawa administratora:</p>
                     {% else %}

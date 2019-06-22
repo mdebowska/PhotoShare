@@ -21,6 +21,10 @@ class HomeController extends AbstractController
     /**
      * Index action.
      *
+     * @param Request $request
+     * @param PhotoRepository $repository
+     * @param PaginatorInterface $paginator
+     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(

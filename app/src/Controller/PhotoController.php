@@ -77,45 +77,36 @@ class PhotoController extends AbstractController
      * @param LikerateRepository $likeRepository
      * @param CommentRepository $commentRepository
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
      *     "/{id}",
      *     name="photo_view",
      *     requirements={"id": "[1-9]\d*"},
+     *     methods={"GET", "POST"},
      * )
      */
     public function view(Request $request, Photo $photo, LikerateRepository $likeRepository, CommentRepository $commentRepository): Response
     {
         $like = new Likerate();
-        $form_like = $this->createForm(FormType::class, $like);
+        $form_like = $this->createForm(FormType::class, $like, ['method' => 'post']);
         $form_like->handleRequest($request);
         if ($this->getUser()){
             $userHaveLiked = $likeRepository->CheckIfUserLikedPhoto($this->getUser()->getId(), $photo->getId());
         }else{
             $userHaveLiked = true; //dla anonima
         }
-        if ($form_like->isSubmitted() && $form_like->isValid()) {
-            $like->setPhoto($photo);
-            $like->setUser($this->getUser());
-
-            $likeRepository->save($like);
-
-            return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
-        }
 
         $comment = new Comment();
-        $form_comment = $this->createForm(CommentType::class, $comment);
+        $form_comment = $this->createForm(CommentType::class, $comment, ['method' => 'post']);
         $form_comment->handleRequest($request);
 
-        if ($form_comment->isSubmitted() && $form_comment->isValid()) {
-            $comment->setPublicationDate(new \DateTime());
-            $comment->setUser($this->getUser());
-            $comment->setPhoto($photo);
-            $commentRepository->save($comment);
-            $this->addFlash('success', 'message.created_successfully');
-        }
+//        if ($form_comment->isSubmitted() && $form_comment->isValid()) {
+//            $comment->setPublicationDate(new \DateTime());
+//            $comment->setUser($this->getUser());
+//            $comment->setPhoto($photo);
+//            $commentRepository->save($comment);
+//            $this->addFlash('success', 'message.created_successfully');
+//        }
 
         return $this->render(
             'photo/view.html.twig',
@@ -126,6 +117,73 @@ class PhotoController extends AbstractController
                 'userHaveLiked'=> $userHaveLiked
             ]
         );
+    }
+
+    /**
+     * Like action.
+     *
+     * @param Request $request
+     * @param \App\Entity\Photo $photo Photo entity
+     * @param LikerateRepository $likeRepository
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/like",
+     *     name="photo_like",
+     *     requirements={"id": "[1-9]\d*"},
+     *     methods={"GET", "POST"},
+     * )
+     */
+    public function like(Request $request, Photo $photo, LikerateRepository $likeRepository): Response
+    {
+        $like = new Likerate();
+        $form_like = $this->createForm(FormType::class, $like, ['method' => 'post']);
+        $form_like->handleRequest($request);
+        if ($this->getUser()){
+            $userHaveLiked = $likeRepository->CheckIfUserLikedPhoto($this->getUser()->getId(), $photo->getId());
+        }else{
+            $userHaveLiked = true; //dla anonima
+        }
+        if ($form_like->isSubmitted() && $form_like->isValid() && $userHaveLiked == false) {
+            $like->setPhoto($photo);
+            $like->setUser($this->getUser());
+            $likeRepository->save($like);
+        }
+        return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
+    }
+    /**
+     * Comment action.
+     *
+     * @param Request $request
+     * @param \App\Entity\Photo $photo Photo entity
+     * @param CommentRepository $commentRepository
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/comment",
+     *     name="photo_comment",
+     *     requirements={"id": "[1-9]\d*"},
+     *     methods={"GET", "POST"},
+     * )
+     */
+    public function comment(Request $request, Photo $photo, CommentRepository $commentRepository): Response
+    {
+        $comment = new Comment();
+        $form_comment = $this->createForm(CommentType::class, $comment, ['method' => 'post']);
+        $form_comment->handleRequest($request);
+
+        if ($form_comment->isSubmitted() && $form_comment->isValid()) {
+            $comment->setPublicationDate(new \DateTime());
+            $comment->setUser($this->getUser());
+            $comment->setPhoto($photo);
+            $commentRepository->save($comment);
+            $this->addFlash('success', 'message.created_successfully');
+        }
+        return $this->redirectToRoute('photo_view', ['id' => $photo->getId()], 301);
     }
 
     /**
@@ -164,6 +222,8 @@ class PhotoController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Repository\PhotoRepository        $repository Photo repository
+     *
+     * @param FileRepository $fileRepository
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
@@ -175,12 +235,13 @@ class PhotoController extends AbstractController
      *     name="photo_new",
      * )
      */
+
     public function new(Request $request, PhotoRepository $repository, FileRepository $fileRepository): Response
     {
         /*1 podzielony formularz na 2*/
 
         $file = new \App\Entity\File();
-        $form = $this->createForm(PhotoType::class);
+        $form = $this->createForm(PhotoType::class, ['method' => 'post']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

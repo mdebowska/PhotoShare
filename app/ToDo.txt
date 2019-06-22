@@ -2,10 +2,6 @@
 Do zrobienia:
 -----------------
 
-css
-inspekcja komentarzy (documentor)
-usuwanie tagów wraz ze zdjęciem
-
 -----------------
 Do wyjasnienia:
 -----------------

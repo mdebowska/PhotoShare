@@ -51,8 +51,6 @@ class SearchController extends AbstractController
     /**
      * View action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     *
      * @param \App\Repository\PhotoRepository        $photoRepository Photo repository
      * @param \App\Repository\UserRepository      $userRepository User repository
      * @param $value

@@ -63,7 +63,9 @@ class UserController extends AbstractController
      * View action.
      *
      * @param \App\Entity\User $user User entity
-     *
+     * @param Request $request
+     * @param PhotoRepository $repository
+     * @param PaginatorInterface $paginator
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
@@ -92,6 +94,7 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Repository\UserRepository        $repository User repository
+     * @param \App\Repository\UserdataRepository      $userdataRepository Userdata repository
      * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -108,7 +111,7 @@ class UserController extends AbstractController
     public function new(Request $request, UserRepository $repository, UserdataRepository $userdataRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['method' => 'post']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -140,13 +143,9 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
      * @param \App\Entity\User                      $user   User entity
-     * @param \App\Repository\UserRepository        $repository User repository
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     * @param \App\Repository\UserdataRepository        $repository_data Userdata repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -155,7 +154,7 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, UserRepository $repository, UserdataRepository $repository_data, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, UserdataRepository $repository_data): Response
     {
         /* 3 formularze */
 
@@ -176,51 +175,8 @@ class UserController extends AbstractController
         $form_data = $this->createForm(UserdataType::class, $userdata, ['method' => 'put']);
         $form_data->handleRequest($request);
 
-        if ($form_email->isSubmitted() && $form_email->isValid()) {
-            $repository->save($user);
-
-            $this->addFlash('success', 'message.updated_successfully');
-
-            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
-        }
-
-        if ($form_password->isSubmitted() && $form_password->isValid()) {
-
-            $user->setPassword($passwordEncoder->encodePassword(
-                $user,
-                $user->getPassword()
-            ));
-            $repository->save($user);
-
-            $this->addFlash('success', 'message.updated_successfully');
-
-            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
-        }
-
-        if ($form_data->isSubmitted() && $form_data->isValid()) {
-            $repository_data->save($userdata);
-
-            $this->addFlash('success', 'message.updated_successfully');
-
-            return $this->redirectToRoute('user_view', ['id' => $this->getUser()->getId()], 301);
-        }
-
-        /*ROLES*/
-
-        $user_role = $user->getRoles();
         $form_role = $this->createForm(FormType::class, $user, ['method' => 'PUT']);
         $form_role->handleRequest($request);
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            if($form_role->isSubmitted() && $form_role->isValid()) {
-                if ($user_role == ['ROLE_USER']) {
-                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-                } else {
-                    $user->setRoles(['ROLE_USER']);
-                }
-                $repository->save($user);
-            }
-        }
 
         return $this->render(
             'user/edit.html.twig',
@@ -233,6 +189,149 @@ class UserController extends AbstractController
             ]
         );
     }
+
+    /**
+     * Edit mail action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Repository\UserRepository        $repository User repository
+     * @param \App\Entity\User                      $user   User entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit_mail",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit_mail",
+     * )
+     */
+    public function edit_mail(Request $request, User $user, UserRepository $repository): Response
+    {
+        $form_email = $this->createForm(EmailType::class, $user, ['method' => 'put']);
+        $form_email->handleRequest($request);
+        if ($form_email->isSubmitted() && $form_email->isValid()) {
+            $repository->save($user);
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('user_view', ['id' => $user->getId()], 301);
+        }else{
+            return $this->redirectToRoute('user_edit', ['id' => $user->getId()], 301);
+        }
+    }
+
+    /**
+     * Edit password action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\User                      $user   User entity
+     * @param \App\Repository\UserRepository        $repository User repository
+     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit_password",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit_password",
+     * )
+     */
+    public function edit_password(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form_password = $this->createForm(Password2Type::class, $user, ['method' => 'put']);
+        $form_password->handleRequest($request);
+        if ($form_password->isSubmitted() && $form_password->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $user->getPassword()
+            ));
+            $repository->save($user);
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('user_view', ['id' => $user->getId()], 301);
+        }else{
+            return $this->redirectToRoute('user_edit', ['id' => $user->getId()], 301);
+        }
+    }
+
+    /**
+     * Edit data action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Repository\UserdataRepository        $repository Userdata repository
+     * @param \App\Entity\Userdata                      $userdata   Userdata entity
+     * @param \App\Entity\User                      $user   User entity
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit_data",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit_data",
+     * )
+     */
+    public function edit_data(Request $request, Userdata $userdata, User $user, UserdataRepository $repository): Response
+    {
+        $form_data = $this->createForm(UserdataType::class, $userdata, ['method' => 'put']);
+        $form_data->handleRequest($request);
+        if ($form_data->isSubmitted() && $form_data->isValid()) {
+
+            $repository->save($userdata);
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('user_view', ['id' => $user->getId()], 301);
+        }else{
+            return $this->redirectToRoute('user_edit', ['id' => $user->getId()], 301);
+        }
+    }
+/**
+     * Edit roles action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\User                      $user   User entity
+     * @param \App\Repository\UserRepository        $repository User repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit_roles",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="user_edit_roles",
+     * )
+     */
+    public function edit_roles(Request $request, User $user, UserRepository $repository): Response
+    {
+        $user_role = $user->getRoles();
+        $form_role = $this->createForm(FormType::class, $user, ['method' => 'PUT']);
+        $form_role->handleRequest($request);
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            if ($form_role->isSubmitted() && $form_role->isValid()) {
+                if ($user_role == ['ROLE_USER']) {
+                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+                } else {
+                    $user->setRoles(['ROLE_USER']);
+                }
+                $repository->save($user);
+
+                $this->addFlash('success', 'message.updated_successfully');
+                return $this->redirectToRoute('user_view', ['id' => $user->getId()], 301);
+            }
+        }
+        return $this->redirectToRoute('user_edit', ['id' => $user->getId()], 301);
+    }
+
     /**
      * Delete action.
      *

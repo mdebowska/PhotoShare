@@ -388,6 +388,10 @@
                 <source>message.it_is_not_your_profile</source>
                 <target>It's not your profile.</target>
             </trans-unit>
+    	    <trans-unit id="message.it_is_not_your_comment">
+                <source>message.it_is_not_your_comment</source>
+                <target>It's not your comment.</target>
+            </trans-unit>
     	    <trans-unit id="message.you_are_not_an_admin">
                 <source>message.you_are_not_an_admin</source>
                 <target>You are not an admin.</target>

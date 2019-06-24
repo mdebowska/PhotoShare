@@ -43,7 +43,7 @@ class CommentController extends AbstractController
      */
     public function edit(Request $request, Comment $comment, CommentRepository $repository): Response
     {
-        if ($comment->getUser() != $this->getUser() and $this->isGranted('ROLE_ADMIN') == false) {
+        if ($comment->getUser() != $this->getUser()) {
             $this->addFlash('warning', 'message.it_is_not_your_comment');
 
             return $this->redirectToRoute('home_index');

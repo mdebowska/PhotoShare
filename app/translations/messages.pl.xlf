@@ -386,6 +386,10 @@
                 <source>message.it_is_not_your_profile</source>
                 <target>To nie twój profil.</target>
             </trans-unit>
+            <trans-unit id="message.it_is_not_your_comment">
+                <source>message.it_is_not_your_comment</source>
+                <target>To nie twój komentarz.</target>
+            </trans-unit>
     	    <trans-unit id="message.you_are_not_an_admin">
                 <source>message.you_are_not_an_admin</source>
                 <target>Nie jesteś administratorem.</target>
